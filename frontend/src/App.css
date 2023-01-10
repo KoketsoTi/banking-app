@@ -4,3 +4,6 @@
   --capitec-blue: #009DE0;
   --background-color: #F9F9F9;
 }
+.App{
+  font-family: 'Ubuntu', sans-serif;
+}
