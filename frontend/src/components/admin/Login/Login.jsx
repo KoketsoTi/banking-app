@@ -6,7 +6,7 @@ import {RxReset} from 'react-icons/rx';
 function Login() {
 
     const model  = (
-        <div>
+        <div className='models'>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
             <label htmlFor="my-modal-4" className="modal cursor-pointer">
                 <label className="modal-box relative" htmlFor="">
