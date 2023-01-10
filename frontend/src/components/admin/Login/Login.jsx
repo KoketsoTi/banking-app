@@ -1,9 +1,30 @@
 import './Login.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import {FaSignInAlt} from 'react-icons/fa';
 import {RxReset} from 'react-icons/rx';
+import axios from 'axios';
+import {API} from '../../../environment/constant'
+
 function Login() {
+    const [identifier, setIdentifier] = useState('');
+    const [password, setPassword] = useState('');
+
+    let login = async(e)=>{
+        e.preventDefault();
+        
+        await axios.post(`${ API}auth/local`, {
+            identifier: identifier,
+            password: password,
+        })
+        .then(response => { 
+            console.log('User profile', response.data.user);
+            console.log('User token', response.data.jwt);
+        })
+        .catch(error => {    
+            console.log('An error occurred:', error.response);
+        });
+    }
 
     const model  = (
         <div className='models'>
@@ -24,6 +45,33 @@ function Login() {
         </div>
     );
 
+    const setForm = (
+        <div>
+            <form onSubmit={login}>
+                <div className="form-group col mb-4">
+                    <label className="label"><span className="label-text">USERNAME OR EMAIL</span></label>
+                    <input type="email" name="identifier"  placeholder="Email" value= {identifier} onChange={(e)=>{ setIdentifier(e.target.value) }}
+                        className="input input-bordered w-full max-w-s email "/>
+                </div>
+
+                <div className="form-group col mb-4">
+                    <label className="label"><span className="label-text">PASSWORD</span></label>
+                    <input type="password" name="password" placeholder="Password" value= {password} onChange={(e)=>{ setPassword(e.target.value)}}
+                        className="input input-bordered w-full max-w-s email "/>
+                </div>
+
+                <div className="form-group col mb-4">
+                    <label htmlFor="my-modal-4" className="forgot" >Forgot Password</label>
+                    {model}
+                </div>
+
+                <div className="form-group col mb-8">
+                    <button type="submit"  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login</button>
+                </div>
+            </form>
+        </div>
+    );
+
     return (
         <Container className='login' >
             <div className="md:container md:mx-auto">
@@ -37,28 +85,7 @@ function Login() {
                             <div className="hozitontal-line -mb-4">
                                 <div className="divider"></div> 
                             </div>
-                            <form>
-                                <div className="form-group col mb-4">
-                                    <label className="label"><span className="label-text">USERNAME OR EMAIL</span></label>
-                                    <input type="email"  placeholder="Email"
-                                        className="input input-bordered w-full max-w-s email "/>
-                                </div>
-
-                                <div className="form-group col mb-4">
-                                    <label className="label"><span className="label-text">PASSWORD</span></label>
-                                    <input type="email"  placeholder="Email"
-                                        className="input input-bordered w-full max-w-s email "/>
-                                </div>
-
-                                <div className="form-group col mb-4">
-                                    <label htmlFor="my-modal-4" className="forgot" >Forgot Password</label>
-                                    {model}
-                                </div>
-
-                                <div className="form-group col mb-8">
-                                    <button type="submit" className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login</button>
-                                </div>
-                            </form>
+                            {setForm}
                         </div>
                     </div>
                 </div>
