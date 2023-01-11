@@ -8,11 +8,14 @@ import ForgotPassword from '../../../Models/forgotPasswordModel';
 import axios from 'axios';
 import { API } from '../../../environment/constant';
 import { setToken } from "../../../helpers/helpers";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');   
     
+    const navigate = useNavigate();
+
     let login = async(e)=>{
         e.preventDefault();
         try {
@@ -29,7 +32,8 @@ function Login() {
                 // set the user
                 // setUser(response.data.user);
 
-                Success('Successfuly logged in')
+                Success(`Welcome back ${response.data.user.username}!`)
+                navigate("/admin/", { replace: true });
             })
             .catch(error => {  
                 console.log('An error occurred:', error.response);
