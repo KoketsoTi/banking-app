@@ -1,9 +1,9 @@
-import { useState } from "react";
+import './Deposit.css';
 
 function Deposit(){
     return (
         <div>
-
+            <h1>Welcome to Deposit</h1>
         </div>
     );
 }

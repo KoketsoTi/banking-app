@@ -3,7 +3,10 @@
   --fnb-blue: #009999;
   --capitec-blue: #009DE0;
   --background-color: #F9F9F9;
+  --black: #000000
 }
 .App{
   font-family: 'Ubuntu', sans-serif;
+  height: 100%;
+  display: flex;
 }
