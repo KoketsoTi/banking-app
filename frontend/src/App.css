@@ -6,7 +6,13 @@
 }
 .App{
   font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+.dash{
   height: 100vh;
   display: flex;
 }
-
+.content{
+  display: block !important;
+}

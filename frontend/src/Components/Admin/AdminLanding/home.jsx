@@ -3,26 +3,33 @@ import { Box, Typography } from "@mui/material";
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
+import { mockDataTeam } from '../../../Data/mockedData';
 
-const StatBox = ({ title, subtitle, icon, progress, increase }) => {
-  return (
-    <Box width="100%" m="0 30px">
-      <Box display="flex" justifyContent="space-between">
-        <Box>
-          {icon}
-          <Typography variant="h4" fontWeight="bold"  style={{ color: "#4cceac" }} > {title} </Typography>
+
+
+function Home(){
+
+  const active = mockDataTeam.filter( (list) => list.status === 'Active'); 
+  const deactive = mockDataTeam.filter( (list) => list.status === 'Deactivate'); 
+  const verification = 0;
+  
+  const StatBox = ({ title, subtitle, icon, progress, increase }) => {
+    return (
+      <Box width="100%" m="0 30px">
+        <Box display="flex" justifyContent="space-between">
+          <Box>
+            {icon}
+            <Typography variant="h4" fontWeight="bold"  style={{ color: "#4cceac" }} > {title} </Typography>
+          </Box>
+        </Box>
+  
+        <Box display="flex" justifyContent="space-between" mt="2px" style={{ marginBottom: "10px" }} >
+          <Typography variant="h5" style={{ color: "#4cceac" }}> {subtitle} </Typography>
+          <Typography variant="h5" fontStyle="italic"  style={{ color: "#4cceac" }} > {increase} </Typography>
         </Box>
       </Box>
-
-      <Box display="flex" justifyContent="space-between" mt="2px" style={{ marginBottom: "10px" }} >
-        <Typography variant="h5" style={{ color: "#4cceac" }}> {subtitle} </Typography>
-        <Typography variant="h5" fontStyle="italic"  style={{ color: "#4cceac" }} > {increase} </Typography>
-      </Box>
-    </Box>
-  );
-};
-
-const Home = () =>{
+    );
+  };
     return (
       <Box m="20px">
         {/* HEADER */}
@@ -38,7 +45,7 @@ const Home = () =>{
           {/* ROW 1 */}
           <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
             <StatBox
-              title="431,225"
+              title= {mockDataTeam.length}
               subtitle="Total Customers"
               progress="0.50"
               increase="+21%"
@@ -47,7 +54,7 @@ const Home = () =>{
 
           <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
             <StatBox
-              title="431,225"
+              title={active.length}
               subtitle="Active Accounts"
               progress="0.50"
               increase="+21%"
@@ -59,7 +66,7 @@ const Home = () =>{
 
           <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
             <StatBox
-              title="431,225"
+              title={verification}
               subtitle="Accounts for Verification"
               progress="0.50"
               increase="+21%"
@@ -70,7 +77,7 @@ const Home = () =>{
 
           <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
             <StatBox
-              title="431,225"
+              title={deactive.length}
               subtitle="Deactive Accounts"
               progress="0.50"
               increase="+21%"

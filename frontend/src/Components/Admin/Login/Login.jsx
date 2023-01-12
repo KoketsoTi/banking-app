@@ -9,11 +9,12 @@ import axios from 'axios';
 import { API } from '../../../Environment/constant';
 import { setToken } from "../../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../AuthProvider/AuthContext";
 
 function Login() {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');   
-    
+    const { setUser } = useAuthContext();   
     const navigate = useNavigate();
 
     let login = async(e)=>{
@@ -30,7 +31,7 @@ function Login() {
                 setToken(response.data.jwt);
         
                 // set the user
-                // setUser(response.data.user);
+                setUser(response.data.user);
 
                 Success(`Welcome back ${response.data.user.username}!`)
                 navigate("/admin/", { replace: true });

@@ -1,14 +1,39 @@
-import './Deactive.css';
-import React from 'react';
+import './ActiveUsers.css';
+import { useEffect, useState } from "react";
 import { Box, Typography , Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { mockDataContacts } from "../ActiveUsers/mocd";
 import { BsPencilSquare } from 'react-icons/bs';
- 
-function Deactive(){
+import { getToken } from "../../../helpers/helpers";
+import { API, BEARER } from '../../../Environment/constant';
+import { Warning } from '../../../helpers/toasters';
+import axios from 'axios';
+import {mockDataTeam} from '../../../Data/mockedData';
 
+function Active(){
+    const [tableData, setTableData] = useState()
+    const authToken = getToken();
+
+    //Call data from the backend
+    useEffect(() => {
+        let config = {
+            headers: { Authorization: `${BEARER} ${authToken}`}
+        }
+            
+        axios.get(`${API}clients?filters[status][$eq]=Active`, config ).then((response) => { 
+            setTableData(response.data.data)
+        }).catch(error => {  
+            console.log('An error occurred:', error);
+            Warning('Incorrect email or password entered')
+        });
+        
+        
+    }, [authToken])
+
+    console.log(tableData)
+
+    //Columns for the table
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+        { field: "id", headerName: "ID", flex: 0.5},
         { field: "accNumber", headerName: "Account No" },
         { field: "fname", headerName: "First Name", flex: 1 },
         { field: "lname", headerName: "Last Name", flex: 1 },
@@ -24,10 +49,8 @@ function Deactive(){
             renderCell: (params) => {
               const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
-                console.log(params.row.fname  + params.row.lname);
-                        
+                console.log(params.row.fname  + params.row.lname);          
               };
-        
               return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Edit</Button>
             },
         },
@@ -35,17 +58,14 @@ function Deactive(){
             field: 'delete',
             headerName: '',
             sortable: false,
-
             renderCell: (params) => {
               const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
-
                 console.log(params.row.fname  + params.row.lname);
-              };
-              return <Button style={{background: "#FF5823", color:"#141b2d"}} onClick={onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Deactivate</Button>
+            };
+                return <Button style={{background: "#FF5823", color:"#141b2d"}} onClick={onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Deactivate</Button>
             },
         },
-       
       ];
 
     return (
@@ -56,12 +76,21 @@ function Deactive(){
                     <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Active Accounts </Typography>
                 </Box>
             </Box>
-
+        
+            {/* Data in a table using Datagrid for creating a table  */}
             <Box justifyContent="center"  height="90%" width="80vw">
-                <DataGrid  rows={mockDataContacts} columns={columns} components={{ Toolbar: GridToolbar }} />
-            </Box>
+                <DataGrid  
+                    initialState={{
+                        filter: {
+                            filterModel: {
+                                items: [{ columnField: 'status', value: 'Active' }],
+                            },
+                        },
+                    }}
+                rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }} />
+            </Box> 
         </Box>
     );
 }
 
-export default Deactive;
+export default Active;
