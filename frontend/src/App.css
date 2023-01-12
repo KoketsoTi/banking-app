@@ -1,12 +1,12 @@
 :root{
   --dark-orange: #FF5823;
-  --fnb-blue: #009999;
+  --fnb-blue: #4cceac;
   --capitec-blue: #009DE0;
   --background-color: #F9F9F9;
-  --black: #000000
 }
 .App{
-  font-family: 'Ubuntu', sans-serif;
-  height: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
+  height: 100vh;
   display: flex;
 }
+

@@ -1,38 +1,32 @@
 import './App.css';
-import Login from './components/admin/Login/Login';
-import Home from './components/admin/AdminLanding/home';
-import Widthdraw from './components/admin/Widthdraw/Widthdraw';
-import Deposit from './components/admin/Deposit/Deposit';
-import Transfer from './components/admin/Transfer/Transfer';
-import Profile from './components/admin/AdminLanding/home';
-import Active from './components/admin/ActiveUsers/ActiveUsers';
-import Deactive from './components/admin/Deactive/Deactive'
-import Close from './components/admin/Close/Close';
-import Verify from './components/admin/Verify/Verify';
-import Cards from './components/admin/Card/Cards';
-import Sidenavbar from "./components/admin/Sidebar/Sidebar";
+import Login from './Components/Admin/Login/Login';
+import Home from './Components/Admin/AdminLanding/home';
+import Widthdraw from './Components/Admin/Widthdraw/Widthdraw';
+import Deposit from './Components/Admin/Deposit/Deposit';
+import Transfer from './Components/Admin/Transfer/Transfer';
+import Profile from './Components/Admin/AdminLanding/home';
+import Active from './Components/Admin/ActiveUsers/ActiveUsers';
+import Deactive from './Components/Admin/Deactive/Deactive'
+import Close from './Components/Admin/Close/Close';
+import Verify from './Components/Admin/Verify/Verify';
+import Cards from './Components/Admin/Card/Cards';
+import Sidenavbar from "./Components/Admin/Sidebar/Sidebar";
 import { BrowserRouter as Router, Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 import { CssBaseline, ThemeProvider,} from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
-import { useState } from "react";
-
+import { useMode } from "./theme";
 
 function App() {
-  const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [theme] = useMode();
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className='App'> 
         <Router>
-          <Routes>
-            
-          </Routes>
-          <Sidenavbar isSidebar={isSidebar} />
-            <main className="content">
+          <Sidenavbar  />
+            <main className="content contents">
                 <Routes>
                   <Route path="/admin/signin" element={!getToken() ? <Login /> : <Navigate to="/admin/" /> } />
                   <Route path="/admin/" element={getToken() ? <Home /> : <Navigate to="/admin/signin" /> } />
@@ -53,7 +47,7 @@ function App() {
           </Router>
         </div>
       </ThemeProvider>
-    </ColorModeContext.Provider>
+  
   );
 }
 

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Sidebar, SubMenu, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
-import { IconButton, useTheme, Box, Typography} from "@mui/material";
+import { IconButton, Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineHome, AiFillEdit } from 'react-icons/ai';
+import { AiOutlineHome } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
@@ -12,20 +12,18 @@ import { RxCrossCircled } from 'react-icons/rx';
 import { BiTransferAlt, BiUserCircle, BiWalletAlt } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-import { tokens } from "../../../theme";
 import { removeToken } from "../../../helpers/helpers";
-
+import './sidebar.css'
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
-    <MenuItem active={selected === title} onClick={() => setSelected(title)}
+    <MenuItem className="v" style={{background: "#141b2d"}} active={selected === title} onClick={() => setSelected(title)}
       icon={icon} routerLink={<Link to={to} />} >
-      <Typography>{title}</Typography>
+      <Typography >{title}</Typography>
     </MenuItem>
   );
 };
 
 const Sidenavbar  = () => {
-  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
@@ -36,35 +34,34 @@ const Sidenavbar  = () => {
   };
 
   return (
-    <div  >
+    <div >
       <ProSidebarProvider >
-        <Sidebar defaultCollapsed={isCollapsed}  >
-          <Menu iconShape="square">
-            <MenuItem onClick={() => setIsCollapsed(!isCollapsed)} icon={isCollapsed ? <HiOutlineMenuAlt1 style={{color: "#000000"}} /> : undefined}
-              >
+        <Sidebar defaultCollapsed={isCollapsed} style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
+          <Menu iconShape="square" style={{height: "100%", background: "#141b2d", paddingTop: "20px"}}>
+            <MenuItem onClick={() => setIsCollapsed(!isCollapsed)} icon={isCollapsed ? <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} /> : undefined}>
 
               {!isCollapsed && (
                 <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px" >
-                  <Typography variant="h3" style={{color: "#000000"}}>
+                  <Typography variant="h3" style={{color: "#F9F9F9"}}>
                     ADMINIS
                   </Typography>
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                    <HiOutlineMenuAlt1 />
+                    <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} />
                   </IconButton>
                 </Box>
               )}
             </MenuItem>
               
-            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#000000"}}> 
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "100px"}}> 
               <Item
                 title="Dashboard"
                 to="/admin/"
                 icon={<AiOutlineHome style={{fontSize: "20px"}} />}
-                selected={selected}
+                selected={selected} 
                 setSelected={setSelected}
               />
 
-              <SubMenu  icon={<BiWalletAlt style={{fontSize: "20px"}} />} label="Wallet">
+              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<BiWalletAlt style={{fontSize: "20px", background: "#141b2d"}} />} label="Wallet">
                 <Item 
                   title="Withdrawal"
                   to="/admin/widthdraw"
@@ -91,7 +88,7 @@ const Sidenavbar  = () => {
                 setSelected={setSelected}
               />
 
-              <SubMenu icon={<BiUserCircle style={{fontSize: "20px"}} />} label="Customer Accounts">
+              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<BiUserCircle style={{fontSize: "20px", backgroundColor: "#141b2d"}} />} label="Customer Accounts">
                 <Item
                   title="Active Account"
                   to="/admin/active"

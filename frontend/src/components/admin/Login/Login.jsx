@@ -6,7 +6,7 @@ import { Success, Warning, Error } from '../../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
 import ForgotPassword from '../../../Models/forgotPasswordModel';
 import axios from 'axios';
-import { API } from '../../../environment/constant';
+import { API } from '../../../Environment/constant';
 import { setToken } from "../../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
 
@@ -51,7 +51,7 @@ function Login() {
             
             <div className="md:container md:mx-auto">
                 <div className="flex justify-center">
-                    <div className="card lg:xl:1/2 w-96 rounded-none shadow-xl ">
+                    <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
                         <div className="card-body">
                             <div className="body-header -mb-4">
                                 <div className="text-dark mt-2 user-cicle">Admin Login</div>
