@@ -19,7 +19,7 @@ function ForgotPassword() {
             email: enteredEmail,
         };
 
-        console.log( 'my datad ',enteredEmail);
+        console.log( 'my data ',enteredEmail);
       
 
 
