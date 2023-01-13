@@ -1,4 +1,4 @@
-import { AUTH_TOKEN } from "../environment/constant";
+import { AUTH_TOKEN } from "../Environment/constant";
     
 export const getToken = () => {
     return localStorage.getItem(AUTH_TOKEN);
