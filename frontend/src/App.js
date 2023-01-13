@@ -1,22 +1,14 @@
-// import Dashboard from './components/admin/Dashboard/Dash';
-import Login from './components/admin/Login/Login';
-import './App.css'; 
-import Confirmpassword from './components/admin/Confirmpassword/Confirmpassword';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import './App.css';
+import Login from './Components/Admin/Login/Login';
+import { getToken } from "./helpers/helpers";
+import { Routes,  Route, Navigate } from "react-router-dom";
+import AdminRoutes from './Routes';
+
 function App() {
   return (
-    <Router>
-    <div className="App">
-      {/* <Login></Login> */}
-      <Confirmpassword></Confirmpassword>
-      {/* <Dashboard></Dashboard> */}
-      </div>
-      </Router>
+    <div className='App'>
+      <AdminRoutes />
+    </div>
   );
 }
 

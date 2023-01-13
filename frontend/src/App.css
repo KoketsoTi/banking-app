@@ -1,9 +1,18 @@
 :root{
   --dark-orange: #FF5823;
-  --fnb-blue: #009999;
+  --fnb-blue: #4cceac;
   --capitec-blue: #009DE0;
   --background-color: #F9F9F9;
 }
 .App{
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+.dash{
+  height: 100vh;
+  display: flex;
+}
+.content{
+  display: block !important;
 }
