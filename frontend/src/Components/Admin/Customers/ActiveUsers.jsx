@@ -1,36 +1,9 @@
-import './ActiveUsers.css';
-import { useEffect, useState } from "react";
-import { Box, Typography , Button, } from "@mui/material";
+import './customerData.css';
+import { Box, Typography, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { BsPencilSquare } from 'react-icons/bs';
-import { getToken } from "../../../helpers/helpers";
-import { API, BEARER } from '../../../Environment/constant';
-import { Warning } from '../../../helpers/toasters';
-import axios from 'axios';
 import {mockDataTeam} from '../../../Data/mockedData';
 
 function Active(){
-    const [tableData, setTableData] = useState()
-    const authToken = getToken();
-
-    //Call data from the backend
-    // useEffect(() => {
-    //     let config = {
-    //         headers: { Authorization: `${BEARER} ${authToken}`}
-    //     }
-            
-    //     axios.get(`${API}clients?filters[status][$eq]=Active`, config ).then((response) => { 
-    //         setTableData(response.data.data)
-    //     }).catch(error => {  
-    //         console.log('An error occurred:', error);
-    //         Warning('Incorrect email or password entered')
-    //     });
-        
-        
-    // }, [authToken])
-
-    // console.log(tableData)
-
     //Columns for the table
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5},

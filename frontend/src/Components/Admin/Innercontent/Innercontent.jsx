@@ -1,9 +1,9 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import AppHeader from "../Topbar/Topbar";
+import AppHeader from "../Navigations/Topbar";
 import { CssBaseline, ThemeProvider,} from "@mui/material";
 import { useMode } from "../../../theme";
-import Sidenavbar from "../Sidebar/Sidebar";
+import Sidenavbar from "../Navigations/Sidebar";
 
 function Innecontent() {
     const [theme] = useMode();

@@ -2,12 +2,12 @@ import './Login.css';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { ToastContainer } from 'react-toastify';
-import { Success, Warning } from '../../../helpers/toasters';
+import { Success, Warning } from '../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
-import { API } from '../../../Environment/constant';
-import { setToken } from "../../../helpers/helpers";
-import { useAuthContext } from "../AuthProvider/AuthContext";
-import ForgotPassword from '../../../Models/forgotPasswordModel';
+import { API } from '../../Environment/constant';
+import { setToken } from "../../helpers/helpers";
+import { useAuthContext } from "../Admin/AuthProvider/AuthContext";
+import ForgotPassword from '../../Models/forgotPasswordModel';
 import axios from 'axios';
 
 function Login() {

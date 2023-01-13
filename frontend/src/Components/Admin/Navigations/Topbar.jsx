@@ -1,12 +1,10 @@
 import React ,{useState}from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../AuthProvider/AuthContext";
 import { Box, Typography, IconButton } from "@mui/material";
 import { useEffect } from "react";
 import { getToken } from "../../../helpers/helpers";
 import { BEARER, API } from "../../../Environment/constant"
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import axios from "axios";
+import './navbar.css'
 
 const AppHeader = () => {
     const [userData, setUserData] = useState();

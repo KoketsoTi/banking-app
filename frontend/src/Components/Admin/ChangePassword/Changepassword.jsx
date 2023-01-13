@@ -2,7 +2,6 @@ import './ChangePassword.css'
 import { useState } from 'react';
 import { TbExchange } from 'react-icons/tb';
 import { Box, Typography } from "@mui/material";
-import Container from 'react-bootstrap/Container';
 
 function ChangePassword(){
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
@@ -13,7 +12,7 @@ function ChangePassword(){
              {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box mb="30px">
-                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> CHANGE PASSWORD </Typography>
+                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Change Password </Typography>
                 </Box>
             </Box>
             <div className="container ">

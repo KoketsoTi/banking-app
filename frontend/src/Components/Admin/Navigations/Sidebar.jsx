@@ -6,13 +6,10 @@ import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
-import { RiLuggageDepositLine } from 'react-icons/ri';
-import { RxCrossCircled } from 'react-icons/rx';
-import { BiTransferAlt, BiUserCircle, BiWalletAlt } from 'react-icons/bi';
+import { BiUserCircle } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-
-import './sidebar.css'
+import './navbar.css'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
@@ -52,7 +49,7 @@ const Sidenavbar  = () => {
               )}
             </MenuItem>
               
-            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "100px"}}> 
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "30px"}}> 
               <Item
                 title="Dashboard"
                 to="/admin/"
@@ -61,34 +58,10 @@ const Sidenavbar  = () => {
                 setSelected={setSelected}
               />
 
-              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<BiWalletAlt style={{fontSize: "20px", background: "#141b2d"}} />} label="Wallet">
-                <Item 
-                  title="Withdrawal"
-                  to="/admin/widthdraw"
-                  icon={<BiWalletAlt style={{fontSize: "20px"}} />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
+              <Typography  variant="h6" style={{color: "#a3a3a3"}} sx={{ m: "15px 0 5px 20px" }} >
+                Customer Data
+              </Typography>
 
-                <Item
-                  title="Deposit"
-                  to="/admin/deposit"
-                  icon={<RiLuggageDepositLine style={{fontSize: "20px"}} />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              </SubMenu>
-              
-
-              <Item
-                title="Transfer"
-                to="/admin/transfer"
-                icon={<BiTransferAlt style={{fontSize: "20px"}} />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<BiUserCircle style={{fontSize: "20px", backgroundColor: "#141b2d"}} />} label="Customer Accounts">
                 <Item
                   title="Active Account"
                   to="/admin/active"
@@ -98,21 +71,36 @@ const Sidenavbar  = () => {
                 />
 
                 <Item
-                  title="Deactive Account"
+                  title="Suspended Accounts"
                   to="/admin/deactive"
                   icon={<CgCloseO style={{fontSize: "20px"}} />}
                   selected={selected}
                   setSelected={setSelected}
                 />
 
+              <Typography  variant="h6" style={{color: "#a3a3a3"}} sx={{ m: "15px 0 5px 20px" }} >
+                Loans
+              </Typography>
+
                 <Item
-                  title="Close Account"
-                  to="/admin/close"
-                  icon={<RxCrossCircled style={{fontSize: "20px"}} />}
+                  title="Short-Term Loans"
+                  to="/admin/short-term"
+                  icon={<MdOutlineVerified style={{fontSize: "20px"}} />}
                   selected={selected}
                   setSelected={setSelected}
                 />
-              </SubMenu>
+
+                <Item
+                  title="Long-Term Loans"
+                  to="/admin/long-term"
+                  icon={<CgCloseO style={{fontSize: "20px"}} />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+
+              <Typography  variant="h6" style={{color: "#a3a3a3"}} sx={{ m: "15px 0 5px 20px" }} >
+                Visual Cards
+              </Typography>              
               
               <Item
                 title="Verify Account"
@@ -129,20 +117,29 @@ const Sidenavbar  = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+
+              <Typography  variant="h6" style={{color: "#a3a3a3"}} sx={{ m: "15px 0 5px 20px" }} >
+                User Settings
+              </Typography>  
+
+              <Item
+                title="Profile"
+                to="/admin/profile"
+                icon={<BiUserCircle style={{fontSize: "20px"}} />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="Change Password"
+                to="/admin/changePassword"
+                icon={<AiOutlineSetting style={{fontSize: "20px"}} />}
+                selected={selected}
+                setSelected={setSelected}
+              />
             </Box>
 
-            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "80px"}}>
-              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<AiOutlineSetting style={{fontSize: "20px", backgroundColor: "#141b2d"}} />} label="Settings">
-                <MenuItem routerLink={<Link to='/admin/profile' />} className="logut" style={{background: "#141b2d"}} icon={<BiUserCircle style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
-                  <Typography >Profile</Typography>
-                </MenuItem>
-
-                <MenuItem routerLink={<Link to='/admin/changePassword' />} className="logut" style={{background: "#141b2d"}} icon={<AiOutlineSetting style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
-                  <Typography >Change Password</Typography>
-                </MenuItem>
-              </SubMenu>
-            
-
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "10px"}}>
               <MenuItem onClick={logout} className="logut" style={{background: "#141b2d"}} icon={<FaSignOutAlt style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
                 <Typography >LogOut</Typography>
               </MenuItem>

@@ -1,4 +1,4 @@
-import './Deactive.css';
+import './customerData.css';
 import React from 'react';
 import { useEffect, useState } from "react";
 import { Box, Typography , Button, } from "@mui/material";
@@ -58,7 +58,7 @@ function Deactive(){
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mb="30px">
-          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Deactivated Accounts </Typography>
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Suspended Accounts </Typography>
         </Box>
       </Box>
 
