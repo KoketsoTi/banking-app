@@ -11,7 +11,9 @@ import Cards from './Components/Admin/Card/Cards';
 import Innecontent from "./Components/Admin/Innercontent/Innercontent"
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
-import Login from './Components/Admin/Login/Login'
+import Login from './Components/Admin/Login/Login';
+import Confirmpassword from './Components/Admin/Confirmpassword/Confirmpassword';
+
 
 const Navigation = () => {
     return(
@@ -29,6 +31,7 @@ const Navigation = () => {
                 <Route path="card" element={<Cards /> } />  
                 <Route path="profile" element={<Profile /> } />
             </Route>
+            <Route path="Confirmpassword" element={<Confirmpassword /> } />
             <Route path='/' element={<Navigate replace to="/admin/Login" />} />
             <Route path="/admin/Login" element={!getToken() ? <Login /> : <Navigate replace to="/admin/" />} />
 

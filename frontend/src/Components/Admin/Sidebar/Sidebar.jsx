@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Sidebar, SubMenu, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
-import { useNavigate, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineHome } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { CgCloseO } from 'react-icons/cg';
@@ -12,7 +12,6 @@ import { RxCrossCircled } from 'react-icons/rx';
 import { BiTransferAlt, BiUserCircle, BiWalletAlt } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-import { removeToken } from "../../../helpers/helpers";
 import './sidebar.css'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {

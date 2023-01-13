@@ -6,22 +6,21 @@ import axios from 'axios';
 //Forgot Password Modal
 function ForgotPassword() {
 
+
+
+    
    
     const emailInputRefs = useRef();
 
     async function forgot_Password(e) {
         e.preventDefault();
 
-    
-
         const enteredEmail = emailInputRefs.current.value;
         let data = {
-            email: enteredEmail,
+            email: enteredEmail
         };
 
         console.log( 'my data ',enteredEmail);
-      
-
 
             axios
                 .post(
