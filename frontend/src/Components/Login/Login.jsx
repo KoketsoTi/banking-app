@@ -87,14 +87,14 @@ function Login() {
                                     <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
                                     <input type="email" name="identifier"  placeholder="Email" value={formData.identifier} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
-                                       {errors.identifier && <span>{errors.identifier}</span>}
+                                       {errors.identifier && <span className='errors'>{errors.identifier}</span>}
                                 </div>
 
                                 <div className="form-group col mb-4">
                                     <label className="label"><span className="label-text">PASSWORD</span></label>
                                     <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
-                                   {errors.password && <span>{errors.password}</span>}
+                                   {errors.password && <span className='errors'>{errors.password}</span>}
                                 </div>
 
                                 <div className="form-group col mb-4">
