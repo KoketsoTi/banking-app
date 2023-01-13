@@ -1,21 +1,15 @@
-
-
 import React from "react";
-import { CgWebsite } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthProvider/AuthContext";
 import { Box, Typography, IconButton } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 const AppHeader = () => {
   const { user } = useAuthContext();
-  
-  console.log(user)
+
 
   const navigate = useNavigate();
 

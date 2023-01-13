@@ -14,22 +14,22 @@ function Active(){
     const authToken = getToken();
 
     //Call data from the backend
-    useEffect(() => {
-        let config = {
-            headers: { Authorization: `${BEARER} ${authToken}`}
-        }
+    // useEffect(() => {
+    //     let config = {
+    //         headers: { Authorization: `${BEARER} ${authToken}`}
+    //     }
             
-        axios.get(`${API}clients?filters[status][$eq]=Active`, config ).then((response) => { 
-            setTableData(response.data.data)
-        }).catch(error => {  
-            console.log('An error occurred:', error);
-            Warning('Incorrect email or password entered')
-        });
+    //     axios.get(`${API}clients?filters[status][$eq]=Active`, config ).then((response) => { 
+    //         setTableData(response.data.data)
+    //     }).catch(error => {  
+    //         console.log('An error occurred:', error);
+    //         Warning('Incorrect email or password entered')
+    //     });
         
         
-    }, [authToken])
+    // }, [authToken])
 
-    console.log(tableData)
+    // console.log(tableData)
 
     //Columns for the table
     const columns = [
@@ -41,31 +41,7 @@ function Active(){
         { field: "age", headerName: "Age", flex: 1 },
         { field: "phone", headerName: "Phone Number", flex: 1 },
         { field: "status", headerName: "Status", flex: 1 },
-        {
-            field: 'action',
-            headerName: '',
-            sortable: false,
 
-            renderCell: (params) => {
-              const onClick = (e) => {
-                e.stopPropagation(); // don't select this row after clicking
-                console.log(params.row.fname  + params.row.lname);          
-              };
-              return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Edit</Button>
-            },
-        },
-        {
-            field: 'delete',
-            headerName: '',
-            sortable: false,
-            renderCell: (params) => {
-              const onClick = (e) => {
-                e.stopPropagation(); // don't select this row after clicking
-                console.log(params.row.fname  + params.row.lname);
-            };
-                return <Button style={{background: "#FF5823", color:"#141b2d"}} onClick={onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Deactivate</Button>
-            },
-        },
       ];
 
     return (
@@ -78,15 +54,9 @@ function Active(){
             </Box>
         
             {/* Data in a table using Datagrid for creating a table  */}
-            <Box justifyContent="center"  height="90%" width="80vw">
+            <Box justifyContent="center"  height="50%" width="80vw">
                 <DataGrid  
-                    initialState={{
-                        filter: {
-                            filterModel: {
-                                items: [{ columnField: 'status', value: 'Active' }],
-                            },
-                        },
-                    }}
+
                 rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }} />
             </Box> 
         </Box>

@@ -2,48 +2,68 @@ import './Login.css';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { ToastContainer } from 'react-toastify';
-import { Success, Warning, Error } from '../../../helpers/toasters';
+import { Success, Warning } from '../../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
-import ForgotPassword from '../../../Models/forgotPasswordModel';
-import axios from 'axios';
 import { API } from '../../../Environment/constant';
 import { setToken } from "../../../helpers/helpers";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthProvider/AuthContext";
+import ForgotPassword from '../../../Models/forgotPasswordModel';
+import axios from 'axios';
 
 function Login() {
-    const [identifier, setIdentifier] = useState('');
-    const [password, setPassword] = useState('');   
+    const [formData, setFormData] = useState({ identifier: "", password: "" }); 
+    const [errors, setErrors] = useState({});
     const { setUser } = useAuthContext();   
-    const navigate = useNavigate();
+    
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
+    }
 
-    let login = async(e)=>{
-        e.preventDefault();
-        try {
-            await axios.post(`${ API}auth/local`, {
-                identifier: identifier,
-                password: password
-            })
-            .then(response => { 
-                // console.log('User profile', response.data.user);
-                // console.log('User token', response.data.jwt);
-                // set the token
-                setToken(response.data.jwt);
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const newErrors = validateForm(formData);
+
+        setErrors(newErrors);
         
-                // set the user
-                setUser(response.data.user);
+        if (Object.keys(newErrors).length === 0) {
+          // form is valid, send data to server
+        }
 
-                Success(`Welcome back ${response.data.user.username}!`)
-                navigate("/admin/", { replace: true });
-            })
-            .catch(error => {  
-                console.log('An error occurred:', error.response);
-                Warning('Incorrect email or password entered')
-            });
-        } catch (error) {
-            console.error(error);
-            Error('Something went wrong!')
-        } 
+        axios.post(`${ API}auth/local`, {
+            identifier: formData.identifier,
+            password: formData.password
+        })
+        .then(response => { 
+            // set the token
+            setToken(response.data.jwt);
+    
+            // set the user
+            setUser(response.data.user);
+
+            Success(`Welcome back ${response.data.user.username}!`)
+            window.location.href = "/admin/";
+           
+        })
+        .catch(error => {  
+            console.log('An error occurred:', error.response);
+            Warning('Incorrect email or password entered')
+        });
+    }
+
+    //Validate Form
+    function validateForm(formData) {
+        const errors = {};
+        if (!formData.identifier) {
+          errors.identifier = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(formData.identifier)) {
+          errors.identifier = "Email address is invalid";
+        }
+        if (!formData.password) {
+          errors.password = "Password is required";
+        }
+        return errors;
     }
 
     return (
@@ -62,17 +82,19 @@ function Login() {
                                 <div className="divider"></div> 
                             </div>
                  
-                            <form onSubmit={login}>
+                            <form >
                                 <div className="form-group col mb-4">
-                                    <label className="label"><span className="label-text">USERNAME OR EMAIL</span></label>
-                                    <input type="email" name="identifier"  placeholder="Email" value= {identifier} onChange={(e)=>{ setIdentifier(e.target.value) }}
+                                    <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
+                                    <input type="email" name="identifier"  placeholder="Email" value={formData.identifier} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
+                                       {errors.identifier && <span>{errors.identifier}</span>}
                                 </div>
 
                                 <div className="form-group col mb-4">
                                     <label className="label"><span className="label-text">PASSWORD</span></label>
-                                    <input type="password" name="password" placeholder="Password" value= {password} onChange={(e)=>{ setPassword(e.target.value)}}
+                                    <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
+                                   {errors.password && <span>{errors.password}</span>}
                                 </div>
 
                                 <div className="form-group col mb-4">
@@ -81,7 +103,7 @@ function Login() {
                                 </div>
 
                                 <div className="form-group col mb-8">
-                                    <button type="submit" className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
+                                    <button onClick={handleSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
                                 </div>
                             </form>
                         </div>

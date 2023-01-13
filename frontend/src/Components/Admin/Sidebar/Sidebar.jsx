@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Sidebar, SubMenu, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory } from "react-router-dom";
 import { AiOutlineHome } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { CgCloseO } from 'react-icons/cg';
@@ -14,6 +14,7 @@ import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
 import { removeToken } from "../../../helpers/helpers";
 import './sidebar.css'
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
     <MenuItem className="v" style={{background: "#141b2d"}} active={selected === title} onClick={() => setSelected(title)}
@@ -28,10 +29,11 @@ const Sidenavbar  = () => {
   const [selected, setSelected] = useState("Dashboard");
 
   const navigate = useNavigate();
-  const handleLogout = () => {
-    removeToken();
-    navigate("/admin/signin", { replace: true });
-  };
+  
+  function logout() {
+    localStorage.removeItem('authToken');
+    window.location.href = "/admin/Login";
+  }
 
   return (
     <div >
@@ -129,14 +131,12 @@ const Sidenavbar  = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+            </Box>
 
-              <Item
-                title="Logout"
-                onClick={handleLogout}
-                icon={<FaSignOutAlt style={{fontSize: "20px"}} />}
-                selected={selected}
-                setSelected={setSelected}
-              />
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "100px"}}>
+              <MenuItem onClick={logout} className="logut" style={{background: "#141b2d"}} icon={<FaSignOutAlt style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
+                <Typography >LogOut</Typography>
+              </MenuItem>
             </Box>
           </Menu>
         </Sidebar>

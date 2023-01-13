@@ -4,10 +4,19 @@ import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { mockDataTeam } from '../../../Data/mockedData';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Home(){
+  const token = localStorage.getItem('authToken');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!token){
+      navigate("/", {replace: true});
+    }
+  }, []);
 
   const active = mockDataTeam.filter( (list) => list.status === 'Active'); 
   const deactive = mockDataTeam.filter( (list) => list.status === 'Deactivate'); 
