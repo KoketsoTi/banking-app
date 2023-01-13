@@ -1,17 +1,32 @@
-import React from "react";
+import React ,{useState}from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthProvider/AuthContext";
 import { Box, Typography, IconButton } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
+import { useEffect } from "react";
+import { getToken } from "../../../helpers/helpers";
+import { BEARER, API } from "../../../Environment/constant"
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import axios from "axios";
 
 const AppHeader = () => {
-  const { user } = useAuthContext();
+    const [userData, setUserData] = useState();
 
+    const authToken = getToken();
 
-  const navigate = useNavigate();
+    useEffect(() => {
+        if (authToken) {
+            axios.get(`${API}users/me`, {
+                headers: { 
+                    Authorization: `${BEARER} ${authToken}`
+                }
+            }).then((response) => { 
+               
+                setUserData(response.data.username)
+            }).catch(error => {  
+                console.log('An error occurred:', error);
+            });
+        }
+    }, []);
 
   return (
     <Box style={{background: "#141b2d"}}>
@@ -21,17 +36,12 @@ const AppHeader = () => {
         </Box>
             
         {/* ICONS */}
-        <Box justifyItems={"end"}>
-            <Typography variant="h5" style={{color: "#F9F9F9" }} >{user}</Typography>
-            <IconButton >
-                <NotificationsOutlinedIcon style={{fontSize: "30px", color: "#F9F9F9"}}  />
+        <Box justifyItems={"end"} >
+            <Typography variant="h5" style={{color: "#F9F9F9" }} ></Typography>
+            <IconButton style={{color: "#F9F9F9" }}>
+            {userData}
             </IconButton>
-            <IconButton>
-                <SettingsOutlinedIcon style={{fontSize: "30px", color: "#F9F9F9"}}  />
-            </IconButton>
-            <IconButton>
-                <PersonOutlinedIcon style={{fontSize: "30px", color: "#F9F9F9"}}  />
-            </IconButton>
+    
         </Box>    
     </Box>
   );

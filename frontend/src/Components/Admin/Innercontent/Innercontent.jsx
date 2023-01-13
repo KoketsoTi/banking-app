@@ -13,8 +13,8 @@ function Innecontent() {
             <div className='dash'>
                 <Sidenavbar  />
                 <main className="content">
-                {/* <AppHeader /> */}
-                <Outlet />
+                    <AppHeader />
+                    <Outlet />
                 </main>
             </div>
         </ThemeProvider>

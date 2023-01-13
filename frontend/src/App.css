@@ -15,4 +15,5 @@
 }
 .content{
   display: block !important;
+  width: 100vw;
 }

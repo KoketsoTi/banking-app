@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Sidebar, SubMenu, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
-import { useNavigate, useHistory } from "react-router-dom";
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
@@ -12,7 +11,7 @@ import { RxCrossCircled } from 'react-icons/rx';
 import { BiTransferAlt, BiUserCircle, BiWalletAlt } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-import { removeToken } from "../../../helpers/helpers";
+
 import './sidebar.css'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -28,7 +27,6 @@ const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
-  const navigate = useNavigate();
   
   function logout() {
     localStorage.removeItem('authToken');
@@ -133,7 +131,18 @@ const Sidenavbar  = () => {
               />
             </Box>
 
-            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "100px"}}>
+            <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "80px"}}>
+              <SubMenu style={{backgroundColor: "#141b2d"}} icon={<AiOutlineSetting style={{fontSize: "20px", backgroundColor: "#141b2d"}} />} label="Settings">
+                <MenuItem routerLink={<Link to='/admin/profile' />} className="logut" style={{background: "#141b2d"}} icon={<BiUserCircle style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
+                  <Typography >Profile</Typography>
+                </MenuItem>
+
+                <MenuItem routerLink={<Link to='/admin/changePassword' />} className="logut" style={{background: "#141b2d"}} icon={<AiOutlineSetting style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
+                  <Typography >Change Password</Typography>
+                </MenuItem>
+              </SubMenu>
+            
+
               <MenuItem onClick={logout} className="logut" style={{background: "#141b2d"}} icon={<FaSignOutAlt style={{color: "#F9F9F9", fontSize: "20px"}} /> } >
                 <Typography >LogOut</Typography>
               </MenuItem>
