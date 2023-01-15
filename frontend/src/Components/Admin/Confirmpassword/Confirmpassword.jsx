@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { Box, Typography } from "@mui/material";
+import { TbExchange } from 'react-icons/tb';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSearchParams } from 'react-router-dom';
@@ -63,35 +65,53 @@ function Confirmpassword() {
   }
 
   return (
-    <div className="container mt-5">
+<Box m="20px">
+<Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box mb="30px">
+                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Change Password </Typography>
+                </Box>
+            </Box>
+
+            <div className="flex justify-center">
+                    <div className="card changep lg:xl:1/2 w-96 rounded-none shadow-xl ">
+                        <div className="card-body">
+                 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label>Password</label>
+      <div className="form-group col mb-4">
+          <label className="label"><span className="label-text">PASSWORD</span></label>
           <input
             name="password"
+            placeholder="Enter Password"
             type="password"
             {...register('password')}
             className={`form-control ${errors.password ? 'is-invalid' : ''}`}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
         </div>
-        <div className="form-group">
-          <label>Confirm Password</label>
+        
+        <div className="form-group col mb-4">
+          <label><span className="label-text">CONFIRM PASSWORD</span></label>
           <input
             name="confirmPwd"
+            placeholder="Confirm Password"
             type="password"
             {...register('confirmPwd')}
             className={`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}
           />
           <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
         </div>
-        <div className="mt-3">
-          <button type="submit" className="btn btn-primary">
-            Submit
+        <div  className="form-group col mb-10">
+          <button type="submit"  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><TbExchange style={{marginTop: "3px", marginRight:"5px"}}/>
+          Change Password
           </button>
         </div>
       </form>
+      </div>
+      </div>
     </div>
+
+    </Box>
+
   )
 }
 export default Confirmpassword
