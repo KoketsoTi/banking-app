@@ -3,19 +3,15 @@ import { Box, Typography } from "@mui/material";
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function Profile(){
-    const token = localStorage.getItem('authToken');
 
-  
+function Profile(){  
     const active = 0
     const deactive = 0
     const verification = 0;
     const mockDataTeam = 0;
     
-    const StatBox = ({ title, subtitle, icon, progress, increase }) => {
+    const StatBox = ({ title, subtitle, icon, increase }) => {
       return (
         <Box width="100%" m="0 30px">
           <Box display="flex" justifyContent="space-between">
@@ -38,8 +34,7 @@ function Profile(){
             {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box mb="30px">
-                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> DASHBOARD </Typography>
-                    <Typography variant="h5" style={{color: "#141b2d"}}> Welcome to your dashboard</Typography>
+                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Profile </Typography>
                 </Box>
             </Box>
 
