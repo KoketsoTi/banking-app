@@ -1,0 +1,38 @@
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.card-profile-image img:hover{
+    transition: 0.2s ease-in-out;
+    transform:scale(1.1) 
+}
+.card-profile-image img{
+    margin-top:-5%;
+}
+
+.picture, .box{
+    background-color: var(--side-background);
+}
+.box{
+    justify-content: center;
+}
+.profile .label-text{
+    color: var(--fnb-blue);
+}
+.body-name{
+    color:  var(--fnb-blue);
+}
+.save{ 
+    background-color:  var(--fnb-blue);
+    color:  var(--background-color);
+    font-size: larger;
+}
+.cancel{
+  background-color:  var(--dark-orange);
+  color:  var(--background-color);
+  font-size: larger;
+}

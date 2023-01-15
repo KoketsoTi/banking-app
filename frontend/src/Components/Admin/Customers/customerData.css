@@ -1,3 +1,3 @@
 .active-users {
-    background-color: #141b2d ;
+    background-color: var(--side-background) ;
 }

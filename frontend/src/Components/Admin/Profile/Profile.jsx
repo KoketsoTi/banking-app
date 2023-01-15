@@ -1,90 +1,168 @@
 import './Profile.css';
-import { Box, Typography } from "@mui/material";
-import { CgCloseO } from 'react-icons/cg';
-import { MdOutlineVerified } from 'react-icons/md';
-import { HiOutlineUserGroup } from 'react-icons/hi';
-
+import {useState} from 'react';
+import { Box, Typography, Grid } from "@mui/material";
+import { useEffect } from 'react';
+import { API, BEARER } from "../../../Environment/constant";
+import { getToken } from "../../../helpers/helpers";
+import { Success, Warning } from '../../../helpers/toasters';
+import axios from "axios";
 
 function Profile(){  
-    const active = 0
-    const deactive = 0
-    const verification = 0;
-    const mockDataTeam = 0;
-    
-    const StatBox = ({ title, subtitle, icon, increase }) => {
-      return (
-        <Box width="100%" m="0 30px">
-          <Box display="flex" justifyContent="space-between">
-            <Box>
-              {icon}
-              <Typography variant="h4" fontWeight="bold"  style={{ color: "#4cceac" }} > {title} </Typography>
-            </Box>
-          </Box>
-    
-          <Box display="flex" justifyContent="space-between" mt="2px" style={{ marginBottom: "10px" }} >
-            <Typography variant="h5" style={{ color: "#4cceac" }}> {subtitle} </Typography>
-            <Typography variant="h5" fontStyle="italic"  style={{ color: "#4cceac" }} > {increase} </Typography>
-          </Box>
+  const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
+  const [userData, setUserData] = useState();
+  const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
+  const authToken = getToken();
+
+  //Get user infor according to current loggein user
+  useEffect(() => {
+    axios.get(`${API}users/me`, {
+      headers: { 
+        Authorization: `${BEARER} ${authToken}`
+    }
+    }).then((response) => { 
+      setUserData(response.data)
+    }).catch(error => {  
+      console.log('An error occurred:', error);
+    });
+  }, []);
+  
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm(prevData => ({ ...prevData, [name]: value }));
+  }
+
+  //Update user infor of current loggein user
+  function handleSubmit(event) {
+    event.preventDefault();
+    const id = 1;
+    axios.put(`${API}users/${id}`, {data:{
+      FirstName: formInfo.firstname,
+      FirstName: formInfo.lastname,
+      Phone: formInfo.phone
+    }}, {
+      headers: { 
+        Authorization: `${BEARER} ${authToken}`
+    }
+    }).then((response) => { 
+      setUserData(response.data)
+      Success('Update was successfull')
+    }).catch(error => {  
+      console.log('An error occurred:', error);
+      Warning('Unable to update')
+    });
+  }
+
+  return (
+    <Box m="20px">
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Profile </Typography>
         </Box>
-      );
-    };
-
-    return (
-        <Box m="20px">
-            {/* HEADER */}
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
-                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Profile </Typography>
-                </Box>
+      </Box>
+      <Box justifyContent="space-between" alignItems="center">
+          {/* GRID & CHARTS */}
+        <Grid container spacing={2}>
+           {/* ROW 1 */}
+          <Grid item xs={6} md={4}>
+            <Box className="card-body picture rounded-md flex justify-center">
+              <Box className="flex card-profile-image justify-center">
+                <img className="img w-36" src={pic} alt="" />   
+              </Box>
+  
+              <Box className="body text-center">
+                <Typography variant='h5' className="body-name" ></Typography>
+                <Typography variant='h5' className="body-name" ></Typography>
+              </Box>  
             </Box>
-
-            <Box display="grid" gridTemplateColumns="repeat(12, 1fr)"  gridAutoRows="140px" gap="10px" >
-                {/* ROW 1 */}
-                <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
-                <StatBox
-                    title= {mockDataTeam.length}
-                    subtitle="Total Customers"
-                    progress="0.50"
-                    increase="+21%"
-                    icon={ <HiOutlineUserGroup style={{ color: "#4cceac",  fontSize: "30px", marginBottom: "10px" }} /> }  />
+          </Grid>
+            
+          {/* ROW 2 */}
+          <Grid item xs={6} md={8}>
+            <Box className="card-body picture rounded-md  justify-center">
+              <form>
+                <Box className="profile">
+                  <label className="label"><span className="label-text">First Name</span></label>
+                  <input type="text" name="firstname" placeholder="First Name"  value={formInfo.firstname} onChange={handleChange}
+                    className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
-                <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
-                <StatBox
-                    title={active.length}
-                    subtitle="Active Accounts"
-                    progress="0.50"
-                    increase="+21%"
-                    icon={
-                    <MdOutlineVerified style={{ color: "#4cceac",  fontSize: "30px", marginBottom: "10px" }} />
-                    }
-                />
+                <Box className="profile">
+                  <label className="label"><span className="label-text">Last Name</span></label>
+                  <input type="text" name="lastname" placeholder="Last Name"  value={formInfo.lastname} onChange={handleChange}
+                    className="input shadow-m input-bordered w-full max-w-s email "  /> 
+                </Box>
+    
+                <Box className="profile">
+                  <label className="label"><span className="label-text">Email</span></label>
+                  <input type="email" name="email" disabled placeholder="Email" value={formInfo.email} onChange={handleChange}
+                    className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
-                <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
-                <StatBox
-                    title={verification}
-                    subtitle="Accounts for Verification"
-                    progress="0.50"
-                    increase="+21%"
-                    icon={
-                    <MdOutlineVerified style={{ color: "#4cceac",  fontSize: "30px", marginBottom: "10px" }} />  }
-                />
+                <Box className="profile">
+                  <label className="label"><span className="label-text">Phone Number</span></label>
+                  <input type="text" name="phone" placeholder="Phone Number" value={formInfo.phone} onChange={handleChange}
+                    className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
+                
 
-                <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
-                <StatBox
-                    title={deactive.length}
-                    subtitle="Deactive Accounts"
-                    progress="0.50"
-                    increase="+21%"
-                    icon={
-                    <CgCloseO style={{ color: "#4cceac",  fontSize: "30px", marginBottom: "10px"}} />  }
-                />
+                <Box className="flex mt-5">
+                  <div className="buttons " >
+                    <button type="submit" onClick={handleSubmit} className="save justify-center py-2 px-4 font-medium rounded">Save</button>
+                  </div>
+                  
+                  <div className="buttons">
+                    <button className=" cancel  ml-4  justify-center py-2 px-4 font-medium rounded">Cancel</button>
+                  </div>
                 </Box>
+              </form>
             </Box>
-        </Box>
-    );
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
 }
 
 export default Profile;
+
+
+
+// <Box>
+// <div class="flex justify-center">
+//   <div class="grid gap-6 grid-cols-4 bg-base-100">
+//     <div class="card col-span-1   h-56 bg-base-100 shadow-xl border rounded-none">
+//       <div class="card-body picture rounded-md flex justify-center">
+//         <div class="flex card-profile-image justify-center">
+//           <img className='img' src={pic} alt="   " class="w-36" /> 
+//         </div>
+        
+//         <div class="body">
+//           <p>dgfsdgfdhsghgh</p>
+//         </div>  
+//       </div>
+//     </div>
+
+//     <div class="card col-span-2  bg-base-100 shadow-xl border">
+//       <div class="card-body rounded-md">
+//         <div class="justify-start">
+//           <h1>PROFILE</h1>
+//         </div>
+
+//           <div class="form-group">
+//             <label class="label"><span class="label-text">First Name</span></label>
+//             <input type="text" placeholder="First Name"
+//               class="input shadow-m input-bordered w-full max-w-s email "  />
+//           </div>
+//           <div class="form-group">
+//             <label class="label"><span class="label-text">First Name</span></label>
+//             <input type="text" placeholder="First Name"
+//               class="input shadow-m input-bordered w-full max-w-s email "  />
+//           </div>
+
+//       </div>
+//     </div>
+//   </div>
+// </div>
+// </Box>

@@ -1,25 +1,19 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { useSearchParams } from 'react-router-dom';
-
+import * as Yup from 'yup';
 import axios from 'axios';
 
-
-
 function Confirmpassword() {
-
-
+  
   // form validation rules 
   const formSchema = Yup.object().shape({
-    password: Yup.string()
-      .required('Password is mendatory')
+    password: Yup.string().required('Password is mendatory')
       .min(3, 'Password must be at 3 char long'),
-    confirmPwd: Yup.string()
-      .required('Password is mendatory')
-      .oneOf([Yup.ref('password')], 'Passwords does not match'),
 
+    confirmPwd: Yup.string().required('Password is mendatory')
+      .oneOf([Yup.ref('password')], 'Passwords does not match'),
   })
 
   const formOptions = { resolver: yupResolver(formSchema) }
@@ -37,7 +31,7 @@ function Confirmpassword() {
       password: data.password,
       passwordConfirmation : data.confirmPwd,
     }
-    console.log(_data)
+
     axios
     .post(
       'http://localhost:1337/api/auth/reset-password',_data,

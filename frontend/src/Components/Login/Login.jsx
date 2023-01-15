@@ -6,14 +6,12 @@ import { Success, Warning } from '../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
 import { API } from '../../Environment/constant';
 import { setToken } from "../../helpers/helpers";
-import { useAuthContext } from "../Admin/AuthProvider/AuthContext";
 import ForgotPassword from '../../Models/forgotPasswordModel';
 import axios from 'axios';
 
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
-    const [errors, setErrors] = useState({});
-    const { setUser } = useAuthContext();   
+    const [errors, setErrors] = useState({});  
     
     function handleChange(event) {
         const { name, value } = event.target;
@@ -38,10 +36,6 @@ function Login() {
         .then(response => { 
             // set the token
             setToken(response.data.jwt);
-    
-            // set the user
-            setUser(response.data.user);
-
             Success(`Welcome back ${response.data.user.username}!`)
             window.location.href = "/admin/";
            
@@ -57,9 +51,8 @@ function Login() {
         const errors = {};
         if (!formData.identifier) {
           errors.identifier = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.identifier)) {
-          errors.identifier = "Email address is invalid";
         }
+        
         if (!formData.password) {
           errors.password = "Password is required";
         }
