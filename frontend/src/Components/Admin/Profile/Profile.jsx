@@ -6,6 +6,7 @@ import { API, BEARER } from "../../../Environment/constant";
 import { getToken } from "../../../helpers/helpers";
 import { Success, Warning } from '../../../helpers/toasters';
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
@@ -13,13 +14,18 @@ function Profile(){
   const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
   const authToken = getToken();
 
+  const token = localStorage.getItem('authToken')
+  const decoded_token = jwt_decode(token)
+  const id = decoded_token.id
+
   //Get user infor according to current loggein user
   useEffect(() => {
-    axios.get(`${API}users/me`, {
+    axios.get(`${API}users/${id}`, {
       headers: { 
         Authorization: `${BEARER} ${authToken}`
     }
     }).then((response) => { 
+      console.log(response.data)
       setUserData(response.data)
     }).catch(error => {  
       console.log('An error occurred:', error);
@@ -126,43 +132,3 @@ function Profile(){
 }
 
 export default Profile;
-
-
-
-// <Box>
-// <div class="flex justify-center">
-//   <div class="grid gap-6 grid-cols-4 bg-base-100">
-//     <div class="card col-span-1   h-56 bg-base-100 shadow-xl border rounded-none">
-//       <div class="card-body picture rounded-md flex justify-center">
-//         <div class="flex card-profile-image justify-center">
-//           <img className='img' src={pic} alt="   " class="w-36" /> 
-//         </div>
-        
-//         <div class="body">
-//           <p>dgfsdgfdhsghgh</p>
-//         </div>  
-//       </div>
-//     </div>
-
-//     <div class="card col-span-2  bg-base-100 shadow-xl border">
-//       <div class="card-body rounded-md">
-//         <div class="justify-start">
-//           <h1>PROFILE</h1>
-//         </div>
-
-//           <div class="form-group">
-//             <label class="label"><span class="label-text">First Name</span></label>
-//             <input type="text" placeholder="First Name"
-//               class="input shadow-m input-bordered w-full max-w-s email "  />
-//           </div>
-//           <div class="form-group">
-//             <label class="label"><span class="label-text">First Name</span></label>
-//             <input type="text" placeholder="First Name"
-//               class="input shadow-m input-bordered w-full max-w-s email "  />
-//           </div>
-
-//       </div>
-//     </div>
-//   </div>
-// </div>
-// </Box>
