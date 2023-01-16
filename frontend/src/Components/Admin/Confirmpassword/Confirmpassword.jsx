@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useSearchParams , useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { Success, Warning } from '../../../helpers/toasters';
+import { ToastContainer } from 'react-toastify';
 
 function Confirmpassword() {
   
@@ -68,6 +69,7 @@ function Confirmpassword() {
 
   return (
     <Box className='login' >
+        <ToastContainer />
       <div className="md:container md:mx-auto">
           <div className="flex justify-center">
               <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
