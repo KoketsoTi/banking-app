@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSearchParams , useNavigate} from 'react-router-dom';
 import axios from 'axios';
-
+import { Success, Warning } from '../../helpers/toasters';
 
 function Confirmpassword() {
 
@@ -15,7 +15,7 @@ function Confirmpassword() {
   const formSchema = Yup.object().shape({
     password: Yup.string()
       .required('Password is mendatory')
-      .min(3, 'Password must be at 3 char long'),
+      .min(6, 'Password must be at 6 char long'),
     confirmPwd: Yup.string()
       .required('Password is mendatory')
       .oneOf([Yup.ref('password')], 'Passwords does not match'),
@@ -53,60 +53,57 @@ function Confirmpassword() {
     .then((response) => {
       // Handle success.
       console.log(response);
+      Success("Password reset successful")
       navigate("/Admin/Login",{replace: true});
 
     })
     .catch((error) => {
       // Handle error.
+      Warning("Password was not successfull")
       console.log("An error occurred:", error.response);
     });
-
     return false
-
   }
 
   return (
-
     <Box className='login' >
+      <div className="md:container md:mx-auto">
+          <div className="flex justify-center">
+              <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
+                  <div className="card-body">
+                      <div className="body-header -mb-4">
+                          <div className="text-dark mt-2 user-cicle">Change Password </div>
+                      </div>
 
-    
-    <div className="md:container md:mx-auto">
-        <div className="flex justify-center">
-            <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
-                <div className="card-body">
-                    <div className="body-header -mb-4">
-                        <div className="text-dark mt-2 user-cicle">Change Password </div>
-                    </div>
+                      <div className="hozitontal-line -mb-4">
+                          <div className="divider"></div> 
+                      </div>
+          
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                          <div className="form-group col mb-4">
+                              <label className="label"><span className="label-text">Password</span></label>
+                              <input type="password" name="password" placeholder="Enter Password" 
+                                  className="input input-bordered w-full max-w-s email " {...register('password')}
+                                  />
+                                <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
+                          </div>
 
-                    <div className="hozitontal-line -mb-4">
-                        <div className="divider"></div> 
-                    </div>
-         
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group col mb-4">
-                            <label className="label"><span className="label-text">Password</span></label>
-                            <input type="password" name="password" placeholder="Enter Password" 
-                                className="input input-bordered w-full max-w-s email " {...register('password')}
-                                />
-                              <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
-                        </div>
+                          <div className="form-group col mb-4">
+                              <label className="label"><span className="label-text">Confirm Password</span></label>
+                              <input type="password" name="confirmPwd" placeholder="Confirm Password"   {...register('confirmPwd')}
+                                  className="input input-bordered w-full max-w-s email "/>
+                              <div className="invalid-feedback text-rose-600">{errors.confirmPwd?.message}</div>
+                          </div>
 
-                        <div className="form-group col mb-4">
-                            <label className="label"><span className="label-text">Confirm Password</span></label>
-                            <input type="password" name="confirmPwd" placeholder="Confirm Password"   {...register('confirmPwd')}
-                                className="input input-bordered w-full max-w-s email "/>
-                            <div className="invalid-feedback text-rose-600">{errors.confirmPwd?.message}</div>
-                        </div>
-
-                        <div className="form-group col mt-10 mb-8">
-                            <button className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><TbExchange style={{marginTop: "3px", marginRight:"5px"}}/>Change Password </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</Box>
+                          <div className="form-group col mt-10 mb-8">
+                              <button className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><TbExchange style={{marginTop: "3px", marginRight:"5px"}}/>Change Password </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </Box>
 
   )
 }
