@@ -45,7 +45,7 @@ function Deactive(){
       </Box>
 
       {/* Data in a table using Datagrid for creating a table */}
-        <Box justifyContent="center"  width="80vw" style={{ height: 650 }} >
+        <Box justifyContent="center" className='w-full' style={{ height: 650 }} >
           <DataGrid rows={mockDataTeam} columns={columsDeactive} components={{ Toolbar: GridToolbar }}
             initialState={{
               filter: {

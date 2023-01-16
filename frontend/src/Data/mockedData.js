@@ -6,7 +6,7 @@ export const mockDataTeam = [
       lname:" Snow",
       email: "jonsnow@gmail.com",
       age: 35,
-      phone: "(665)121-5454",
+      phone: "(065) - 121-5454",
       status: "Active",
     },
     {
@@ -16,7 +16,7 @@ export const mockDataTeam = [
       lname:"Lannister",
       email: "cerseilannister@gmail.com",
       age: 42,
-      phone: "(421)314-2288",
+      phone: "(064) - 314-2288",
       status: "Deactivate",
     },
     {
@@ -26,7 +26,7 @@ export const mockDataTeam = [
       lname:" Lannister",
       email: "jaimelannister@gmail.com",
       age: 45,
-      phone: "(422)982-6739",
+      phone: "(082) - 982-6739",
       status: "Active",
     },
     {
@@ -36,7 +36,7 @@ export const mockDataTeam = [
       lname:" Stark",
       email: "anyastark@gmail.com",
       age: 16,
-      phone: "(921)425-6742",
+      phone: "(071) - 425-6742",
       status: "Deactivate",
     },
     {
@@ -46,7 +46,7 @@ export const mockDataTeam = [
       lname: "Targaryen",
       email: "daenerystargaryen@gmail.com",
       age: 31,
-      phone: "(421)445-1189",
+      phone: "(071) - 445-1189",
       status: "Deactivate",
     },
     {
@@ -56,7 +56,7 @@ export const mockDataTeam = [
       lname:" Melisandre",
       email: "evermelisandre@gmail.com",
       age: 150,
-      phone: "(232)545-6483",
+      phone: "(082) - 545-6483",
       status: "Active",
     },
     {
@@ -66,7 +66,7 @@ export const mockDataTeam = [
       lname:" Clifford",
       email: "ferraraclifford@gmail.com",
       age: 44,
-      phone: "(543)124-0123",
+      phone: "(073) - 124-0123",
       status: "Active",
     },
     {
@@ -76,7 +76,7 @@ export const mockDataTeam = [
       lname:" Frances",
       email: "rossinifrances@gmail.com",
       age: 36,
-      phone: "(222)444-5555",
+      phone: "(061) - 444-5555",
       status: "Active",
     },
     {
@@ -86,7 +86,7 @@ export const mockDataTeam = [
       lname:" Roxie",
       email: "harveyroxie@gmail.com",
       age: 65,
-      phone: "(444)555-6239",
+      phone: "(074) - 555-6239",
       status: "Active",
     },
 ];

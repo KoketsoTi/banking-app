@@ -52,7 +52,6 @@ function Confirmpassword() {
     )
     .then((response) => {
       // Handle success.
-      console.log(response);
       Success("Password reset successful")
       navigate("/Admin/Login",{replace: true});
 
