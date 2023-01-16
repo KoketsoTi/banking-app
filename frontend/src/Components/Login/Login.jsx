@@ -44,7 +44,7 @@ function Login() {
         })
         .catch(error => {  
             console.log('An error occurred:', error.response);
-            Warning('Incorrect email or password entered')
+            Warning('Incorrect Username/Email or password entered')
         });
     }
 
@@ -52,9 +52,8 @@ function Login() {
     function validateForm(formData) {
         const errors = {};
         if (!formData.identifier) {
-          errors.identifier = "Email is required";
-        }
-        
+          errors.identifier = "Username or Email is required";
+        } 
         if (!formData.password) {
           errors.password = "Password is required";
         }
@@ -80,7 +79,7 @@ function Login() {
                             <form >
                                 <div className="form-group col mb-4">
                                     <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
-                                    <input type="email" name="identifier"  placeholder="Email" value={formData.identifier} onChange={handleChange}
+                                    <input type="text" name="identifier"  placeholder="Username or Email" value={formData.identifier} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
                                        {errors.identifier && <span className='errors'>{errors.identifier}</span>}
                                 </div>
