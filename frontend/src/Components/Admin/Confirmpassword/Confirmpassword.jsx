@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSearchParams , useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { Success, Warning } from '../../helpers/toasters';
+import { Success, Warning } from '../../../helpers/toasters';
 
 function Confirmpassword() {
 
