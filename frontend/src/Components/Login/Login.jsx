@@ -1,19 +1,17 @@
 import './Login.css';
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
+import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { Success, Warning } from '../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
 import { API } from '../../Environment/constant';
-import { setToken } from "../../helpers/helpers";
-import { useAuthContext } from "../Admin/AuthProvider/AuthContext";
+import { setToken, setData } from "../../helpers/helpers";
 import ForgotPassword from '../../Models/forgotPasswordModel';
 import axios from 'axios';
 
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
-    const [errors, setErrors] = useState({});
-    const { setUser } = useAuthContext();   
+    const [errors, setErrors] = useState({}); 
     
     function handleChange(event) {
         const { name, value } = event.target;
@@ -31,6 +29,7 @@ function Login() {
           // form is valid, send data to server
         }
 
+        //Post data in the backend
         axios.post(`${ API}auth/local`, {
             identifier: formData.identifier,
             password: formData.password
@@ -38,13 +37,10 @@ function Login() {
         .then(response => { 
             // set the token
             setToken(response.data.jwt);
-    
-            // set the user
-            setUser(response.data.user);
+            setData(response.data.user);
 
             Success(`Welcome back ${response.data.user.username}!`)
-            window.location.href = "/admin/";
-           
+            window.location.href = "/admin/";  
         })
         .catch(error => {  
             console.log('An error occurred:', error.response);
@@ -67,7 +63,7 @@ function Login() {
     }
 
     return (
-        <Container className='login' >
+        <Box className='login' >
             <ToastContainer />
             
             <div className="md:container md:mx-auto">
@@ -110,7 +106,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </Container>
+        </Box>
     );
 }
 
