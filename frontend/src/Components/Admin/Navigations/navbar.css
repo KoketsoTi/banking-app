@@ -1,10 +1,14 @@
 .v:hover{
-    color: #4cceac;
+    color: var(--fnb-blue);
 }
 .logut{
     
     display: flex;
 }
 .logut:hover{
-    color: #4cceac;
+    color: var(--fnb-blue);
+}
+.topbar{
+    background: var(--side-background) ;
+    position: sticky;
 }

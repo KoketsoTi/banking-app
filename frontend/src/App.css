@@ -4,7 +4,9 @@
   --capitec-blue: #009DE0;
   --background-color: #F9F9F9;
   --grey: #a3a3a3;
+  --side-background:#141b2d; 
 }
+
 .App{
   font-family: 'Source Sans Pro', sans-serif;
 

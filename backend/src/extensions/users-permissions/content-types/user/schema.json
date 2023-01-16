@@ -63,6 +63,7 @@
       "inversedBy": "users",
       "configurable": false
     },
+<<<<<<< HEAD
     "firstname": {
       "type": "string"
     },
@@ -71,6 +72,26 @@
     },
     "phone": {
       "type": "string"
+=======
+    "FirstName": {
+      "type": "string"
+    },
+    "LastName": {
+      "type": "string"
+    },
+    "Phone": {
+      "type": "string"
+    },
+    "Picture": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+>>>>>>> 5db1baf007aeea718da907b847d032f0b62866bd
     }
   }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sidebar, SubMenu, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
+import { Sidebar, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';

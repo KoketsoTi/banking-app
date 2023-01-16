@@ -53,9 +53,8 @@ function Login() {
         const errors = {};
         if (!formData.identifier) {
           errors.identifier = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.identifier)) {
-          errors.identifier = "Email address is invalid";
         }
+        
         if (!formData.password) {
           errors.password = "Password is required";
         }
