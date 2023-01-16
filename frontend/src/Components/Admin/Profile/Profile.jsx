@@ -3,18 +3,18 @@ import {useState} from 'react';
 import { Box, Typography, Grid } from "@mui/material";
 import { useEffect } from 'react';
 import { API, BEARER, FIRSTNAME, LASTNAME, PHONENUMBER } from "../../../Environment/constant";
-import { getToken } from "../../../helpers/helpers";
-
+import { getToken, getUser } from "../../../helpers/helpers";
 import { Success, Warning } from '../../../helpers/toasters';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
+
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
   const [userData, setUserData] = useState();
   const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
   const authToken = getToken();
-
+  const user = getUser();
   const token = localStorage.getItem('authToken')
   const decoded_token = jwt_decode(token)
   const id = decoded_token.id
@@ -99,25 +99,25 @@ function Profile(){
               <form>
                 <Box className="profile">
                   <label className="label"><span className="label-text">First Name</span></label>
-                  <input type="text" name="firstname" placeholder="First Name" value={formInfo.firstname} onChange={handleChange}
+                  <input type="text" name="firstname" placeholder={user[1]}  value={formInfo.firstname} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Last Name</span></label>
-                  <input type="text" name="lastname" placeholder="Last Name" value={formInfo.lastname} onChange={handleChange}
+                  <input type="text" name="lastname" placeholder={user[2]}  value={formInfo.lastname} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
     
                 <Box className="profile">
                   <label className="label"><span className="label-text">Email</span></label>
-                  <input type="email" name="email" disabled placeholder="Email" value={formInfo.email} onChange={handleChange}
+                  <input type="email" name="email" disabled placeholder={user[0]} value={formInfo.email} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Phone Number</span></label>
-                  <input type="text" name="phone" placeholder="Phone Number" value={formInfo.phone} onChange={handleChange}
+                  <input type="text" name="phone" placeholder={user[3]}  value={formInfo.phone} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
                 
