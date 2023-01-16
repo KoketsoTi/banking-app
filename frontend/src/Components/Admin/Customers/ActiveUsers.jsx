@@ -1,10 +1,12 @@
 import './customerData.css';
 import { Box, Typography, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import {mockDataTeam} from '../../../Data/mockedData';
+import { mockDataTeam } from '../../../Data/mockedData';
 import { BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 function Active(){
+    const navigate = useNavigate()
     //Columns for the table
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5},
@@ -16,7 +18,7 @@ function Active(){
         { field: "phone", headerName: "Phone Number", flex: 1 },
         { field: "status", headerName: "Status", flex: 1 },
         {
-            field: 'action',
+            field: 'edit',
             headerName: '',
             sortable: false,
 
@@ -24,12 +26,27 @@ function Active(){
               const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
                 console.log(params);
-
+                navigate(`/admin/userprofile/${params.id}`)
               };
 
               return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Edit</Button>
             },
         },
+        {
+            field: 'suspend',
+            headerName: '',
+            sortable: false,
+
+            renderCell: (params) => {
+              const onClick = (e) => {
+                e.stopPropagation(); // don't select this row after clicking
+                console.log(params);
+                navigate(`/admin/userprofile/${params.id}`)
+              };
+
+              return <Button style={{background: "#FF5823", color:"#F9F9F9"}} onClick={ onClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Suspend</Button>
+            },
+        }
       ];
 
     return (
@@ -42,9 +59,15 @@ function Active(){
             </Box>
         
             {/* Data in a table using Datagrid for creating a table  */}
-            <Box justifyContent="center"  height="50" width="80vw" style={{ height: 500, width: '100%' }}>
-
-                <DataGrid pageSize={5}rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }} />
+            <Box justifyContent="center"  width="80vw" style={{ height: 650 }}>
+                <DataGrid rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }} 
+                    initialState={{
+                        filter: {
+                        filterModel: {
+                            items: [{ columnField: 'status', value: 'Active' }],
+                        },
+                        },
+                    }}/>
             </Box> 
         </Box>
     );

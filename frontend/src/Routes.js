@@ -8,10 +8,12 @@ import Innecontent from "./Components/Admin/Innercontent/Innercontent";
 import ChangePassword from "./Components/Admin/ChangePassword/Changepassword";
 import ShortTerm from './Components/Admin/Loans/Short-term';
 import LongTerm from './Components/Admin/Loans/Long-term';
+import Login from './Components/Login/Login'
+import Confirmpassword from './Components/Confirmpassword/Confirmpassword';
+import UserProfile from './Components/Admin/UserProfile/UserProfile';
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
-import Login from './Components/Login/Login'
-import Confirmpassword from './Components/Admin/Confirmpassword/Confirmpassword';
+
 
 
 const Navigation = () => {
@@ -25,6 +27,7 @@ const Navigation = () => {
                 <Route path="verify" element={<Verify /> } />
                 <Route path="card" element={<Cards /> } />  
                 <Route path="profile" element={<Profile /> } />
+                <Route path="userprofile/:id" element={<UserProfile /> } />
                 <Route path="changePassword" element={<ChangePassword /> } />
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />

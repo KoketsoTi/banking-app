@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import { getUser } from "../../../helpers/helpers";
 import "./navbar.css";
 
 const  AppHeader = () => {
     const user = getUser();
-    console.log(user[1], user[2])
     return (
         <Box style={{ background: "#141b2d" }}>
         {/* HEADER */}

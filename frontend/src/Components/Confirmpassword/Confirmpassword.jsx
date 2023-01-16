@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSearchParams , useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { Success, Warning } from '../../../helpers/toasters';
+import { Success, Warning } from '../../helpers/toasters';
 import { ToastContainer } from 'react-toastify';
 
 function Confirmpassword() {
@@ -16,20 +16,18 @@ function Confirmpassword() {
     password: Yup.string()
       .required('Password is mendatory')
       .min(6, 'Password must be at 6 char long'),
+      
     confirmPwd: Yup.string()
       .required('Password is mendatory')
-      .oneOf([Yup.ref('password')], 'Passwords does not match'),
-
-    confirmPwd: Yup.string().required('Password is mendatory')
       .oneOf([Yup.ref('password')], 'Passwords does not match'),
   })
 
   const formOptions = { resolver: yupResolver(formSchema) }
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   //get functions to build form with useForm() hook
-  const { register, handleSubmit, reset, formState } = useForm(formOptions)
+  const { register, handleSubmit, formState } = useForm(formOptions)
   const { errors } = formState
 
   function onSubmit(data) {

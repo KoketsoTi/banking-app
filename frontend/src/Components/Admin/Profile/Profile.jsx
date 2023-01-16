@@ -2,8 +2,8 @@ import './Profile.css';
 import {useState} from 'react';
 import { Box, Typography, Grid } from "@mui/material";
 import { useEffect } from 'react';
-import { API, BEARER, FIRSTNAME, LASTNAME, PHONENUMBER } from "../../../Environment/constant";
-import { getToken, getUser } from "../../../helpers/helpers";
+import { API, BEARER} from "../../../Environment/constant";
+import { getToken, getUser, setData } from "../../../helpers/helpers";
 import { Success, Warning } from '../../../helpers/toasters';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
-  const [userData, setUserData] = useState();
+  
   const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
   const authToken = getToken();
   const user = getUser();
@@ -25,20 +25,18 @@ function Profile(){
       headers: { 
         Authorization: `${BEARER} ${authToken}`
     }
-    }).then((response) => { 
-      console.log(response.data)
-     
-      setUserData(response.data)
+    }).then(() => { 
+ 
     }).catch(error => {  
       console.log('An error occurred:', error);
     });
   }, []);
   
-
   function handleChange(event) {
     const { name, value } = event.target;
     setForm(prevData => ({ ...prevData, [name]: value }));
   }
+  
   const data  = {
     firstname: formInfo.firstname,
     lastname: formInfo.lastname,
@@ -54,14 +52,11 @@ function Profile(){
         Authorization: `${BEARER} ${authToken}`
     }}
     ).then((response) => { 
-      console.log(response.data)
       Success('Update was successfull')
-      localStorage.setItem(FIRSTNAME, response.data.firstname);
-      localStorage.setItem(LASTNAME, response.data.lastname);
-      localStorage.setItem(PHONENUMBER, response.data.phone);
+      setData(response.data);
       window.location.reload()
     }).catch(error => {  
-      console.log('An error occurred:', error);
+
       Warning('Unable to update')
     });
   }
@@ -69,15 +64,16 @@ function Profile(){
 
   return (
     <Box m="20px">
-        <ToastContainer />
+      <ToastContainer />
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mb="30px">
           <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Profile </Typography>
         </Box>
       </Box>
+
       <Box justifyContent="space-between" alignItems="center">
-          {/* GRID & CHARTS */}
+        {/* GRID & CHARTS */}
         <Grid container spacing={2}>
            {/* ROW 1 */}
           <Grid item xs={6} md={4}>
