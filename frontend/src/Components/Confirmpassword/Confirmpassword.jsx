@@ -53,7 +53,7 @@ function Confirmpassword() {
     .then((response) => {
       // Handle success.
       Success("Password reset successful")
-      navigate("/Login",{replace: true});
+      navigate("/admin/Login",{replace: true});
 
     })
     .catch((error) => {
