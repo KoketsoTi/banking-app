@@ -1,18 +1,24 @@
 import './Cards.css';
 import React, {useState} from 'react';
-import { Box, Typography, Button} from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { CardRequest } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
-import {ModalOpen} from '../../../Models/NewClients'
-
-
+import { ModalOpen } from '../../../Models/CardView';
 
 function Verify(){
-    const [open, setOpen] = useState(false);
-    const [data, setData] = useState({id:"1"});
-    const handleClose = () => setOpen(false);
-
+    const initData = {
+        id: 1,
+        attributes: {
+          title: "Avatar: The Lost city",
+          duration: 102.2,
+          description:
+            "It is a movie where they lost their city it tough and rough",
+          createdAt: "2023-01-16T17:44:29.314Z",
+          updatedAt: "2023-01-17T06:05:41.504Z",
+        },
+      };
+    const [data, setData] = useState(initData);
 
     //Columns for the table
     const columns = [
@@ -30,10 +36,10 @@ function Verify(){
               const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
                 console.log(params);
-                setOpen(true);
-                setData(params.row);
+                setData(params.row)
               };
-              return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ onClick}><AiOutlineEye style={{fontSize:"15px", marginRight:"5px"}}/>View</Button>
+             
+              return <label htmlFor="my-modal-4" onClick={onClick} style={{ color: "#141b2d", background:"#4cceac" }}  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" > view</label>
             },
         },
         {
@@ -45,6 +51,7 @@ function Verify(){
               const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
                 console.log(params);
+             
               };
               return <Button style={{background: "#FF5823", color:"#F9F9F9"}} onClick={ onClick}><AiOutlineCloseCircle style={{marginTop: "3px", marginRight:"5px"}}/>Suspend</Button>
             },
@@ -64,8 +71,7 @@ function Verify(){
             <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
                 <DataGrid rows={CardRequest} columns={columns} components={{ Toolbar: GridToolbar }} />
             </Box> 
-
-            <ModalOpen cardData={data} openModat={open} closeModa={handleClose} />
+            <ModalOpen cardData={data}/>  
         </Box>
     );
 }
