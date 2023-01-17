@@ -1,11 +1,12 @@
 import './home.css';
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { mockDataTeam } from '../../../Data/mockedData';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CgPushDown } from 'react-icons/cg';
 
 function Home(){
   const token = localStorage.getItem('authToken');
@@ -93,8 +94,28 @@ function Home(){
                 <CgCloseO style={{ color: "#4cceac",  fontSize: "30px", marginBottom: "10px"}} />  }
             />
           </Box>
+
+
+          {/* ROW 2 */}
+          <Box gridColumn="span 8" gridRow="span 2" style={{backgroundColor: "#141b2d"}} >
+            <Box mt="25px" p="0 30px" display="flex " justifyContent="space-between" alignItems="center" >
+              <Box>
+                <Typography variant="h5" fontWeight="600" style={{color: "#a3a3a3"}}>Revenue Generated</Typography>
+                <Typography variant="h3" fontWeight="bold" style={{color: "#4cceac"}}> $59,342.32 </Typography>
+              </Box>
+
+              <Box>
+                <IconButton>
+                  <CgPushDown style={{color: "#4cceac"}}/>
+                </IconButton>
+              </Box>
+            </Box>
+
+            <Box height="250px" m="-20px 0 0 0">
+
+            </Box>
+          </Box>
         </Box>
-       
       </Box>
     );
 }
