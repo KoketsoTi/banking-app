@@ -23,17 +23,16 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
   
   function logout() {
-    localStorage.removeItem('authToken');
+    localStorage.clear();
     window.location.href = "/admin/Login";
   }
 
   return (
-    <div >
+    <div style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
       <ProSidebarProvider >
-        <Sidebar defaultCollapsed={isCollapsed} style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
+        <Sidebar defaultCollapsed={isCollapsed}  >
           <Menu iconShape="square" style={{height: "100%", background: "#141b2d", paddingTop: "20px"}}>
             <MenuItem onClick={() => setIsCollapsed(!isCollapsed)} icon={isCollapsed ? <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} /> : undefined}>
 

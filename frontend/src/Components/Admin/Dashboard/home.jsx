@@ -7,7 +7,6 @@ import { mockDataTeam } from '../../../Data/mockedData';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 function Home(){
   const token = localStorage.getItem('authToken');
   const navigate = useNavigate();

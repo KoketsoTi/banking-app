@@ -2,7 +2,6 @@
     color: var(--fnb-blue);
 }
 .logut{
-    
     display: flex;
 }
 .logut:hover{
