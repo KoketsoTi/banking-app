@@ -6,8 +6,11 @@ import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
 import { MdOutlineVerified } from 'react-icons/md';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { GiReceiveMoney } from 'react-icons/gi';
+import { useState } from "react";
 
-function ApproveLoan(){  
+function ApproveLoan(){ 
+
+    
     return (
         <Box m="20px">
             <ToastContainer />
@@ -54,6 +57,7 @@ function ApproveLoan(){
                                 rate="20%"
                                 unpaid_interest="3 000"
                                 repayment="18 000"
+                                edit={ <FaUserEdit style={{ color: "#4cceac",  fontSize: "20px" }} /> }
                                 icon={ <GiReceiveMoney style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
                         </Box>
                     </Grid>

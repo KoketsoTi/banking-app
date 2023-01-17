@@ -101,11 +101,12 @@ export const GeneraInfo  = ({ firstname, lastname, email, age, phone, address, s
 
 
 //Your account Details
-export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_interest, repayment,  subtitle, icon  }) => {
+export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_interest, repayment,  subtitle, edit, icon  }) => {
     return (
         <Box width="100%" p="20px 30px">
             <Box display="flex" justifyContent="space-between" >
                 <Typography variant="h5" style={{ color: "#4cceac" }}>{subtitle} </Typography>
+                <Typography variant="h5" style={{ color: "#4cceac" }}> {edit} </Typography>
                 <Typography variant="h5" style={{ color: "#4cceac" }}> {icon} </Typography>
             </Box>
 
