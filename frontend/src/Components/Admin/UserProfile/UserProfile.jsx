@@ -1,13 +1,11 @@
 import './UserProfile.css';
 import { Box, Typography, Grid, Button } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import { Balances, AccountDetails, GeneraInfo, Loan } from './RenderUserProfile';
-import { FaUserEdit } from 'react-icons/fa'
-
+import { Balances, AccountDetails, GeneraInfo, Loan } from '../../../Models/RenderUserProfile';
+import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
+import { GiReceiveMoney } from 'react-icons/gi';
+import { AiOutlineBank } from 'react-icons/ai';
 function UserProfile(){  
-    const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
-    
     return (
         <Box m="20px">
             <ToastContainer />
@@ -47,8 +45,7 @@ function UserProfile(){
                             <Balances
                                 title= "Your Total Balance"
                                 subtitle="Balance"
-                                balance="2000"
-                                icon={ <BsCurrencyDollar style={{ color: "#4cceac",  fontSize: "25px", marginTop: "3px", marginLeft: "-10px " }} /> }  />
+                                balance="2000" />
                         </Box>
                          
                         {/* Bank Account Details */}
@@ -64,7 +61,7 @@ function UserProfile(){
                                 surbub="Auckland Park"
                                 city="Johannesburg"
                                 zip="0125"
-                                icon={ <BsCurrencyDollar style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
+                                icon={ <FaRegUserCircle style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
                         </Box>
                     </Grid>
                     
@@ -77,7 +74,7 @@ function UserProfile(){
                                 title= "Your Total Savings Balance"
                                 subtitle="Savings Balance"
                                 balance="2000"
-                                icon={ <BsCurrencyDollar style={{ color: "#4cceac",  fontSize: "25px", marginTop: "3px", marginLeft: "-10px " }} /> }  />  
+                               /> 
                         </Box>
 
                         {/* your Account Details */}
@@ -88,7 +85,7 @@ function UserProfile(){
                                 acctype="Savings"
                                 accstatus = "Active"
                                 virtualcard="inactive"
-                                icon={ <BsCurrencyDollar style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
+                                icon={ <AiOutlineBank style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
                         </Box>
 
                         {/* your Loan Details */}
@@ -100,7 +97,7 @@ function UserProfile(){
                                 shortstatus="Active"
                                 term="60"
                                 rate="11%"
-                                icon={ <BsCurrencyDollar style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
+                                icon={ <GiReceiveMoney style={{ color: "#4cceac",  fontSize: "20px" }} /> } />
                         </Box>
 
                     </Grid>

@@ -11,8 +11,10 @@ import LongTerm from './Components/Admin/Loans/Long-term';
 import Login from './Components/Login/Login'
 import Confirmpassword from './Components/Confirmpassword/Confirmpassword';
 import UserProfile from './Components/Admin/UserProfile/UserProfile';
+import ApproveLoan from './Components/Admin/ApproveLoan/Approveloan';
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
+
 
 
 
@@ -31,6 +33,7 @@ const Navigation = () => {
                 <Route path="changePassword" element={<ChangePassword /> } />
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />
+                <Route path="approveLoans/:id" element={<ApproveLoan /> } />
             </Route>
             <Route path="Confirmpassword" element={<Confirmpassword /> } />
             <Route path='/' element={<Navigate replace to="/admin/Login" />} />

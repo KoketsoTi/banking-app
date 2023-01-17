@@ -17,7 +17,7 @@ export const mockDataTeam = [
       email: "cerseilannister@gmail.com",
       age: 42,
       phone: "(064) - 314-2288",
-      status: "Deactivate",
+      status: "inactive",
     },
     {
       id: 3,
