@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { Box, Typography, Grid, Button } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { BsCurrencyDollar } from 'react-icons/bs';
-import { Balances, AccountDetails, GeneraInfo, Loan } from './RenderUserProfile';
+import { Balances, AccountDetails, GeneraInfo, Loan } from '../../../Models/RenderUserProfile';
 import { FaUserEdit } from 'react-icons/fa'
 
 function UserProfile(){  
