@@ -26,7 +26,7 @@ function LongTerm(){
           const onClick = (e) => {
             e.stopPropagation(); // don't select this row after clicking
             console.log(params);
-            navigate(`/admin/userprofile/${params.id}`)
+            navigate(`/admin/approveLoans/${params.id}`)
           };
 
           return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ onClick}><AiOutlineEye style={{fontSize:"15px", marginRight:"5px"}}/>View</Button>
