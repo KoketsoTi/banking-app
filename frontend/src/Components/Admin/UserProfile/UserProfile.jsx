@@ -5,6 +5,7 @@ import { Balances, AccountDetails, GeneraInfo, Loan } from '../../../Models/Rend
 import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
 import { GiReceiveMoney } from 'react-icons/gi';
 import { AiOutlineBank } from 'react-icons/ai';
+
 function UserProfile(){  
     return (
         <Box m="20px">

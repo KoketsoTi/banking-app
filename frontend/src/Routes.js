@@ -15,9 +15,6 @@ import ApproveLoan from './Components/Admin/ApproveLoan/Approveloan';
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
-
-
-
 const Navigation = () => {
     return(
         <Routes>

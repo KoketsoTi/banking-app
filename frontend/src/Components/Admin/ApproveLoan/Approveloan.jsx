@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { AccountDetails, GeneraInfo, Loan } from '../../../Models/RenderLoans';
@@ -64,10 +64,10 @@ function ApproveLoan(){
                             <Box width="100%"   p="0px">
                                 <Box display="flex" justifyContent={"end"} style={{ marginBottom: "10px" }} >
                                     <Typography variant="h5" mr="15px" >
-                                        <button style={{ color: "#141b2d", background:"#4cceac" }} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"><MdOutlineVerified style={{ marg: "#141b2d" }} /> Approve </button>
+                                        <button style={{ color: "#141b2d", background:"#4cceac" }} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"><MdOutlineVerified  style={{  marginRight: "10px", fontSize: "20px" }} /> Approve </button>
                                     </Typography>
                                     <Typography variant="h5">
-                                        <button style={{ color: "#F9F9F9", background:"#FF5823" }} className="rounded-none w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"><AiOutlineCloseCircle />Decline </button>
+                                        <button style={{ color: "#F9F9F9", background:"#FF5823" }} className="rounded-none w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"><AiOutlineCloseCircle  style={{ fontSize: "20px", marginRight:"10px" }} />Decline </button>
                                     </Typography>
                                 </Box>
                             </Box>
