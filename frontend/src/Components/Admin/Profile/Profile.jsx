@@ -9,6 +9,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
 
+
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
   
