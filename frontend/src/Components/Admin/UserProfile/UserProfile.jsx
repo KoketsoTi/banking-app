@@ -8,9 +8,8 @@ import {
   GeneraInfo,
   Loan,
   EditProfile
-} from "./RenderUserProfile";
+} from "../../../Models/RenderUserProfile";
 import { FaUserEdit } from "react-icons/fa";
-
 
 
 function UserProfile() {
@@ -208,108 +207,3 @@ function UserProfile() {
 
 export default UserProfile;
 
-
-/*
-
-
- <input type="checkbox" id="my-modal" className="modal-toggle" />
- <div className="modal">
-   <div className="modal-box">
-     <h3 className="font-bold text-lg">Update profile</h3>
-     <label className="label">
-       <span className="label-text">First Name</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="First Name"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">Last Name</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Last Name"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">Email</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Email"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">Age</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Age"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">Phone</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Phone"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">Street Address</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Address"
-       className="input input-bordered w-full max-w-s email "
-     />
-     <label className="label">
-       <span className="label-text">Suburb</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Suburb"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <label className="label">
-       <span className="label-text">City</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="City"
-       className="input input-bordered w-full max-w-s email "
-     />
-     <label className="label">
-       <span className="label-text">Zip Code</span>{" "}
-     </label>
-     <input
-       type="text"
-       name="identifier"
-       placeholder="Code"
-       className="input input-bordered w-full max-w-s email "
-     />
-
-     <div className="modal-action">
-       <label htmlFor="my-modal" className="btn">
-         Save Changes
-       </label>
-     </div>
-   </div>
- </div>
-
- */
