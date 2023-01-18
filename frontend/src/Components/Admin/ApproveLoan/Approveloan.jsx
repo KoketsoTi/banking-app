@@ -9,8 +9,6 @@ import { GiReceiveMoney } from 'react-icons/gi';
 import { useState } from "react";
 
 function ApproveLoan(){ 
-
-    
     return (
         <Box m="20px">
             <ToastContainer />

@@ -4,22 +4,22 @@
   "info": {
     "singularName": "card",
     "pluralName": "cards",
-    "displayName": "Card"
+    "displayName": "Card",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "virtual_card": {
-      "type": "biginteger",
-      "max": "16"
-    },
     "cvv": {
       "type": "integer"
     },
     "expiry_date": {
       "type": "date"
+    },
+    "virtual_card": {
+      "type": "string"
     }
   }
 }

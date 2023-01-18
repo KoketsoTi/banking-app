@@ -1,15 +1,17 @@
+import './navbar.css'
 import { useState } from "react";
 import { Sidebar, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
-import { Link } from "react-router-dom";
 import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
-import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { BiUserCircle } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-import './navbar.css'
+import { CgCloseO } from 'react-icons/cg';
+import { Link } from "react-router-dom";
+import { removeToken } from '../../../helpers/helpers';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
@@ -23,12 +25,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  
-  function logout() {
-    localStorage.clear();
+
+  function logout(){
+    removeToken();
     window.location.href = "/admin/Login";
   }
-
   return (
     <div style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
       <ProSidebarProvider >

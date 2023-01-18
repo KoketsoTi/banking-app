@@ -1,14 +1,14 @@
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { DataTables } from '../../../Models/DataTables';
 
 function LongTerm(){
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const columns = [
+  const columns = [
     {field:"id", headerName: "ID", flex: 0.5},
     {field:"accNumber", headerName: "Account Number", flex: 0.5},
     {field:"fname", headerName: "Fname", flex: 1},
@@ -64,28 +64,19 @@ function LongTerm(){
         },
     }
 
-    ]
+  ]
 
-    return (
-        <Box m="20px" >
-        {/* HEADER */}
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box mb="30px">
-                <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long Term Loans </Typography>
-            </Box>
+  return (
+    <Box m="20px" >
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long Term Loans </Typography>
         </Box>
+      </Box>
         
-        {/* Data in a table using Datagrid for creating a table  */}
-        <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
-            <DataGrid rows={dataLoans} columns={columns} components={{ Toolbar: GridToolbar }} 
-                initialState={{
-                    filter: {
-                    filterModel: {
-                        items: [{ columnField: 'loanType',  operatorValue: 'equals', value: 'LongTerm' }],
-                    },
-                    },
-                }}/>
-        </Box> 
+      {/* Data in a table using Datagrid for creating a table  */}
+      <DataTables rows={dataLoans} columns={columns} isloading={!dataLoans.length} />
     </Box>
     );
 }

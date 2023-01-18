@@ -4,10 +4,11 @@
   "info": {
     "singularName": "loan",
     "pluralName": "loans",
-    "displayName": "Loan"
+    "displayName": "Loan",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -30,6 +31,9 @@
       "type": "float"
     },
     "monthly_pay": {
+      "type": "float"
+    },
+    "total_repay": {
       "type": "float"
     }
   }

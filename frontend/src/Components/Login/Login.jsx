@@ -2,12 +2,11 @@ import './Login.css';
 import React, { useState } from 'react';
 import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
-import { Success, Warning } from '../../helpers/toasters';
 import { FaSignInAlt} from 'react-icons/fa';
-import { API } from '../../Environment/constant';
+import { Success, Warning } from '../../helpers/toasters';
 import { setToken, setData } from "../../helpers/helpers";
 import ForgotPassword from '../../Models/forgotPasswordModel';
-import axios from 'axios';
+import AuthorService from "../../Service/auth.service";
 
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
@@ -20,29 +19,22 @@ function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
-
         const newErrors = validateForm(formData);
-
-        setErrors(newErrors);
-        
+        setErrors(newErrors); 
         if (Object.keys(newErrors).length === 0) {
           // form is valid, send data to server
         }
 
         //Post data in the backend
-        axios.post(`${ API}auth/local`, {
-            identifier: formData.identifier,
-            password: formData.password
-        })
-        .then(response => { 
+        AuthorService.login(formData.identifier, formData.password).then((response) => { 
             // set the token
             setToken(response.data.jwt);
             setData(response.data.user);
 
             Success(`Welcome back ${response.data.user.username}!`)
-            window.location.href = "/admin/";  
+          //  window.location.href = "/admin/";  
         })
-        .catch(error => {  
+        .catch((error) => {  
             console.log('An error occurred:', error.response);
             Warning('Incorrect Username/Email or password entered')
         });

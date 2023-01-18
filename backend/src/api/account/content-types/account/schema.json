@@ -4,7 +4,8 @@
   "info": {
     "singularName": "account",
     "pluralName": "accounts",
-    "displayName": "Account"
+    "displayName": "Account",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -14,15 +15,27 @@
     "account_type": {
       "type": "string"
     },
-    "accountnumber": {
-      "type": "biginteger",
-      "max": "13"
-    },
     "account_status": {
       "type": "string"
     },
-    "virtual_card": {
+    "accountnumber": {
       "type": "string"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "accounts"
+    },
+    "card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    },
+    "loans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::loan.loan"
     }
   }
 }

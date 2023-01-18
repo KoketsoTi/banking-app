@@ -1,12 +1,23 @@
 import './customerData.css';
-import React from 'react';
-import { Box, Typography , Button, } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import React, { useEffect, useState } from 'react';
+import { Box, Typography } from "@mui/material";
 import { BsPencilSquare } from 'react-icons/bs';
 import { mockDataTeam } from '../../../Data/mockedData';
-
+import { DataTables } from '../../../Models/DataTables';
+import { Warning,Success } from '../../../helpers/toasters';
+import UserService from "../../../Service/clients.service";
 
 function Deactive(){
+  const [deactive, setDeactive] = useState([])
+    
+  useEffect( () => {
+    UserService.getDeactive().then((response) => {
+      setDeactive(response.data.data);
+      console.log(response.data.data)
+    }).catch((error) => {
+        console.log("An error occurred:", error.response);
+    });
+  })
   const columsDeactive = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "accNumber", headerName: "Account No" },
@@ -24,13 +35,10 @@ function Deactive(){
       renderCell: (params) => {
         const ActiveClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-
-          console.log(params.id);
-      
-
+          console.log(params.id)
         };
         
-        return <Button style={{background: "#4cceac", color:"#141b2d"}} onClick={ActiveClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</Button>
+        return <button className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} onClick={ActiveClick}><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</button>
       },
     },
   ];
@@ -45,16 +53,7 @@ function Deactive(){
       </Box>
 
       {/* Data in a table using Datagrid for creating a table */}
-        <Box justifyContent="center" className='w-full' style={{ height: 650 }} >
-          <DataGrid rows={mockDataTeam} columns={columsDeactive} components={{ Toolbar: GridToolbar }}
-            initialState={{
-              filter: {
-                filterModel: {
-                  items: [{ columnField: 'status', value: 'Deactivate' }],
-                },
-              },
-            }} />
-        </Box>
+      <DataTables rows={mockDataTeam} columns={columsDeactive} isloading={!mockDataTeam.length} />
     </Box>
   );
 }

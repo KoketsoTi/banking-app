@@ -5,10 +5,9 @@ import { useEffect } from 'react';
 import { API, BEARER} from "../../../Environment/constant";
 import { getToken, getUser, setData } from "../../../helpers/helpers";
 import { Success, Warning } from '../../../helpers/toasters';
+import { ToastContainer } from 'react-toastify';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { ToastContainer } from 'react-toastify';
-
 
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
@@ -41,7 +40,7 @@ function Profile(){
   const data  = {
     firstname: formInfo.firstname,
     lastname: formInfo.lastname,
-    phone: formInfo.phone
+    contact: formInfo.phone
   }
 
   //Update user infor of current loggein user
