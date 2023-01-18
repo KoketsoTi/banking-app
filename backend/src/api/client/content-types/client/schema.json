@@ -8,33 +8,44 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "accNumber": {
-      "type": "biginteger"
+    "firstname": {
+      "type": "string",
+      "required": true
     },
-    "fname": {
-      "type": "string"
-    },
-    "lname": {
-      "type": "string"
+    "lastname": {
+      "type": "string",
+      "required": true
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "required": true,
+      "unique": false
     },
     "age": {
-      "type": "integer"
+      "type": "integer",
+      "max": 2,
+      "min": 2,
+      "required": true
     },
-    "phone": {
-      "type": "integer"
-    },
-    "status": {
+    "street_address": {
       "type": "string"
     },
-    "verified": {
-      "type": "boolean"
+    "surburb": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 13
     }
   }
 }
