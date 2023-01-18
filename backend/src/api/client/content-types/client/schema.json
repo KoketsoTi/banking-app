@@ -27,8 +27,6 @@
     },
     "age": {
       "type": "integer",
-      "max": 2,
-      "min": 2,
       "required": true
     },
     "street_address": {

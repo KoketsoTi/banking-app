@@ -39,7 +39,7 @@ function UserProfile() {
                 <Typography>
                   If a dog chews shoes whose shoes does he choose?
                 </Typography>
-                <Box class="card-actions justify-center text-center ">
+                <Box className="card-actions justify-center text-center ">
            
                 <label htmlFor="my-modal-4" className="btn"
                     style={{
