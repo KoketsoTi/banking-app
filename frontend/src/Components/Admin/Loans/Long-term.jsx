@@ -20,12 +20,6 @@ const [paymentmonthly, setupmonpayment] = useState(0);
     calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
   })
  
-  // const amountLoaned = dataLoans.loanAmnt; 
-  // const interest = 1 + dataLoans.interestRate / 100; 
-  // const totalpayment = amountLoaned * interest;
-  // const interestUnpaid = totalpayment - amountLoaned;
-  // const monthlypayment = totalpayment/12;   
-
 
     const columns = [
     {field:"id", headerName: "ID", flex: 0.5},

@@ -1,13 +1,25 @@
+import React, { useEffect, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { Datagrid } from '../../../Models/RenderLoans';
+import { calculateLoan, Datagrid } from '../../../Models/RenderLoans';
 
 
 function ShortTerm(){
+
+ //For loans
+const [loanAmount, setLoanAmount] = useState(0);
+const [interestRate, setInterestRate] = useState(0);
+const [loanTerm, setLoanTerm] = useState(0);
+const [unpaidInterest, setunpaidInterest] = useState(0);
+const [paymentmonthly, setupmonpayment] = useState(0);
+
+  useEffect(()=>{
+    calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
+  })
  
     const navigate = useNavigate();
 
