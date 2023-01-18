@@ -1,37 +1,24 @@
 import "./UserProfile.css";
 import { Box, Typography, Grid, Button } from "@mui/material";
-import { ToastContainer } from "react-toastify";
-import { BsCurrencyDollar } from "react-icons/bs";
-import {
-  Balances,
-  AccountDetails,
-  GeneraInfo,
-  Loan,
-  EditProfile
-} from "../../../Models/RenderUserProfile";
-import { FaUserEdit } from "react-icons/fa";
-
+import { ToastContainer } from 'react-toastify';
+import { Balances, AccountDetails, GeneraInfo, Loan, EditProfile } from '../../../Models/RenderUserProfile';
+import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
+import { GiReceiveMoney } from 'react-icons/gi';
+import { AiOutlineBank } from 'react-icons/ai';
 
 function UserProfile() {
   const pic =
     "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
 
   return (
-    <Box m="20px">
-      <ToastContainer />
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box mb="30px">
-          <Typography
-            variant="h2"
-            fontWeight="bold"
-            style={{ color: "#141b2d" }}
-            sx={{ m: "0 0 5px 0" }}
-          >
-            Client Profile{" "}
-          </Typography>
-        </Box>
-      </Box>
+        <Box m="20px">
+            <ToastContainer />
+            {/* HEADER */}
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box mb="30px">
+                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>Client Profile </Typography>
+                </Box>
+            </Box>
 
       <Box justifyContent="space-between" alignItems="center">
         {/* GRID */}
@@ -83,18 +70,7 @@ function UserProfile() {
               <Balances
                 title="Your Total Balance"
                 subtitle="Balance"
-                balance="2000"
-                icon={
-                  <BsCurrencyDollar
-                    style={{
-                      color: "#4cceac",
-                      fontSize: "25px",
-                      marginTop: "3px",
-                      marginLeft: "-10px ",
-                    }}
-                  />
-                }
-              />
+                balance="2000"/>
             </Box>
 
             {/* Bank Account Details */}
@@ -115,7 +91,7 @@ function UserProfile() {
                 city="Johannesburg"
                 zip="0125"
                 icon={
-                  <BsCurrencyDollar
+                  <FaRegUserCircle
                     style={{ color: "#4cceac", fontSize: "20px" }}
                   />
                 }
@@ -130,18 +106,7 @@ function UserProfile() {
               <Balances
                 title="Your Total Savings Balance"
                 subtitle="Savings Balance"
-                balance="2000"
-                icon={
-                  <BsCurrencyDollar
-                    style={{
-                      color: "#4cceac",
-                      fontSize: "25px",
-                      marginTop: "3px",
-                      marginLeft: "-10px ",
-                    }}
-                  />
-                }
-              />
+                balance="2000"/>
             </Box>
 
             {/* your Account Details */}
@@ -157,7 +122,7 @@ function UserProfile() {
                 accstatus="Active"
                 virtualcard="inactive"
                 icon={
-                  <BsCurrencyDollar
+                  <AiOutlineBank
                     style={{ color: "#4cceac", fontSize: "20px" }}
                   />
                 }
@@ -178,7 +143,7 @@ function UserProfile() {
                 term="60"
                 rate="11%"
                 icon={
-                  <BsCurrencyDollar
+                  <GiReceiveMoney
                     style={{ color: "#4cceac", fontSize: "20px" }}
                   />
                 }
