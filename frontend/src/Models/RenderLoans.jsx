@@ -152,11 +152,29 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_inter
     );
 };
 
-export const calculateLoan = ({})=> {
-    const calculations = {
+export const calculateLoan = (setamt, inter, term)=> {
+    const calcTotal = () =>{
+        const amountLoaned = setamt; 
+        const interest = 1 + inter/ 100; 
+        const totalpayment = amountLoaned * interest;
+        const interestUnpaid = totalpayment - amountLoaned;
+        const monthlypayment = totalpayment/term;     
+    }
+    const interestpaid = () => {
 
     }
-    return calculations;
+
+    const monthly = () => {
+
+    }
+
+    const calc = [
+        calcTotal,
+        interestpaid,
+        monthly
+    ]
+
+    return calc;
 }
 
 

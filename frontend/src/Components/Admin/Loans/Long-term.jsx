@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
-
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { Datagrid } from '../../../Models/RenderLoans'
+import { calculateLoan, Datagrid } from '../../../Models/RenderLoans'
 
 function LongTerm(){
     const navigate = useNavigate();
@@ -14,23 +13,19 @@ function LongTerm(){
 const [loanAmount, setLoanAmount] = useState(0);
 const [interestRate, setInterestRate] = useState(0);
 const [loanTerm, setLoanTerm] = useState(0);
-const [monthlyPayment, setMonthlyPayment] = useState(0);
 const [unpaidInterest, setunpaidInterest] = useState(0);
+const [paymentmonthly, setupmonpayment] = useState(0);
 
-const calculateLoan = () =>{
-  const loanAmount = dataLoans.loanAmnt; //20 0000
-  const interest = 1 + dataLoans.interestRate / 100; //12% 1.12
-  // Calculate the monthly interest rate
-  const monthlyInterest = interest / 12; // 0.0933
-    // Calculate the number of months in the loan term
-  const termInMonths = loanTerm * 12; //
+  useEffect(()=>{
+    calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
+  })
+ 
+  // const amountLoaned = dataLoans.loanAmnt; 
+  // const interest = 1 + dataLoans.interestRate / 100; 
+  // const totalpayment = amountLoaned * interest;
+  // const interestUnpaid = totalpayment - amountLoaned;
+  // const monthlypayment = totalpayment/12;   
 
-    // Calculate the monthly payment
-  const payment = loanAmount * (monthlyInterest / (1 - Math.pow((1 + monthlyInterest), -termInMonths)));
-  
- setMonthlyPayment(payment);
-
-}
 
     const columns = [
     {field:"id", headerName: "ID", flex: 0.5},
@@ -98,6 +93,7 @@ const calculateLoan = () =>{
                 <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long Term Loans </Typography>
             </Box>
         </Box>
+     
         
         {/* Data in a table using Datagrid for creating a table  */}
           <Datagrid  
