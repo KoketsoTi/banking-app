@@ -71,6 +71,32 @@
     },
     "phone": {
       "type": "string"
+    },
+    "Age": {
+      "type": "integer"
+    },
+    "accountnum": {
+      "type": "biginteger",
+      "unique": true,
+      "max": "10",
+      "min": "10",
+      "required": false
+    },
+    "street_address": {
+      "type": "string"
+    },
+    "suburb": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string",
+      "required": false
+    },
+    "usertype": {
+      "type": "string"
     }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cards",
+  "info": {
+    "singularName": "card",
+    "pluralName": "cards",
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "virtual_number": {
+      "type": "biginteger",
+      "max": "16",
+      "min": "16"
+    },
+    "cvv": {
+      "type": "integer"
+    },
+    "expiry_date": {
+      "type": "date"
+    }
+  }
+}

@@ -32,7 +32,6 @@ function ForgotPassword() {
     };
 
     return (
-
         <div className='models'>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
             <label htmlFor="my-modal-4" className="modal cursor-pointer">
