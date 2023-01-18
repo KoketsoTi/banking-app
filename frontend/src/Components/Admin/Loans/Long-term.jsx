@@ -1,13 +1,36 @@
+import React, { useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-
+import { Datagrid } from '../../../Models/RenderLoans'
 
 function LongTerm(){
     const navigate = useNavigate();
+
+//For loans
+const [loanAmount, setLoanAmount] = useState(0);
+const [interestRate, setInterestRate] = useState(0);
+const [loanTerm, setLoanTerm] = useState(0);
+const [monthlyPayment, setMonthlyPayment] = useState(0);
+const [unpaidInterest, setunpaidInterest] = useState(0);
+
+const calculateLoan = () =>{
+  const loanAmount = dataLoans.loanAmnt; //20 0000
+  const interest = 1 + dataLoans.interestRate / 100; //12% 1.12
+  // Calculate the monthly interest rate
+  const monthlyInterest = interest / 12; // 0.0933
+    // Calculate the number of months in the loan term
+  const termInMonths = loanTerm * 12; //
+
+    // Calculate the monthly payment
+  const payment = loanAmount * (monthlyInterest / (1 - Math.pow((1 + monthlyInterest), -termInMonths)));
+  
+ setMonthlyPayment(payment);
+
+}
 
     const columns = [
     {field:"id", headerName: "ID", flex: 0.5},
@@ -17,7 +40,7 @@ function LongTerm(){
     {field:"loanAmnt", headerName: "Loan Amount", flex: 1},
     {field:"loanType", headerName: "Loan Type", flex: 1},
     {field:"status", headerName: "Status", flex: 1},
-    {field:"term", headerName: "Term", flex: 1},
+    {field:"loanTerm", headerName: "Term", flex: 1},
     { 
         field: 'edit',
         headerName: '',
@@ -77,16 +100,10 @@ function LongTerm(){
         </Box>
         
         {/* Data in a table using Datagrid for creating a table  */}
-        <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
-            <DataGrid rows={dataLoans} columns={columns} components={{ Toolbar: GridToolbar }} 
-                initialState={{
-                    filter: {
-                    filterModel: {
-                        items: [{ columnField: 'loanType',  operatorValue: 'equals', value: 'LongTerm' }],
-                    },
-                    },
-                }}/>
-        </Box> 
+          <Datagrid  
+            row={dataLoans}
+            column={columns} 
+            isloading={!dataLoans.length} />
     </Box>
     );
 }

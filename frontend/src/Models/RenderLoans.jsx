@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 //Your account Details
 export const AccountDetails = ({ accnumber, acctype, accstatus, virtualcard, subtitle, icon  }) => {
@@ -151,3 +151,19 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_inter
         </Box>
     );
 };
+
+export const calculateLoan = ({})=> {
+    const calculations = {
+
+    }
+    return calculations;
+}
+
+
+export const Datagrid =({row, column, isloading}) => {
+    return (
+        <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
+            <DataGrid rows={row} columns={column} components={{ Toolbar: GridToolbar }} loading={isloading}/>
+        </Box>
+    );
+}

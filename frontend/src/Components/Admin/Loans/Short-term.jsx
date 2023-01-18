@@ -4,6 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { Datagrid } from '../../../Models/RenderLoans';
 
 
 function ShortTerm(){
@@ -79,16 +80,7 @@ function ShortTerm(){
             </Box>
 
             {/* Data in a table using Datagrid for creating a table  */}
-        <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
-            <DataGrid rows={dataLoans} columns={columns} components={{ Toolbar: GridToolbar }} 
-                initialState={{
-                    filter: {
-                    filterModel: {
-                        items: [{ columnField: 'loanType',  operatorValue: 'equals', value: 'ShortTerm' }],
-                    },
-                    },
-                }}/>
-        </Box>
+            <Datagrid  row={dataLoans}column={columns} />
         </Box>
     );
 }
