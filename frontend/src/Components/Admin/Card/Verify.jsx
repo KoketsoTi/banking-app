@@ -1,10 +1,11 @@
 import './Cards.css';
 import React, {useState} from 'react';
 import { Box, Typography, Button } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, valueFormatter } from "@mui/x-data-grid";
 import { CardRequest } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { ModalOpen } from '../../../Models/CardView';
+
 
 function Verify(){
     const initData = {

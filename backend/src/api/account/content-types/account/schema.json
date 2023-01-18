@@ -4,25 +4,21 @@
   "info": {
     "singularName": "account",
     "pluralName": "accounts",
-    "displayName": "Account",
-    "description": ""
+    "displayName": "Account"
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "accountnumber": {
-      "type": "biginteger",
-      "max": "10",
-      "min": "10",
-      "required": true,
-      "unique": true
-    },
-    "accout_type": {
+    "account_type": {
       "type": "string"
     },
-    "accout_status": {
+    "accountnumber": {
+      "type": "biginteger",
+      "max": "13"
+    },
+    "account_status": {
       "type": "string"
     },
     "virtual_card": {

@@ -4,8 +4,7 @@
   "info": {
     "singularName": "client",
     "pluralName": "clients",
-    "displayName": "Client",
-    "description": ""
+    "displayName": "Client"
   },
   "options": {
     "draftAndPublish": false
@@ -13,28 +12,21 @@
   "pluginOptions": {},
   "attributes": {
     "firstname": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "lastname": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "email": {
-      "type": "email",
-      "required": true,
-      "unique": false
-    },
-    "age": {
-      "type": "integer",
-      "max": 2,
-      "min": 2,
-      "required": true
+      "type": "string"
     },
     "street_address": {
       "type": "string"
     },
-    "surburb": {
+    "age": {
+      "type": "integer"
+    },
+    "surbub": {
       "type": "string"
     },
     "city": {
@@ -44,8 +36,7 @@
       "type": "string"
     },
     "phone": {
-      "type": "string",
-      "maxLength": 13
+      "type": "string"
     }
   }
 }

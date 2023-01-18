@@ -4,11 +4,10 @@
   "info": {
     "singularName": "loan",
     "pluralName": "loans",
-    "displayName": "Loan",
-    "description": ""
+    "displayName": "Loan"
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {

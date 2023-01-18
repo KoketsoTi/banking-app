@@ -4,18 +4,16 @@
   "info": {
     "singularName": "card",
     "pluralName": "cards",
-    "displayName": "Card",
-    "description": ""
+    "displayName": "Card"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "virtual_number": {
+    "virtual_card": {
       "type": "biginteger",
-      "max": "16",
-      "min": "16"
+      "max": "16"
     },
     "cvv": {
       "type": "integer"
