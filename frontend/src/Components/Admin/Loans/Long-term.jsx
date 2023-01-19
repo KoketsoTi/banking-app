@@ -16,6 +16,9 @@ const [loanTerm, setLoanTerm] = useState(0);
 const [unpaidInterest, setunpaidInterest] = useState(0);
 const [paymentmonthly, setupmonpayment] = useState(0);
 
+
+
+
   useEffect(()=>{
     calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
   })

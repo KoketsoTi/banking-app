@@ -152,13 +152,40 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_inter
     );
 };
 
-export const calculateLoan = (setamt, inter, term)=> {
+export const calculateLoan = (setamt, inter, loanterm)=> {
     const calcTotal = () =>{
         const amountLoaned = setamt; 
         const interest = 1 + inter/ 100; 
-        const totalpayment = amountLoaned * interest;
+        const totalpayment = amountLoaned * interest * loanterm;
         const interestUnpaid = totalpayment - amountLoaned;
         const monthlypayment = totalpayment/term;     
+    }
+    const interestpaid = () => {
+
+    }
+
+    const monthly = () => {
+
+    }
+
+    const calc = [
+        calcTotal,
+        interestpaid,
+        monthly
+    ]
+
+    return calc;
+}
+
+
+export const calculatelongLoan = (setamt, inter, loanterm)=> {
+    const calcTotal = () =>{
+        const amountLoaned = setamt; 
+        const interest = inter; 
+        // const totalpayment = amountLoaned * (1+ interest/12)^(12*loanterm)-amountLoaned;
+        const totmonthly = amountLoaned * ( Math.pow((1+ (interest/12)),(12*loanterm)));
+        const interestUnpaid = totalpayment - amountLoaned;
+        const monthlypayment = totalpayment/term; 
     }
     const interestpaid = () => {
 
