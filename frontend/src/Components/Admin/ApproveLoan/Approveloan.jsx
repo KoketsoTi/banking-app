@@ -69,11 +69,11 @@ function ApproveLoan(){
 
     const separateData = async() => {
         setClient(useData.client.data.attributes)
-        console.log(useData.client.data.attributes)
+        console.log(useData)
 
 
          setAccount(useAccount)
-        console.log(useClient)
+        console.log(useAccount)
 
          setCard(useData.card.data.attributes)
         console.log(useCard)
