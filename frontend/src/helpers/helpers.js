@@ -25,7 +25,7 @@ export const setData = (data) => {
     localStorage.setItem(EMAIL, data.email);
     localStorage.setItem(FIRSTNAME, data.firstname);
     localStorage.setItem(LASTNAME, data.lastname);
-    localStorage.setItem(PHONENUMBER, data.phone);
+    localStorage.setItem(PHONENUMBER, data.contact);
 }
     
 export const removeToken = () => {

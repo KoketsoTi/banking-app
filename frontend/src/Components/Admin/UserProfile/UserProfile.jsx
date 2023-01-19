@@ -1,5 +1,5 @@
 import "./UserProfile.css";
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { Balances, AccountDetails, GeneraInfo, Loan, EditProfile } from '../../../Models/RenderUserProfile';
 import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
@@ -7,18 +7,15 @@ import { GiReceiveMoney } from 'react-icons/gi';
 import { AiOutlineBank } from 'react-icons/ai';
 
 function UserProfile() {
-  const pic =
-    "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
-
   return (
-        <Box m="20px">
-            <ToastContainer />
-            {/* HEADER */}
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
-                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>Client Profile </Typography>
-                </Box>
-            </Box>
+    <Box m="20px">
+      <ToastContainer />
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>Client Profile </Typography>
+        </Box>
+      </Box>
 
       <Box justifyContent="space-between" alignItems="center">
         {/* GRID */}
@@ -27,33 +24,18 @@ function UserProfile() {
           {/* Column 1 */}
           <Grid item md={3}>
             {/* For Pictuire Upload */}
-            <Box
-              className="card bg-base-100 shadow-xl"
-              style={{ backgroundColor: "#141b2d", color: "#F9F9F9" }}
-            >
+            <Box className="card bg-base-100 shadow-xl" style={{ backgroundColor: "#141b2d", color: "#F9F9F9" }}>
               <figure>
                 <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
               </figure>
+
               <Box className="card-body text-center ">
                 <Typography variant="h4">Excellent Mashengete</Typography>
-                <Typography>
-                  If a dog chews shoes whose shoes does he choose?
-                </Typography>
+                <Typography>If a dog chews shoes whose shoes does he choose?</Typography>
                 <Box class="card-actions justify-center text-center ">
-           
-                <label htmlFor="my-modal-4" className="btn"
-                    style={{
-                        background: "#F9F9F9",
-                        color: "#141b2d",
-                        borderColor: "#141b2d",
-                    }}
-                    >
-              <FaUserEdit
-                style={{ marginRight: "5px", fontSize: "20px" }}
-              />
-
-              Edit Profile
-            </label>
+                  <label htmlFor="my-modal-4" className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                    <FaUserEdit style={{ marginRight: "5px", fontSize: "20px" }} />Edit Profile
+                  </label>
                 </Box>
               </Box>
             </Box>

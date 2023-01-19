@@ -25,12 +25,15 @@
       "type": "integer"
     },
     "interest": {
-      "type": "integer"
+      "type": "decimal"
     },
     "unpaid_interest": {
       "type": "float"
     },
     "monthly_pay": {
+      "type": "float"
+    },
+    "total_repay": {
       "type": "float"
     }
   }

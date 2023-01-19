@@ -4,10 +4,11 @@ import { Box, Typography, Button} from "@mui/material";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { calculateLoan, Datagrid } from '../../../Models/RenderLoans'
+import { calculateLoan } from '../../../Models/RenderLoans'
+import { DataTables } from '../../../Models/DataTables';
 
 function LongTerm(){
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 //For loans
 const [loanAmount, setLoanAmount] = useState(0);
@@ -15,8 +16,6 @@ const [interestRate, setInterestRate] = useState(0);
 const [loanTerm, setLoanTerm] = useState(0);
 const [unpaidInterest, setunpaidInterest] = useState(0);
 const [paymentmonthly, setupmonpayment] = useState(0);
-
-
 
 
   useEffect(()=>{
@@ -80,23 +79,19 @@ const [paymentmonthly, setupmonpayment] = useState(0);
         },
     }
 
-    ]
+  ]
 
-    return (
-        <Box m="20px" >
-        {/* HEADER */}
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box mb="30px">
-                <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long Term Loans </Typography>
-            </Box>
+  return (
+    <Box m="20px" >
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long Term Loans </Typography>
         </Box>
-     
+      </Box>
         
-        {/* Data in a table using Datagrid for creating a table  */}
-          <Datagrid  
-            row={dataLoans}
-            column={columns} 
-            isloading={!dataLoans.length} />
+      {/* Data in a table using Datagrid for creating a table  */}
+      <DataTables rows={dataLoans} columns={columns} isloading={!dataLoans.length} />
     </Box>
     );
 }

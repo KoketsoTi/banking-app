@@ -224,7 +224,9 @@ export const EditProfile = ({ subtitle, firstname, lastname, email, age, phone, 
                     </div>
 
                     <div className="form-group col mt-4 mb-2">
-                        <button className="flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"><HiDatabase style={{ marginTop: "3px", marginRight: "5px" }}  />Update</button>
+                        <button className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                            <HiDatabase style={{ marginRight: "5px", fontSize: "20px" }}  />Update
+                        </button>
                     </div>
                 </label>
             </label>

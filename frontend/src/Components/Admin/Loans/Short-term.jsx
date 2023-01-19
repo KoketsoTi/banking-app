@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { calculateLoan, Datagrid } from '../../../Models/RenderLoans';
 
 
@@ -22,8 +22,14 @@ const [paymentmonthly, setupmonpayment] = useState(0);
   })
  
     const navigate = useNavigate();
+=======
+import { DataTables } from '../../../Models/DataTables';
 
-    const columns = [
+function ShortTerm(){
+  const navigate = useNavigate();
+>>>>>>> 1f8709bf2ef2f2fe8474d3bb07c903f081dccba8
+
+  const columns = [
     {field:"id", headerName: "ID", flex: 0.5},
     {field:"accNumber", headerName: "Account Number", flex: 0.5},
     {field:"fname", headerName: "Fname", flex: 1},
@@ -79,6 +85,7 @@ const [paymentmonthly, setupmonpayment] = useState(0);
         },
     }
 
+<<<<<<< HEAD
     ]
 
 
@@ -93,8 +100,24 @@ const [paymentmonthly, setupmonpayment] = useState(0);
 
             {/* Data in a table using Datagrid for creating a table  */}
             <Datagrid  row={dataLoans}column={columns} />
+=======
+  ]
+
+
+  return (
+    <Box m="20px" >
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Short Term Loans </Typography>
+>>>>>>> 1f8709bf2ef2f2fe8474d3bb07c903f081dccba8
         </Box>
-    );
+      </Box>
+
+      {/* Data in a table using Datagrid for creating a table  */}
+      <DataTables rows={dataLoans} columns={columns} isloading={!dataLoans.length} />
+    </Box>
+  );
 }
 
 export default ShortTerm;

@@ -1,37 +1,18 @@
 import './Profile.css';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import { Box, Typography, Grid } from "@mui/material";
-import { useEffect } from 'react';
-import { API, BEARER} from "../../../Environment/constant";
-import { getToken, getUser, setData } from "../../../helpers/helpers";
+import { getToken } from '../../../helpers/helpers';
 import { Success, Warning } from '../../../helpers/toasters';
-import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
-
+import { UserContext } from "../../../Authorization/userContext";
+import AuthorService from "../../../Service/auth.service";
 
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
-  
-  const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
+  const {user, setUser } = useContext(UserContext);
   const authToken = getToken();
-  const user = getUser();
-  const token = localStorage.getItem('authToken')
-  const decoded_token = jwt_decode(token)
-  const id = decoded_token.id
 
-  //Get user infor according to current loggein user
-  useEffect(() => {
-    axios.get(`${API}users/${id}`, {
-      headers: { 
-        Authorization: `${BEARER} ${authToken}`
-    }
-    }).then(() => { 
- 
-    }).catch(error => {  
-      console.log('An error occurred:', error);
-    });
-  }, []);
+  const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
   
   function handleChange(event) {
     const { name, value } = event.target;
@@ -47,21 +28,13 @@ function Profile(){
   //Update user infor of current loggein user
   async function handleSubmit(event) {
     event.preventDefault();
-
-    await axios.put(`${API}users/${id}`, data, {
-      headers: { 
-        Authorization: `${BEARER} ${authToken}`
-    }}
-    ).then((response) => { 
+    AuthorService.UpdateUser(data, authToken).then((response) => { 
       Success('Update was successfull')
-      setData(response.data);
-      window.location.reload()
+      setUser(response.data);
     }).catch(error => {  
-
       Warning('Unable to update')
     });
   }
-
 
   return (
     <Box m="20px">
@@ -96,25 +69,25 @@ function Profile(){
               <form>
                 <Box className="profile">
                   <label className="label"><span className="label-text">First Name</span></label>
-                  <input type="text" name="firstname" placeholder={user[1]}  value={formInfo.firstname} onChange={handleChange}
+                  <input type="text" name="firstname" placeholder="First Name"  value={formInfo.firstname || user.firstname} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Last Name</span></label>
-                  <input type="text" name="lastname" placeholder={user[2]}  value={formInfo.lastname} onChange={handleChange}
+                  <input type="text" name="lastname" placeholder="Last Name"  value={formInfo.lastname || user.lastname} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
     
                 <Box className="profile">
                   <label className="label"><span className="label-text">Email</span></label>
-                  <input type="email" name="email" disabled placeholder={user[0]} value={formInfo.email} onChange={handleChange}
+                  <input type="email" name="email" disabled placeholder="Email" value={user.email} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Phone Number</span></label>
-                  <input type="text" name="phone" placeholder={user[3]}  value={formInfo.phone} onChange={handleChange}
+                  <input type="text" name="phone" placeholder="Phone" value={user.contact} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
                 

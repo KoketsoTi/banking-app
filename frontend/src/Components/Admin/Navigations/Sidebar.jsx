@@ -1,15 +1,18 @@
-import { useState } from "react";
+import './navbar.css'
+import { useContext, useState } from "react";
 import { Sidebar, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
-import { Link } from "react-router-dom";
 import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
-import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { BiUserCircle } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
-import './navbar.css'
+import { CgCloseO } from 'react-icons/cg';
+import { Link } from "react-router-dom";
+import { removeToken } from '../../../helpers/helpers';
+import { UserContext } from '../../../Authorization/userContext';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
@@ -23,9 +26,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  
-  function logout() {
-    localStorage.clear();
+  const {user } = useContext(UserContext);
+
+  function logout(){
+    removeToken();
     window.location.href = "/admin/Login";
   }
 

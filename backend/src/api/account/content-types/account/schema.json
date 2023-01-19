@@ -12,21 +12,30 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "account_type": {
+      "type": "string"
+    },
+    "account_status": {
+      "type": "string"
+    },
     "accountnumber": {
-      "type": "biginteger",
-      "max": "10",
-      "min": "10",
-      "required": true,
-      "unique": true
-    },
-    "accout_type": {
       "type": "string"
     },
-    "accout_status": {
-      "type": "string"
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "accounts"
     },
-    "virtual_card": {
-      "type": "string"
+    "card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    },
+    "loans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::loan.loan"
     }
   }
 }

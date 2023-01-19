@@ -8,20 +8,21 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "virtual_number": {
-      "type": "biginteger",
-      "max": "16",
-      "min": "16"
-    },
     "cvv": {
       "type": "integer"
     },
     "expiry_date": {
       "type": "date"
+    },
+    "virtual_card": {
+      "type": "string"
+    },
+    "card_status": {
+      "type": "string"
     }
   }
 }
