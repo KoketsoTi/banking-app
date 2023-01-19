@@ -14,32 +14,33 @@ function Confirmpassword() {
   
   // form validation rules 
   const formSchema = Yup.object().shape({
-    password: Yup.string()
-      .required('Password is mendatory')
-      .min(6, 'Password must be at 6 char long'),
-      
-    confirmPwd: Yup.string()
-      .required('Password is mendatory')
+    password: Yup.string().required('Password is mendatory')
+      .min(3, 'Password must be at 3 char long'),
+
+    confirmPwd: Yup.string().required('Password is mendatory')
       .oneOf([Yup.ref('password')], 'Passwords does not match'),
   })
 
   const formOptions = { resolver: yupResolver(formSchema) }
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  //get functions to build form with useForm() hook
-  const { register, handleSubmit, formState } = useForm(formOptions)
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, reset, formState } = useForm(formOptions)
   const { errors } = formState
+
   const navigate = useNavigate();
 
   function onSubmit(data) {
+    console.log(JSON.stringify(data, null, 4))
+    
     let _data = {
-      code : searchParams.get('code'),// this "code" is the code that you get from the link in confrim password
+      code : searchParams.get('code'),
       password: data.password,
       passwordConfirmation : data.confirmPwd,
     }
 
     //call confirm password here
-    AuthorService.confirmPassword(_data).then((response) => {
+    AuthorService.confirmPassword(_data).then((response) => { 
       // Handle success.
       Success("Password reset successful")
       navigate("/admin/Login",{replace: true});
@@ -71,7 +72,7 @@ function Confirmpassword() {
                 <div className="form-group col mb-4">
                   <label className="label"><span className="label-text">Password</span></label>
                   <input type="password" name="password" placeholder="Enter Password" 
-                    className="input input-bordered w-full max-w-s email " {...register('password')} />
+                    className="input input-bordered w-full max-w-s email " {...register('password')}  />
                   <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
                 </div>
 

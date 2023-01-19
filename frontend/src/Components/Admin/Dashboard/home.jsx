@@ -1,10 +1,10 @@
 import './home.css';
+import { useEffect } from 'react';
 import { Box, Typography, IconButton } from "@mui/material";
 import { CgCloseO } from 'react-icons/cg';
 import { MdOutlineVerified } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { mockDataTeam } from '../../../Data/mockedData';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CgPushDown } from 'react-icons/cg';
 

@@ -3,36 +3,41 @@ import { Box, Typography } from "@mui/material";
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
 import { DataTables } from '../../../Models/DataTables';
 import { mockDataTeam } from '../../../Data/mockedData';
+import { getToken } from '../../../helpers/helpers';
 import UserService from "../../../Service/clients.service";
 
 function Active(){
   const navigate = useNavigate()
   const [users, setActive] = useState([])
+  const token = getToken()
     
   useEffect( () => {
-    UserService.getDeactive().then((response) => {
-      setActive(response.data.data);
-      console.log(response.data.data)
-    }).catch((error) => {
+    if(token){
+      UserService.getActive(token).then((response) => {
+        setActive(response.data.data);
+        console.log(response.data.data)
+      }).catch((error) => {
         console.log("An error occurred:", error.response);
-    });
-  })
+      });
+    }
+  }, [])
 
 
 
   //Columns for the table
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5},
-    // {
-    //   field: 'attributes',
-    //   headerName: 'First Name',
-    //   valueGetter: (params) => {
-    //     let result =  params.row.attributes.firstname;
-    //     return result;
-    //   }
-    // },
+     // {
+      //   field: 'attributes',
+      //   headerName: 'First Name',
+      //   valueGetter: (params) => {
+      //     let result =  params.row.attributes.firstname;
+      //     return result;
+      //   }
+      // },
     {
       field: 'edit',
       headerName: '',
@@ -72,7 +77,7 @@ function Active(){
       </Box>
         
       {/* Data in a table using Datagrid for creating a table  */}
-      <DataTables rows={mockDataTeam} columns={columns} isloading={!users.length} />
+      <DataTables rows={users} columns={columns} isloading={!users.length} />
     </Box>
   );
 }

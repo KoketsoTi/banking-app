@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 //Your account Details
 export const AccountDetails = ({ accnumber, acctype, accstatus, virtualcard, subtitle, icon  }) => {

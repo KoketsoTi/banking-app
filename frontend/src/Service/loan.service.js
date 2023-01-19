@@ -1,4 +1,3 @@
-import {authHeaders} from "./auth-headers.service";
 import { API, BEARER } from "../Environment/constant";
 import axios from 'axios';
 

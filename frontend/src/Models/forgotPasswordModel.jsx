@@ -1,13 +1,11 @@
 import { RxReset } from 'react-icons/rx';
 import React, { useRef } from 'react';
-import axios from 'axios';
-import {API, BEARER} from '../Environment/constant'
 import { Success, Error } from '../helpers/toasters';
+import AuthorService from "../Service/auth.service";
 
 //Forgot Password Modal
 function ForgotPassword() {
     const emailInputRefs = useRef();
-    const token = '78becf3fa526372d3566ac856efc2446a9bd06be3a6a741903efa9fc0ea802a66db28b067bea38dd6bd95b7acef8d64e1fab7a27ec6eb1972fd438e44fa907604fdef9d66330bba9abb7296b67b2bd9130f2a6a31c24adb91adc7e4fb63a5310cccc93ad55bebb3a9b493125d96806742e839d55408a8ab5e8aa74d0b9b85528'
 
     async function forgot_Password(e) {
         e.preventDefault();
@@ -17,18 +15,12 @@ function ForgotPassword() {
             email: enteredEmail
         };
 
-        axios.post(`${API}auth/forgot-password`, data,{
-            headers: {
-                Authorization:
-                    `${BEARER} ${token}`,
-                },
-            }).then((response) => {
-                console.log(response);
-                Success('Email send successfully ')
-            }).catch((error) => {
-                console.log("An error occurred:", error.response);
-                Error("Unable to send an email")
-            });
+        AuthorService.forgotPassword(data).then((response) => {
+            Success('Email send successfully ')
+        }).catch((error) => {
+            console.log("An error occurred:", error.response);
+            Error("Unable to send an email")
+        })
     };
 
     return (

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getToken } from "../../../helpers/helpers";
 import Calculations from '../../../Models/CalculateLoans';
 import Loans from "../../../Service/loan.service";
-import separate from "../../../Models/SeparateData";
+
 
 function ApproveLoan(){ 
     const card = {

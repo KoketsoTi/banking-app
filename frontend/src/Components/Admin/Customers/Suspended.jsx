@@ -6,28 +6,34 @@ import { mockDataTeam } from '../../../Data/mockedData';
 import { DataTables } from '../../../Models/DataTables';
 import { Warning,Success } from '../../../helpers/toasters';
 import UserService from "../../../Service/clients.service";
+import { getToken } from '../../../helpers/helpers';
 
 function Deactive(){
   const [deactive, setDeactive] = useState([])
-    
+  const token = getToken() 
+
   useEffect( () => {
-    UserService.getDeactive().then((response) => {
-      setDeactive(response.data.data);
-      console.log(response.data.data)
-    }).catch((error) => {
-        console.log("An error occurred:", error.response);
-    });
-  })
+    if(token){
+      UserService.getDeactive(token).then((response) => {
+        setDeactive(response.data.data);
+        console.log(response.data.data)
+      }).catch((error) => {
+          console.log("An error occurred:", error.response);
+      });
+    }
+  }, [])
+
   const columsDeactive = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "accNumber", headerName: "Account No" },
-    { field: "fname", headerName: "First Name", flex: 1 },
-    { field: "lname", headerName: "Last Name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 1 },
-    { field: "age", headerName: "Age", flex: 1 },
-    { field: "phone", headerName: "Phone Number", flex: 1 },
-    { field: "status", headerName: "Status", flex: 1 },
-    {
+    // {
+      //   field: 'attributes',
+      //   headerName: 'First Name',
+      //   valueGetter: (params) => {
+      //     let result =  params.row.attributes.firstname;
+      //     return result;
+      //   }
+      // },
+    { 
       field: 'delete',
       headerName: '',
       sortable: false,
@@ -53,7 +59,7 @@ function Deactive(){
       </Box>
 
       {/* Data in a table using Datagrid for creating a table */}
-      <DataTables rows={mockDataTeam} columns={columsDeactive} isloading={!mockDataTeam.length} />
+      <DataTables rows={deactive} columns={columsDeactive} isloading={!deactive.length} />
     </Box>
   );
 }

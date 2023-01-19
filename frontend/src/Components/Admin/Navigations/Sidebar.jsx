@@ -26,7 +26,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  const {user } = useContext(UserContext);
 
   function logout(){
     removeToken();

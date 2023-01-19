@@ -6,17 +6,22 @@ import { FaSignInAlt} from 'react-icons/fa';
 import { Success, Warning } from '../../helpers/toasters';
 import { setToken } from "../../helpers/helpers";
 import { UserContext } from "../../Authorization/userContext";
+import { useNavigate } from 'react-router-dom';
 import ForgotPassword from '../../Models/forgotPasswordModel';
-import AuthorService from "../../Service/auth.service";
+import AuthorService from '../../Service/auth.service';
 
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
     const [errors, setErrors] = useState({}); 
     const {setUser } = useContext(UserContext);
-    
+    const navigate = useNavigate();
     function handleChange(event) {
         const { name, value } = event.target;
         setFormData(prevData => ({ ...prevData, [name]: value }));
+    }
+
+    function applicationForm(){
+        navigate("/application", { replace: true });
     }
 
     function handleSubmit(event) {
@@ -86,11 +91,17 @@ function Login() {
                                    {errors.password && <span className='errors'>{errors.password}</span>}
                                 </div>
 
-                                <div className="form-group col mb-4">
-                                    <label htmlFor="my-modal-4" className="forgot" >Forgot Password</label>
-                                    <ForgotPassword />
-                                </div>
+                                <div className='grid grid-cols-2 '>
+                                    <div className="form-group col mb-4">
+                                        <label htmlFor="my-modal-4" className="forgot" >Forgot Password</label>
+                                        <ForgotPassword />
+                                    </div>
 
+                                    <div className="form-group col mb-4 text-end">
+                                        <label htmlFor="my-modal-4" onClick={applicationForm} className="apply" >Apply For Bank</label>
+                                    </div>
+                                </div>
+                                
                                 <div className="form-group col mb-8">
                                     <button onClick={handleSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
                                 </div>

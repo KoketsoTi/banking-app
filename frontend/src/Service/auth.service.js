@@ -6,8 +6,13 @@ const login = (username, password) => {
 }
 
 const confirmPassword = (data) => {
-    const token = '8d0e3fe8854c968c1b0d88887e505e2827cef2a93fbe9bf7c8f54cc4b7a6f360a7098dd363732fec03c67da4192b76d3b4bcec5c15dee6ffa49dde11f26e373e934517e3328bd8162cb4f77da6f4b90dc8b7670b5d0e5ba91b358af9521f02f1d4d977968053e9604c723c34c09b8265c2c8167265750bf33f7a6d5bf3c1ba13'
-    return axios.post(`${API}auth/reset-password`, data,{headers: {Authorization: `${BEARER} ${token}`}})
+    const token = '60ab5b57156b7a1fcfce2ad76e894571d33a78e5eb5c8b9f94ee67f101d171a61c2f3297b335e4896339f21ce1ce0c0eebc22a7ead07c542e56c3c06b903ae7e141edfd689dc7b2112ae3c60b74d1ad240bc8fdc90a5ae2e25409db84f3432ba67504593f949d321e11ba3aec375708d244fd356224ad22233656be6bbb03f54'
+    return axios.post(`${API}auth/reset-password`, data, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
+const forgotPassword = (data) => {
+    const token = '60ab5b57156b7a1fcfce2ad76e894571d33a78e5eb5c8b9f94ee67f101d171a61c2f3297b335e4896339f21ce1ce0c0eebc22a7ead07c542e56c3c06b903ae7e141edfd689dc7b2112ae3c60b74d1ad240bc8fdc90a5ae2e25409db84f3432ba67504593f949d321e11ba3aec375708d244fd356224ad22233656be6bbb03f54'
+    return axios.post(`${API}auth/forgot-password`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
 const loggedInUser = (token) => {
@@ -22,6 +27,7 @@ const logger = {
     login,
     confirmPassword,
     loggedInUser,
+    forgotPassword,
     UpdateUser
 }
 
