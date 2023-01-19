@@ -1,5 +1,5 @@
 import './navbar.css'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Sidebar, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
@@ -11,6 +11,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { CgCloseO } from 'react-icons/cg';
 import { Link } from "react-router-dom";
 import { removeToken } from '../../../helpers/helpers';
+import { UserContext } from '../../../Authorization/userContext';
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -25,11 +26,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidenavbar  = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const {user } = useContext(UserContext);
 
   function logout(){
     removeToken();
     window.location.href = "/admin/Login";
   }
+
   return (
     <div style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
       <ProSidebarProvider >

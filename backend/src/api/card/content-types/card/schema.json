@@ -20,6 +20,9 @@
     },
     "virtual_card": {
       "type": "string"
+    },
+    "card_status": {
+      "type": "string"
     }
   }
 }

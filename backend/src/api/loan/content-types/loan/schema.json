@@ -25,7 +25,7 @@
       "type": "integer"
     },
     "interest": {
-      "type": "integer"
+      "type": "decimal"
     },
     "unpaid_interest": {
       "type": "float"

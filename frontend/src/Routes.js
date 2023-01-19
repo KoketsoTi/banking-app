@@ -16,8 +16,8 @@ import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
 const Navigation = () => {
-    return(
-        <Routes>
+    return(   
+        <Routes>  
             <Route path="/admin" element={getToken() ? <Innecontent /> : <Navigate replace to="/admin/Login" />} >
                 <Route path="/admin" element={<Navigate replace to="home" />} />
                 <Route path="home" element={<Home />} />
@@ -32,10 +32,10 @@ const Navigation = () => {
                 <Route path="long-term" element={<LongTerm /> } />
                 <Route path="approveLoans/:id" element={<ApproveLoan /> } />
             </Route>
+             
             <Route path="Confirmpassword" element={<Confirmpassword /> } />
             <Route path='/' element={<Navigate replace to="/admin/Login" />} />
-            <Route path="/admin/Login" element={!getToken() ? <Login /> : <Navigate replace to="/admin/" />} />
-
+            <Route path="/admin/Login" element={!getToken() ? <Login /> : <Navigate replace to="/admin/" />} />  
         </Routes> 
     );
 }

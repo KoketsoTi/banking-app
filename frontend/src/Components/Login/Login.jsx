@@ -1,16 +1,18 @@
 import './Login.css';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { FaSignInAlt} from 'react-icons/fa';
 import { Success, Warning } from '../../helpers/toasters';
-import { setToken, setData } from "../../helpers/helpers";
+import { setToken } from "../../helpers/helpers";
+import { UserContext } from "../../Authorization/userContext";
 import ForgotPassword from '../../Models/forgotPasswordModel';
 import AuthorService from "../../Service/auth.service";
 
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
     const [errors, setErrors] = useState({}); 
+    const {setUser } = useContext(UserContext);
     
     function handleChange(event) {
         const { name, value } = event.target;
@@ -29,8 +31,9 @@ function Login() {
         AuthorService.login(formData.identifier, formData.password).then((response) => { 
             // set the token
             setToken(response.data.jwt);
-            setData(response.data.user);
 
+            //Store data in a state using context
+            setUser(response.data.user);
             Success(`Welcome back ${response.data.user.username}!`)
           //  window.location.href = "/admin/";  
         })
@@ -55,7 +58,7 @@ function Login() {
     return (
         <Box className='login' >
             <ToastContainer />
-            
+         
             <div className="md:container md:mx-auto">
                 <div className="flex justify-center">
                     <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
