@@ -4,7 +4,6 @@ import { Box, Typography, Button} from "@mui/material";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { calculateLoan } from '../../../Models/RenderLoans'
 import { DataTables } from '../../../Models/DataTables';
 
 function LongTerm(){
@@ -19,7 +18,7 @@ const [paymentmonthly, setupmonpayment] = useState(0);
 
 
   useEffect(()=>{
-    calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
+
   })
  
 

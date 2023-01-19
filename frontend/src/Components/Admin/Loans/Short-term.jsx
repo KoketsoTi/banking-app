@@ -4,30 +4,21 @@ import { Box, Typography, Button} from "@mui/material";
 import { dataLoans } from '../../../Data/mockedData';
 import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { calculateLoan, Datagrid } from '../../../Models/RenderLoans';
-
-
-function ShortTerm(){
-
- //For loans
-const [loanAmount, setLoanAmount] = useState(0);
-const [interestRate, setInterestRate] = useState(0);
-const [loanTerm, setLoanTerm] = useState(0);
-const [unpaidInterest, setunpaidInterest] = useState(0);
-const [paymentmonthly, setupmonpayment] = useState(0);
-
-  useEffect(()=>{
-    calculateLoan(setLoanAmount, setInterestRate,  setLoanTerm)
-  })
- 
-    const navigate = useNavigate();
-=======
+import Calculations from '../../../Models/CalculateLoans';
 import { DataTables } from '../../../Models/DataTables';
 
 function ShortTerm(){
+  const [loanAmount, setLoanAmount] = useState(0);
+  const [interestRate, setInterestRate] = useState(0);
+  const [loanTerm, setLoanTerm] = useState(0);
+  const [unpaidInterest, setunpaidInterest] = useState(0);
+  const [paymentmonthly, setupmonpayment] = useState(0);
+
+  useEffect(()=>{
+   
+  })  
+
   const navigate = useNavigate();
->>>>>>> 1f8709bf2ef2f2fe8474d3bb07c903f081dccba8
 
   const columns = [
     {field:"id", headerName: "ID", flex: 0.5},
@@ -85,24 +76,7 @@ function ShortTerm(){
         },
     }
 
-<<<<<<< HEAD
-    ]
-
-
-    return (
-        <Box m="20px" >
-            {/* HEADER */}
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
-                    <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Short Term Loans </Typography>
-                </Box>
-            </Box>
-
-            {/* Data in a table using Datagrid for creating a table  */}
-            <Datagrid  row={dataLoans}column={columns} />
-=======
   ]
-
 
   return (
     <Box m="20px" >
@@ -110,7 +84,6 @@ function ShortTerm(){
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mb="30px">
           <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Short Term Loans </Typography>
->>>>>>> 1f8709bf2ef2f2fe8474d3bb07c903f081dccba8
         </Box>
       </Box>
 

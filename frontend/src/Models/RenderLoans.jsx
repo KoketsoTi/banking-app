@@ -101,7 +101,7 @@ export const GeneraInfo  = ({ firstname, lastname, email, age, phone, address, s
 
 
 //Your account Details
-export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_interest, repayment,  subtitle, edit, icon  }) => {
+export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_interest, repayment, totaldue,  subtitle, edit, icon  }) => {
     return (
         <Box width="100%" p="20px 30px">
             <Box display="flex" justifyContent="space-between" >
@@ -115,100 +115,45 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_inter
             <Box justifyContent="space-between" mt="-5px" >
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}> Loan</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {shortloan} </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {shortloan} </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Amount</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {amount} </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {amount} </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Term</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {term} months </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {term} months </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Interest </Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {rate} p/a </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {rate} p/a </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Unpaid Interest </Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {unpaid_interest} </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {unpaid_interest} %</Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Monthly Pay </Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {repayment} p/a </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {repayment} p/a </Typography>
+                </Box>
+
+                <Box display="flex" justifyContent="space-between" mb="10px">
+                    <Typography variant="h5" style={{ color: "#4cceac" }}>Loan Status</Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {shortstatus} </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between">
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Loan Status</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {shortstatus} </Typography>
+                    <Typography variant="h5" style={{ color: "#4cceac" }}>Total Amount</Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {totaldue} </Typography>
                 </Box>
             </Box>
         </Box>
     );
 };
 
-export const calculateLoan = (setamt, inter, loanterm)=> {
-    const calcTotal = () =>{
-        const amountLoaned = setamt; 
-        const interest = 1 + inter/ 100; 
-        const totalpayment = amountLoaned * interest * loanterm;
-        const interestUnpaid = totalpayment - amountLoaned;
-        const monthlypayment = totalpayment/term;     
-    }
-    const interestpaid = () => {
-
-    }
-
-    const monthly = () => {
-
-    }
-
-    const calc = [
-        calcTotal,
-        interestpaid,
-        monthly
-    ]
-
-    return calc;
-}
-
-
-export const calculatelongLoan = (setamt, inter, loanterm)=> {
-    const calcTotal = () =>{
-        const amountLoaned = setamt; 
-        const interest = inter; 
-        // const totalpayment = amountLoaned * (1+ interest/12)^(12*loanterm)-amountLoaned;
-        const totmonthly = amountLoaned * ( Math.pow((1+ (interest/12)),(12*loanterm)));
-        const interestUnpaid = totalpayment - amountLoaned;
-        const monthlypayment = totalpayment/term; 
-    }
-    const interestpaid = () => {
-
-    }
-
-    const monthly = () => {
-
-    }
-
-    const calc = [
-        calcTotal,
-        interestpaid,
-        monthly
-    ]
-
-    return calc;
-}
-
-
-export const Datagrid =({row, column, isloading}) => {
-    return (
-        <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
-            <DataGrid rows={row} columns={column} components={{ Toolbar: GridToolbar }} loading={isloading}/>
-        </Box>
-    );
-}
