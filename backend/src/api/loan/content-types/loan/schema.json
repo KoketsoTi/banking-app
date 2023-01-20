@@ -35,6 +35,12 @@
     },
     "total_repay": {
       "type": "float"
+    },
+    "client_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "loans"
     }
   }
 }

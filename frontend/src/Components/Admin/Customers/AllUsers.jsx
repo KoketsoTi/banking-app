@@ -130,11 +130,10 @@ function AllUsers(){
                   </td>
 
                   <td>
-                    <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><AiOutlineEye style={{fontSize:"15px", marginRight:"5px"}}/>View</button>
+                    <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
                   </td>
 
                 </tr>
-
               );
             })}
             </tbody>

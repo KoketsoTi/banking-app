@@ -1,7 +1,7 @@
 import Home from './Components/Admin/Dashboard/home';
 import Profile from './Components/Admin/Profile/Profile';
 import Active from './Components/Admin/Customers/AllUsers';
-import Deactive from './Components/Admin/Customers/ActivateClients'
+import Deactive from './Components/Admin/Customers/VerifyNewApplications'
 import Verify from './Components/Admin/Card/Verify';
 import Cards from './Components/Admin/Card/Cards';
 import Innecontent from "./Components/Admin/Innercontent/Innercontent";
@@ -14,7 +14,7 @@ import UserProfile from './Components/Admin/UserProfile/UserProfile';
 import ApproveLoan from './Components/Admin/ApproveLoan/Approveloan';
 import Applications from './Components/ApplicationsForm/ApplicationsForm';
 import ClientHome from "./Components/Client/Home/Home"
-
+import RegisterAdmin from './Components/Admin/RegisterAdmin/RegisterAdmin';
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
@@ -33,6 +33,7 @@ const Navigation = () => {
                 <Route path="changePassword" element={<ChangePassword /> } />
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />
+                <Route path="addnewadmin" element={<RegisterAdmin />} />
                 <Route path="approveLoans/:id" element={<ApproveLoan /> } />
             </Route>
             

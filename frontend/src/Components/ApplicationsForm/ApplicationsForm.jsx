@@ -6,14 +6,15 @@ import { BiArrowBack } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate,useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
+import NewUser from '../../Service/clients.service';
+
 import * as Yup from 'yup';
+import { getToken } from '../../helpers/helpers';
+import { Success, Warning } from '../../helpers/toasters';
+import { ToastContainer } from 'react-toastify';
 
 function Apply() {
-
-    // const [formData, setFormData] = useState({
-    //     firstname: "", lastname: "", email: "", usertype: "", age:"", phone:"",  address:"", surbub:"", city:"", zip:""
-    // }); 
-
+    const token = getToken()
     let navigate = useNavigate();
 
     // form validation rules 
@@ -43,26 +44,35 @@ function Apply() {
 
     const formOptions = { resolver: yupResolver(formSchema) }
     const [searchParams, setSearchParams] = useSearchParams();
-
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState
 
     function onSubmit(data) {
         console.log(JSON.stringify(data, null, 4))
-        let _data = {
-            code : searchParams.get('code'),
-            firstname: data.firstname,
-            lastname : data.lastname,
-            email: data.email,
-            usertype: "Client",
-            age : data.age,
-            phone: data.phone,
-            address : data.address,
-            surbub: data.surbub,
-            city : data.city,
-            zip : data.zip,
+        let userData = {
+            data:{
+                firstname: data.firstname,
+                lastname : data.lastname,
+                email: data.email,
+                usertype: "Client",
+                age : data.age,
+                phone: data.phone,
+                address : data.address,
+                surbub: data.surbub,
+                city : data.city,
+                zip : data.zip
+            }
         }
-        console.log(_data)
+
+        NewUser.ApplicationForm(userData).then((response) => { 
+            Success("Application was successful, wait for email with an application status ");
+        })
+        .catch((error) => {  
+            console.log('An error occurred:', error.response);
+            Warning('Unable to apply ')
+        });
+       
+        console.log(userData)
         return false
     }
 
@@ -70,11 +80,9 @@ function Apply() {
 		navigate("/admin/Login");
 	}
     
-   
-
-
     return (
         <Box className='login' >
+             <ToastContainer />
             <div className="md:container md:mx-auto">
                 <div className="flex justify-center">
                     <div className="form-group   col mb-4 back lg:hidden" >
@@ -164,19 +172,6 @@ function Apply() {
                                     </div>
                                 </div>
 
-                                <div className="form-group col">
-                                    <label className="label"><span className="label-text">Zip</span></label>
-                                    <input type="file" name="id" placeholder="Zip" {...register('id')}
-                                        className="input input-bordered w-full max-w-s email "  />
-                                    <div className="invalid-feedback text-rose-600">{errors.id?.message}</div>
-                                </div>
-
-                                <div className="form-group col">
-                                    <label className="label"><span className="label-text">Zip</span></label>
-                                    <input type="file" name="proofofres" placeholder="Zip" {...register('proofofres')}
-                                        className="input input-bordered w-full max-w-s email " />
-                                    <div className="invalid-feedback text-rose-600">{errors.proofofres?.message}</div>
-                                </div>
 
                                 <div className='grid grid-cols-2 gap-8 '>
                                     <div className="form-group col mb-4 hidden lg:contents">
@@ -188,7 +183,7 @@ function Apply() {
                                     </div>
                                 </div>
                                 <div className="form-group col mb-4 lg:hidden">
-                                        <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{marginTop: "3px", marginRight:"5px"}}/>Submit Application </button>
+                                     <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{marginTop: "3px", marginRight:"5px"}}/>Submit Application </button>
                                 </div>
                             </form>
                         </div>

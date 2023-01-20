@@ -10,6 +10,7 @@ import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
 import { CgCloseO } from 'react-icons/cg';
 import { Link } from "react-router-dom";
+import { FiUserPlus } from 'react-icons/fi';
 import { removeToken } from '../../../helpers/helpers';
 
 
@@ -136,6 +137,14 @@ const Sidenavbar  = () => {
                 title="Change Password"
                 to="/admin/changePassword"
                 icon={<AiOutlineSetting style={{fontSize: "20px"}} />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="Add new Admin"
+                to="/admin/addnewadmin"
+                icon={<FiUserPlus style={{fontSize: "20px"}} />}
                 selected={selected}
                 setSelected={setSelected}
               />
