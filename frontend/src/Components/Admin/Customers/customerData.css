@@ -1,3 +1,9 @@
 .active-users {
     background-color: var(--side-background) ;
 }
+.suspend{
+    background-color: var(--dark-orange);
+}
+.activate{
+    background-color: var(  --capitec-blue);
+}

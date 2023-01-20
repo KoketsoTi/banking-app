@@ -4,7 +4,7 @@ import { UserContext } from '../../../Authorization/userContext';
 import "./navbar.css";
 
 const  AppHeader = () => {
-    const {user } = useContext(UserContext);
+    //  const {user } = useContext(UserContext);
     
     return (
         <Box style={{ background: "#141b2d" }}>
@@ -15,7 +15,8 @@ const  AppHeader = () => {
             <Box justifyItems={"end"}>
                 <Typography variant="h5" style={{ color: "#F9F9F9" }}></Typography>
                 <IconButton style={{ color: "#F9F9F9" }}>
-                {user.firstname}  {user.lastname}
+                {/* {user.firstname}  {user.lastname} */}
+                ertyuio
                 </IconButton>
             </Box>
         </Box>

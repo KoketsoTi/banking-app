@@ -21,21 +21,14 @@
     "accountnumber": {
       "type": "string"
     },
-    "client": {
+    "customer_id": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::client.client",
       "inversedBy": "accounts"
     },
-    "card": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::card.card"
-    },
-    "loans": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::loan.loan"
+    "Balance": {
+      "type": "float"
     }
   }
 }

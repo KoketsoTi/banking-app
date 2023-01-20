@@ -16,7 +16,7 @@ const forgotPassword = (data) => {
 }
 
 const loggedInUser = (token) => {
-    return axios.get(`${ API}users`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${ API}users/me`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const UpdateUser = (data, token) => {

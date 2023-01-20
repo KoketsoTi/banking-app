@@ -1,7 +1,7 @@
 import Home from './Components/Admin/Dashboard/home';
 import Profile from './Components/Admin/Profile/Profile';
-import Active from './Components/Admin/Customers/ActiveUsers';
-import Deactive from './Components/Admin/Customers/Suspended'
+import Active from './Components/Admin/Customers/AllUsers';
+import Deactive from './Components/Admin/Customers/ActivateClients'
 import Verify from './Components/Admin/Card/Verify';
 import Cards from './Components/Admin/Card/Cards';
 import Innecontent from "./Components/Admin/Innercontent/Innercontent";
@@ -13,6 +13,8 @@ import Confirmpassword from './Components/Confirmpassword/Confirmpassword';
 import UserProfile from './Components/Admin/UserProfile/UserProfile';
 import ApproveLoan from './Components/Admin/ApproveLoan/Approveloan';
 import Applications from './Components/ApplicationsForm/ApplicationsForm';
+import ClientHome from "./Components/Client/Home/Home"
+
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
@@ -22,8 +24,8 @@ const Navigation = () => {
             <Route path="/admin" element={getToken() ? <Innecontent /> : <Navigate replace to="/admin/Login" />} >
                 <Route path="/admin" element={<Navigate replace to="home" />} />
                 <Route path="home" element={<Home />} />
-                <Route path="active" element={<Active /> } />
-                <Route path="deactive" element={<Deactive /> } />
+                <Route path="users" element={<Active /> } />
+                <Route path="activateUser" element={<Deactive /> } />
                 <Route path="verify" element={<Verify /> } />
                 <Route path="card" element={<Cards /> } />  
                 <Route path="profile" element={<Profile /> } />
@@ -33,7 +35,8 @@ const Navigation = () => {
                 <Route path="long-term" element={<LongTerm /> } />
                 <Route path="approveLoans/:id" element={<ApproveLoan /> } />
             </Route>
-
+            
+            <Route path="/landing" element={<ClientHome /> } />
             <Route path="application" element={<Applications /> } />
             <Route path="Confirmpassword" element={<Confirmpassword /> } />
             <Route path='/' element={<Navigate replace to="/admin/Login" />} />

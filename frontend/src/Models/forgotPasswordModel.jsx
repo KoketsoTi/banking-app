@@ -43,8 +43,6 @@ function ForgotPassword() {
                 </label>
             </label>
         </div>
-
-
     );
 }
 export default ForgotPassword;

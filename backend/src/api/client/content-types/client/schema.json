@@ -43,7 +43,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::account.account",
-      "mappedBy": "client"
+      "mappedBy": "customer_id"
     }
   }
 }

@@ -13,8 +13,10 @@ import AuthorService from '../../Service/auth.service';
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
     const [errors, setErrors] = useState({}); 
-    const {setUser } = useContext(UserContext);
+    const {user, setUser } = useContext(UserContext);
+
     const navigate = useNavigate();
+
     function handleChange(event) {
         const { name, value } = event.target;
         setFormData(prevData => ({ ...prevData, [name]: value }));
@@ -23,7 +25,7 @@ function Login() {
     function applicationForm(){
         navigate("/application", { replace: true });
     }
-
+   
     function handleSubmit(event) {
         event.preventDefault();
         const newErrors = validateForm(formData);
@@ -36,11 +38,11 @@ function Login() {
         AuthorService.login(formData.identifier, formData.password).then((response) => { 
             // set the token
             setToken(response.data.jwt);
-
+            console.log(response.data);
             //Store data in a state using context
             setUser(response.data.user);
             Success(`Welcome back ${response.data.user.username}!`)
-          //  window.location.href = "/admin/";  
+            //window.location.href = "/admin/";  
         })
         .catch((error) => {  
             console.log('An error occurred:', error.response);
@@ -63,13 +65,16 @@ function Login() {
     return (
         <Box className='login' >
             <ToastContainer />
-         
             <div className="md:container md:mx-auto">
                 <div className="flex justify-center">
                     <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
                         <div className="card-body">
+                            <div className="body-header mb-4">
+                                <div className="text-dark mt-2 text-xl">BANK</div>
+                            </div>
+
                             <div className="body-header -mb-4">
-                                <div className="text-dark mt-2 user-cicle">Admin Login</div>
+                                <div className="text-dark mt-2 text-lg">Sign in to your account</div>
                             </div>
 
                             <div className="hozitontal-line -mb-4">
@@ -84,28 +89,25 @@ function Login() {
                                        {errors.identifier && <span className='errors'>{errors.identifier}</span>}
                                 </div>
 
-                                <div className="form-group col mb-4">
+                                <div className="form-group col mb-8">
                                     <label className="label"><span className="label-text">PASSWORD</span></label>
                                     <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}
                                         className="input input-bordered w-full max-w-s email "/>
                                    {errors.password && <span className='errors'>{errors.password}</span>}
                                 </div>
-
-                                <div className='grid grid-cols-2 '>
-                                    <div className="form-group col mb-4">
-                                        <label htmlFor="my-modal-4" className="forgot" >Forgot Password</label>
-                                        <ForgotPassword />
-                                    </div>
-
-                                    <div className="form-group col mb-4 text-end">
-                                        <label htmlFor="my-modal-4" onClick={applicationForm} className="apply" >Apply For Bank</label>
-                                    </div>
-                                </div>
                                 
-                                <div className="form-group col mb-8">
-                                    <button onClick={handleSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
+                                <div className="form-group col mb-4">
+                                    <button onClick={handleSubmit} className="rounded-none relative  w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
                                 </div>
                             </form>
+                            <div className="form-group col ">
+                                <label htmlFor="my-modal-4" className="forgot" >Forgot Password?</label>
+                                <ForgotPassword />
+                            </div>
+
+                            <div className="form-group col mb-4 ">
+                                <div>Don't have an account? click  <label htmlFor="my-modal-4" onClick={applicationForm} className="apply" >here </label>to Apply</div>
+                            </div>
                         </div>
                     </div>
                 </div>

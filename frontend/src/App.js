@@ -1,9 +1,9 @@
 import './App.css';
-import AdminRoutes from './Routes';
 import { useState, useEffect,  } from 'react';
 import { UserContext } from './Authorization/userContext';
-import AuthorService from "./Service/auth.service";
 import { getToken  } from "./helpers/helpers";
+import AdminRoutes from './Routes';
+import AuthorService from "./Service/auth.service";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,12 +22,14 @@ function App() {
 
   }, []);
 
+
   return (
     <UserContext.Provider value={{user, setUser}} >
       <div className='App'>
         <AdminRoutes />
       </div>
     </UserContext.Provider>
+
   );
 }
 export default App;
