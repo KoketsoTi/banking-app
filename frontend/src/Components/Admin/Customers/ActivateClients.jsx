@@ -15,7 +15,7 @@ function Deactive(){
 
   useEffect( () => {
     if(token){
-      UserService.getDeactive(token).then((response) => {
+      UserService.getAllUsers(token).then((response) => {
         setDeactive(response.data.data);
         console.log(response.data.data)
       }).catch((error) => {
