@@ -1,0 +1,15 @@
+.ben-card{
+    align-items: center;
+    text-align: center;
+}
+.ben-card h3{
+    align-self: center;
+}
+.Box{
+    margin: 20px;
+    align-items: center;
+    text-align: -webkit-center;
+}
+.add-btn{
+    justify-content: start;
+}

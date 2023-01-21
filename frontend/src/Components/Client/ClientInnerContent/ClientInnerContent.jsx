@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { ProfileView } from '../../../Models/ClientProfile';
 import Bottom from '../Navigations/BottomNav';
@@ -8,7 +8,7 @@ function Client() {
     return(
         <div className="drawer drawer-mobile" > 
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
-            <div className="drawer-content flex flex-col">
+            <div className="drawer-content  flex flex-col">
                 {/* <!-- Navbar--> */}
                
                 
@@ -26,9 +26,9 @@ function Client() {
                         street_address={"12 Mabunda Street"}
                         surbub={"Saulsville"} city={"Pretoria"} zip={"1100"} country={"South Africa"} />
                 </div>
-                <div>
+                {/* <div>
                 <Bottom />
-                </div>
+                </div> */}
             </div> 
             <div className="drawer-side " >
                 <label htmlFor="my-drawer-3" className="drawer-overlay"></label> 

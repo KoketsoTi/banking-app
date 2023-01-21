@@ -6,12 +6,11 @@ import { BiArrowBack } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate,useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import NewUser from '../../Service/clients.service';
-
 import * as Yup from 'yup';
 import { getToken } from '../../helpers/helpers';
 import { Success, Warning } from '../../helpers/toasters';
 import { ToastContainer } from 'react-toastify';
+import NewUser from '../../Service/clients.service';
 
 function Apply() {
     const token = getToken()
@@ -43,11 +42,11 @@ function Apply() {
     })
 
     const formOptions = { resolver: yupResolver(formSchema) }
-    const [searchParams, setSearchParams] = useSearchParams();
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState
 
-    function onSubmit(data) {
+    function onSubmit(data, event) {
+        event.preventDefault();
         console.log(JSON.stringify(data, null, 4))
         let userData = {
             data:{
