@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
 import { BsPencilSquare } from 'react-icons/bs';
 import { dataLoans } from '../../../Data/mockedData';
-import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
+// import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { DataTables } from '../../../Models/DataTables';
+// import { DataTables } from '../../../Models/DataTables';
 import { getToken } from '../../../helpers/helpers';
 import UserService from "../../../Service/clients.service";
+import { Error, Success } from '../../../helpers/toasters';
 
 function LongTerm(){
   const navigate = useNavigate();
@@ -23,7 +24,15 @@ function LongTerm(){
    const [deactive, setDeactive] = useState([])
    const [name, setName]=useState();
    const [id, setId]=useState();
+   const [users, setActive] = useState([])
    const token = getToken() 
+   const accStatus = useRef();
+
+   const [mydata, setMydata] = useState(dataLoans)
+   function handleDelete(id){
+   const newdata = mydata.filter(li=>li.id!==id)
+   setMydata(newdata);
+   }
  
   useEffect( () => {
     if(token){
@@ -37,6 +46,51 @@ function LongTerm(){
   }, [])
 
 
+  function getAllUsers(){
+    UserService.getAllUsers().then((response) => {
+      setActive(response.data.data);
+      console.log(response.data.data)
+    }).catch((error) => {
+      console.log("An error occurred:", error.response);
+    });
+  }
+
+  const activateUser = (params) => {
+    const id = params.id
+    accStatus.current = params.attributes.account_status;
+    console.log(params.attributes.account_status)
+    let value ="";
+    if(params.attributes.account_status === 'Suspended'){
+      value = "Active";
+    }else if(params.attributes.account_status === 'Active'){
+      value = "Suspended";
+    }
+
+    const data = {
+      data:{account_status: value}
+    }
+  
+    console.log(token , id, data)
+
+    UserService.updateStatus(token, id, data).then((data) => {
+      if(value === "Suspended"){
+        Success("Successfully Activated")
+      }else {
+        Success("Successfully Suspended")
+      }
+    }).catch((error) => {
+      Error("Unable to update")
+    }).finally( () => {
+      getAllUsers();
+    })
+  }
+
+  useEffect( () => {
+    if(token){
+      getAllUsers()
+    }
+  }, [])
+
   const Activate = (params) => {
     setName(params.attributes.customer_id.data.attributes.firstname)
     setId(params.id)
@@ -46,7 +100,8 @@ function LongTerm(){
     {/* HEADER */}
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Box mb="30px">
-        <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Suspended Accounts </Typography>
+        <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long term loan
+        </Typography>
       </Box>
     </Box>
 
@@ -93,9 +148,6 @@ function LongTerm(){
                   {user?.attributes.customer_id.data.attributes.email}
                 </td>
                 <td>
-                  {user?.attributes.customer_id.data.attributes.age}
-                </td>
-                <td>
                   {user?.attributes.customer_id.data.attributes.phone}
                 </td>
                 <td>
@@ -104,8 +156,21 @@ function LongTerm(){
                 <td>
                   <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
                 </td>
-              </tr>
+                <td >
+                    <button  className={
+                      user.attributes.account_status ==='Suspended'
+                      ? "rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "
+                      : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+                    } onClick={() => activateUser(user)} >{user.attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
+                  </td>
+                  {/* <td>
+                    <button className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white " style={{background: "#4cceac", color:"#141b2d"}} ><AiOutlineEye style={{fontSize:"15px", marginRight:"5px"}}/>Delete</button>
+                  </td> */}
+                  <td>
+                   <button className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white " style={{background: "#FF5823", color:"#F9F9F9"}}>Delete</button>
+                  </td>
 
+              </tr>
             );
           })}
           </tbody>

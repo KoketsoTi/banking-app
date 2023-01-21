@@ -15,11 +15,7 @@ function Deactive(){
 
   useEffect( () => {
     if(token){
-<<<<<<< HEAD:frontend/src/Components/Admin/Customers/ActivateClients.jsx
-      UserService.getAllUsers(token).then((response) => {
-=======
       UserService.getNewUsers(token).then((response) => {
->>>>>>> 340695f2d7837b8ca30dba42eeff37c87f746901:frontend/src/Components/Admin/Customers/VerifyNewApplications.jsx
         setDeactive(response.data.data);
         console.log(response.data.data)
       }).catch((error) => {

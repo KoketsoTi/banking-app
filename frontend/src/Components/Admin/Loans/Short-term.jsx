@@ -90,13 +90,13 @@ function ShortTerm(){
                   {user?.attributes.customer_id.data.attributes.email}
                 </td>
                 <td>
-                  {user?.attributes.customer_id.data.attributes.age}
-                </td>
-                <td>
                   {user?.attributes.customer_id.data.attributes.phone}
                 </td>
                 <td>
                   {user?.attributes.account_status}
+                </td>
+                <td>
+                  <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
                 </td>
                 <td>
                   <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
