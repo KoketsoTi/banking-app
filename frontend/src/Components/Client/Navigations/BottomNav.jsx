@@ -6,12 +6,12 @@ import { BsCreditCard } from 'react-icons/bs';
 const Item = ({ title, to, icon }) => {
     let activeClassName = "navlink";
   
-      return (
-          <NavLink className={({ isActive }) => isActive ? activeClassName : 'undefined' } to={to} >
-              <Typography >{icon} </Typography>
-              <Typography >{title}</Typography>
-          </NavLink>
-      );
+    return (
+        <NavLink className={({ isActive }) => isActive ? activeClassName : 'undefined' } to={to} >
+            <Typography >{icon} </Typography>
+            <Typography >{title}</Typography>
+        </NavLink>
+    );
 };
 
 function Bottom(){
