@@ -1,0 +1,14 @@
+.clientNavbar:hover{
+    color: unset;
+    background-color: unset;
+}
+.navlink{
+    color: blue;
+}
+
+.menu{
+    border-right:solid 1px var(--grey);
+}
+/* li{
+    background-color: var(--background-color);
+} */

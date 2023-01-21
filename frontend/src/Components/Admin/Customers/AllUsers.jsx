@@ -101,7 +101,7 @@ function AllUsers(){
                         {user?.attributes.customer_id.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                         </span>
                       </div>
-                      </div>
+                    </div>
                   </td>
                   <td>
                     {user?.attributes.accountnumber}
