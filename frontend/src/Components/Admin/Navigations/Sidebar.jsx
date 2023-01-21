@@ -1,5 +1,5 @@
 import './navbar.css'
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Sidebar, ProSidebarProvider, Menu, MenuItem, } from 'react-pro-sidebar';
 import { IconButton, Box, Typography} from "@mui/material";
 import { AiOutlineHome, AiOutlineSetting, AiOutlineUsergroupAdd } from 'react-icons/ai';
@@ -10,11 +10,11 @@ import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
 import { CgCloseO } from 'react-icons/cg';
 import { Link } from "react-router-dom";
+import { FiUserPlus } from 'react-icons/fi';
 import { removeToken } from '../../../helpers/helpers';
 
-
-
 const Item = ({ title, to, icon, selected, setSelected }) => {
+  
   return (
     <MenuItem className="v" style={{background: "#141b2d"}} active={selected === title} onClick={() => setSelected(title)}
       icon={icon} routerLink={<Link to={to} />} >
@@ -37,11 +37,11 @@ const Sidenavbar  = () => {
       <ProSidebarProvider >
         <Sidebar defaultCollapsed={isCollapsed}  >
           <Menu iconShape="square" style={{height: "100%", background: "#141b2d", paddingTop: "20px"}}>
-            <MenuItem onClick={() => setIsCollapsed(!isCollapsed)} icon={isCollapsed ? <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} /> : undefined}>
+            <MenuItem  style={{background: "#141b2d", color: "#F9F9F9"}} onClick={() => setIsCollapsed(!isCollapsed)} icon={isCollapsed ? <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} /> : undefined}>
 
               {!isCollapsed && (
-                <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px" >
-                  <Typography variant="h3" style={{color: "#F9F9F9"}}>
+                <Box display="flex"  justifyContent="space-between" alignItems="center" ml="15px" >
+                  <Typography variant="h3" >
                     ADMINIS
                   </Typography>
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -136,6 +136,14 @@ const Sidenavbar  = () => {
                 title="Change Password"
                 to="/admin/changePassword"
                 icon={<AiOutlineSetting style={{fontSize: "20px"}} />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="Add new Admin"
+                to="/admin/addnewadmin"
+                icon={<FiUserPlus style={{fontSize: "20px"}} />}
                 selected={selected}
                 setSelected={setSelected}
               />

@@ -44,6 +44,12 @@
       "relation": "oneToMany",
       "target": "api::account.account",
       "mappedBy": "customer_id"
+    },
+    "loans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::loan.loan",
+      "mappedBy": "client_id"
     }
   }
 }

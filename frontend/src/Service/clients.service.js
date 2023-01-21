@@ -11,17 +11,20 @@ const updateStatus = (token, id, value) => {
     return axios.put(`${API}accounts/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-// const ApplicationForm = async(token) => {
-//     await axios.post(`${API}clients`, data, {headers: {Authorization: `${BEARER} ${token}`}})
+const ApplicationForm = async(data) => {
+    await axios.post(`${API}newapplications`, data)
+}
 
-//     await axios.post(`${API}accounts`, {headers: {Authorization: `${BEARER} ${token}`}})
-
-//     await axios.post(`${API}cards`, {headers: {Authorization: `${BEARER} ${token}`}})
-// }
+const getNewUsers = () => {
+    const token = getToken();
+    return axios.get(`${API}newapplications`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
 
 const functions = {
     getAllUsers,
-    updateStatus
+    updateStatus,
+    ApplicationForm,
+    getNewUsers
 }
 
 export default functions;

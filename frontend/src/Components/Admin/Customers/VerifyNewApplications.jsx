@@ -15,7 +15,11 @@ function Deactive(){
 
   useEffect( () => {
     if(token){
+<<<<<<< HEAD:frontend/src/Components/Admin/Customers/ActivateClients.jsx
       UserService.getAllUsers(token).then((response) => {
+=======
+      UserService.getNewUsers(token).then((response) => {
+>>>>>>> 340695f2d7837b8ca30dba42eeff37c87f746901:frontend/src/Components/Admin/Customers/VerifyNewApplications.jsx
         setDeactive(response.data.data);
         console.log(response.data.data)
       }).catch((error) => {
@@ -34,26 +38,24 @@ function Deactive(){
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mb="30px">
-          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Suspended Accounts </Typography>
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Verify New Applications Accounts </Typography>
         </Box>
       </Box>
 
       {/* Data in a table using Datagrid for creating a table */}
-      {/* Data in a table using Datagrid for creating a table  */}
+      {/* Data in a table using Datagrid for creating a table  */} 
       <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
         <table className="table w-full z-0">
           <thead>
             <tr>
               <th></th>
-              <th>Account Number</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>email</th>
-              <th>age</th>
-              <th>phone</th>
-              <th>status</th>
-              <th></th>
-              <th></th>
+              <th>Full Name</th>
+              <th>Email </th>
+              <th>Phone</th>
+              <th>Age</th>
+              <th>View</th>
+              <th>Verify</th>
+              <th>Reject Account</th>
             </tr>
           </thead>
           <tbody>
@@ -64,32 +66,33 @@ function Deactive(){
                     <div className="avatar placeholder">
                       <div className="bg-neutral-focus text-neutral-content rounded-full w-14">
                         <span className="text-3xl">
-                        {user?.attributes.customer_id.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                        {user?.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                         </span>
                       </div>
                       </div>
                   </td>
                   <td>
-                    {user?.attributes.accountnumber}
+                    {user?.attributes.firstname} {user?.attributes.lastname}
+                  </td>
+
+                  <td>
+                    {user?.attributes.email}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.firstname}
+                    {user?.attributes.phone}
+                  </td>
+                 
+                  <td>
+                    {user?.attributes.age}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.lastname}
+                    <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
                   </td>
+
                   <td>
-                    {user?.attributes.customer_id.data.attributes.email}
+                    <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
                   </td>
-                  <td>
-                    {user?.attributes.customer_id.data.attributes.age}
-                  </td>
-                  <td>
-                    {user?.attributes.customer_id.data.attributes.phone}
-                  </td>
-                  <td>
-                    {user?.attributes.account_status}
-                  </td>
+
                   <td>
                     <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
                   </td>

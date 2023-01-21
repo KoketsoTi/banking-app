@@ -5,13 +5,13 @@ import { CssBaseline, ThemeProvider,} from "@mui/material";
 import { useMode } from "../../../theme";
 import Sidenavbar from "../Navigations/Sidebar";
 
-function Innecontent() {
+function Admin() {
     const [theme] = useMode();
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className='dash'>
-                <Sidenavbar  />
+                <Sidenavbar />
                 <main className="content">
                     <AppHeader />
                     <Outlet />
@@ -21,4 +21,4 @@ function Innecontent() {
     )
 }
 
-export default Innecontent;
+export default Admin;
