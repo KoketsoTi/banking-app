@@ -24,13 +24,13 @@ import Applications from './Components/ApplicationsForm/ApplicationsForm';
 import Client from "./Components/Client/ClientInnerContent/ClientInnerContent";
 import ClientHome from "./Components/Client/Home/Home";
 import PayBeneficiary from "./Components/Client/Paybeneficiary/Paybeneficiary";
+import Pay from "./Components/Client/Paybeneficiary/Pay";
 import PayBills from "./Components/Client/PayBills/Paybills";
 import Transfer from "./Components/Client/Transfer/Transfer";
 import CardRequest from "./Components/Client/Card/CardRequest";
 import LoanApplication from "./Components/Client/Loans/Loans";
-import QR_Code from "./Components/Client/QR_Code/QR_Code";
+import QRCode from "./Components/Client/QR_Code/QR_Code";
 import Messages from "./Components/Client/Nortifications/Messages";
-
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
@@ -56,12 +56,13 @@ const Navigation = () => {
             <Route path="/client" element={ <Client />} >
                 <Route path="/client" element={<Navigate replace to="home" />} />
                 <Route path="home" element={<ClientHome /> } />
+                <Route path="pay" element={<Pay /> } />
                 <Route path="paybeneficiary" element={<PayBeneficiary /> } />
                 <Route path="paybills" element={<PayBills /> } />
                 <Route path="transfer" element={<Transfer /> } />
                 <Route path="cardRequest" element={<CardRequest /> } />
                 <Route path="loanApplications" element={<LoanApplication /> } />
-                <Route path="qrcode" element={<QR_Code /> } />
+                <Route path="qrcode" element={<QRCode /> } />
                 <Route path="messages" element={<Messages /> } />
             </Route>
             

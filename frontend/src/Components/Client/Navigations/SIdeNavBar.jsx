@@ -42,7 +42,7 @@ function Sidebar() {
             <li>
                 <Item
                     title="Pay Beneficiary"
-                    to="/client/paybeneficiary"
+                    to="/client/Pay"
                     icon={<HiOutlineUsers style={{fontSize: "25px",  color:"#009DE0"}} />}
                 />
             </li>
@@ -104,11 +104,11 @@ function Sidebar() {
                 <div tabIndex={0} className="flex cursor-pointer">
                     <label  className="btn btn-ghost btn-circle avatar">
                         <div className="avatar placeholder">
-                        <div className="bg-neutral-focus text-neutral-content rounded-full w-11   ">
-                            <span className="text-xl">
-                            E
-                            </span>
-                        </div>
+                            <div className="bg-neutral-focus text-neutral-content rounded-full w-11   ">
+                                <span className="text-xl">
+                                E
+                                </span>
+                            </div>
                         </div>
                         
                     </label>
