@@ -22,6 +22,7 @@ const monthly = (totalAmt, loanterm) => {
     return monthlypayment; 
 }
 
+
 const calculate_interest = (data) => {
     console.log(data)
 }

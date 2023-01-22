@@ -11,6 +11,10 @@ const updateStatus = (token, id, value) => {
     return axios.put(`${API}accounts/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const deleteAUser = (token, id, value) => {
+    return axios.delete(`${API}accounts/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 const ApplicationForm = async(data) => {
     await axios.post(`${API}newapplications`, data)
 }
@@ -24,7 +28,8 @@ const functions = {
     getAllUsers,
     updateStatus,
     ApplicationForm,
-    getNewUsers
+    getNewUsers,
+    deleteAUser
 }
 
 export default functions;

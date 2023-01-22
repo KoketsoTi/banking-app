@@ -38,7 +38,6 @@ function Deactive(){
         </Box>
       </Box>
 
-      {/* Data in a table using Datagrid for creating a table */}
       {/* Data in a table using Datagrid for creating a table  */} 
       <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
         <table className="table w-full z-0">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useRef, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
 import { dataLoans } from '../../../Data/mockedData';
@@ -9,8 +9,12 @@ import Calculations from '../../../Models/CalculateLoans';
 import { DataTables } from '../../../Models/DataTables';
 import { getToken } from '../../../helpers/helpers';
 import UserService from "../../../Service/clients.service";
+import { Error, Success } from '../../../helpers/toasters';
+
 
 function ShortTerm(){
+
+  const navigate = useNavigate();
   const [loanAmount, setLoanAmount] = useState(0);
   const [interestRate, setInterestRate] = useState(0);
   const [loanTerm, setLoanTerm] = useState(0);
@@ -20,8 +24,19 @@ function ShortTerm(){
   const [deactive, setDeactive] = useState([])
    const [name, setName]=useState();
    const [id, setId]=useState();
-   const token = getToken() 
+   const [users, setActive] = useState([]);
+   const token = getToken(); 
+   const accStatus = useRef();
  
+   function getAllUsers(){
+    UserService.getAllUsers().then((response) => {
+      setActive(response.data.data);
+      console.log(response.data.data)
+    }).catch((error) => {
+      console.log("An error occurred:", error.response);
+    });
+  }
+
   useEffect( () => {
     if(token){
       UserService.getAllUsers(token).then((response) => {
@@ -38,12 +53,50 @@ function ShortTerm(){
     setName(params.attributes.customer_id.data.attributes.firstname)
     setId(params.id)
   }
+
+
+  const activateUser = (params) => {
+    const id = params.id
+    accStatus.current = params.attributes.account_status;
+    console.log(params.attributes.account_status)
+    let value ="";
+    if(params.attributes.account_status === 'Suspended'){
+      value = "Active";
+    }else if(params.attributes.account_status === 'Active'){
+      value = "Suspended";
+    }
+
+    const data = {
+      data:{account_status: value}
+    }
+  
+    console.log(token , id, data)
+
+    UserService.updateStatus(token, id, data).then((data) => {
+      if(value === "Suspended"){
+        Success("Successfully Activated")
+      }else {
+        Success("Successfully Suspended")
+      }
+    }).catch((error) => {
+      Error("Unable to update")
+    }).finally( () => {
+      getAllUsers();
+    })
+  }
+
+
+  const edit = (params) =>{
+    navigate(`/admin/approveLoan/${params.id}`)
+  } 
+
   return (
     <Box m="20px" >
     {/* HEADER */}
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Box mb="30px">
-        <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Suspended Accounts </Typography>
+        <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Short term loan
+        </Typography>
       </Box>
     </Box>
 
@@ -57,16 +110,18 @@ function ShortTerm(){
             <th>First Name</th>
             <th>Last Name</th>
             <th>email</th>
-            <th>age</th>
             <th>phone</th>
             <th>status</th>
+            <th></th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {deactive.map((user) => {
+            
             return (
+              
               <tr key={user.id}>
                 <td>
                   <div className="avatar placeholder">
@@ -96,13 +151,21 @@ function ShortTerm(){
                   {user?.attributes.account_status}
                 </td>
                 <td>
-                  <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
-                </td>
-                <td>
-                  <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
-                </td>
-              </tr>
+                    <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
+                  </td>
+                <td >
+                    <button  className={
+                      user.attributes.account_status ==='Suspended'
+                      ? "rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "
+                      : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+                    } onClick={() => activateUser(user)} >{user.attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
+                  </td>
 
+                  <td>
+                   <button className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "  style={{background: "#FF5823", color:"#F9F9F9"}}>Delete</button>
+                  </td>
+
+              </tr>
             );
           })}
           </tbody>

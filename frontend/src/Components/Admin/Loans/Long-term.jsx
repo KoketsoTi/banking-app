@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './Loans.css';
 import { Box, Typography, Button} from "@mui/material";
+import axios from 'axios';
 import { BsPencilSquare } from 'react-icons/bs';
 import { dataLoans } from '../../../Data/mockedData';
 // import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
@@ -24,16 +25,13 @@ function LongTerm(){
    const [deactive, setDeactive] = useState([])
    const [name, setName]=useState();
    const [id, setId]=useState();
-   const [users, setActive] = useState([])
-   const token = getToken() 
+   const [users, setActive] = useState([]);
+   const token = getToken(); 
    const accStatus = useRef();
 
-   const [mydata, setMydata] = useState(dataLoans)
-   function handleDelete(id){
-   const newdata = mydata.filter(li=>li.id!==id)
-   setMydata(newdata);
-   }
- 
+  //  const [loan, setLoan] = useState()
+
+   
   useEffect( () => {
     if(token){
       UserService.getAllUsers(token).then((response) => {
@@ -44,7 +42,6 @@ function LongTerm(){
       });
     }
   }, [])
-
 
   function getAllUsers(){
     UserService.getAllUsers().then((response) => {
@@ -95,6 +92,34 @@ function LongTerm(){
     setName(params.attributes.customer_id.data.attributes.firstname)
     setId(params.id)
   }
+
+
+  const deleteAUser= (id) => {
+    // Show a confirm dialog before deleting the record
+    if(window.confirm("Are you sure you want to delete this record?")) {
+        // Make a DELETE request to the server
+        console.log(id,"delete")
+        axios.delete(`http://localhost:1337/api/accounts/${id}`)
+            .then(response => {
+                // Handle success
+                console.log(response);
+                // Remove the deleted record from the table data source
+           
+                alert("Record deleted successfully!");
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error);
+                alert("Error deleting record, please try again later.");
+            });
+
+  
+    }
+}
+const edit = (params) =>{
+  navigate(`/admin/approveLoan/${params.id}`)
+}  
+
   return (
     <Box m="20px" >
     {/* HEADER */}
@@ -115,16 +140,18 @@ function LongTerm(){
             <th>First Name</th>
             <th>Last Name</th>
             <th>email</th>
-            <th>age</th>
             <th>phone</th>
             <th>status</th>
+            <th></th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {deactive.map((user) => {
+            
             return (
+              
               <tr key={user.id}>
                 <td>
                   <div className="avatar placeholder">
@@ -154,8 +181,8 @@ function LongTerm(){
                   {user?.attributes.account_status}
                 </td>
                 <td>
-                  <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Activate</label>  
-                </td>
+                    <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
+                  </td>
                 <td >
                     <button  className={
                       user.attributes.account_status ==='Suspended'
@@ -163,11 +190,9 @@ function LongTerm(){
                       : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
                     } onClick={() => activateUser(user)} >{user.attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
                   </td>
-                  {/* <td>
-                    <button className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white " style={{background: "#4cceac", color:"#141b2d"}} ><AiOutlineEye style={{fontSize:"15px", marginRight:"5px"}}/>Delete</button>
-                  </td> */}
+
                   <td>
-                   <button className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white " style={{background: "#FF5823", color:"#F9F9F9"}}>Delete</button>
+                   <button  className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "  style={{background: "#FF5823", color:"#F9F9F9"}}>Delete</button>
                   </td>
 
               </tr>
