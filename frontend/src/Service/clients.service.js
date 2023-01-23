@@ -1,6 +1,6 @@
 import { API, BEARER } from "../Environment/constant";
 import axios from 'axios';
-import { getToken } from "../helpers/helpers";
+import { getToken } from "../Helpers/helpers";
 
 const getAllUsers = () => {
     const token = getToken();
@@ -27,6 +27,11 @@ const updateLoanStatus = (token, id, value) => {
     return axios.put(`${API}loans/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const getUser = (id) => {
+    const token = getToken();
+    return axios.get(`${API}accounts?populate=*&filters[customer_id][id][$eq]=${id}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 
 const ApplicationForm = async(data) => {
     await axios.post(`${API}newapplications`, data)
@@ -50,7 +55,8 @@ const functions = {
     getShortLoans,
     getLongLoans,
     updateLoanStatus,
-    register
+    register,
+    getUser
 }
 
 export default functions;
