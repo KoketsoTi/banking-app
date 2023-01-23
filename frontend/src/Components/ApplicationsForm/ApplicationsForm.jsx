@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
 import { Box } from "@mui/material";
 import { HiOutlineDocument} from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
 import { BiArrowBack } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
-import { Link, useNavigate,useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { getToken } from '../../helpers/helpers';
@@ -15,7 +15,14 @@ import NewUser from '../../Service/clients.service';
 function Apply() {
     const token = getToken()
     let navigate = useNavigate();
+    const [account, setAccNumber] = useState();
+    let randomDigits = 0;
 
+    for (let i = 0; i < 8; i++) {
+        let randomNum = parseInt(10000000 + Math.random() * (90000000 - 10000000))
+        randomDigits = randomNum;
+    }
+      
     // form validation rules 
     const formSchema = Yup.object().shape({
         firstname: Yup.string().required('First Name is mendatory'),
@@ -45,6 +52,8 @@ function Apply() {
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState
 
+    console.log(randomDigits);
+    
     function onSubmit(data, event) {
         event.preventDefault();
         console.log(JSON.stringify(data, null, 4))
@@ -59,7 +68,11 @@ function Apply() {
                 address : data.address,
                 surbub: data.surbub,
                 city : data.city,
-                zip : data.zip
+                zip : data.zip,
+                account_type: "Savings",
+                account_status: "Pending",
+                account: "14" + randomDigits,
+                balance: 0
             }
         }
 

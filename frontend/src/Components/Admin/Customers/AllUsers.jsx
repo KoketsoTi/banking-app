@@ -17,7 +17,6 @@ function AllUsers(){
   function getAllUsers(){
     UserService.getAllUsers().then((response) => {
       setActive(response.data.data);
-      console.log(response.data.data)
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     });
@@ -27,7 +26,6 @@ function AllUsers(){
   const activateUser = (params) => {
     const id = params.id
     accStatus.current = params.attributes.account_status;
-    console.log(params.attributes.account_status)
     let value ="";
     if(params.attributes.account_status === 'Suspended'){
       value = "Active";
@@ -61,7 +59,7 @@ function AllUsers(){
   }, [])
 
   const edit = (params) =>{
-    navigate(`/admin/userprofile/${params.id}`)
+    navigate(`/admin/userprofile`, {state: {params}})
   }
 
   return (

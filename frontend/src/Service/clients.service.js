@@ -11,9 +11,22 @@ const updateStatus = (token, id, value) => {
     return axios.put(`${API}accounts/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-const deleteAUser = (token, id, value) => {
-    return axios.delete(`${API}accounts/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
+const deleteAUser = (token, id) => {
+    return axios.delete(`${API}newapplications/${id}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
+
+const getShortLoans = (token) => {
+    return axios.get(`${API}clients?populate=*&filters[loans][loan_type][$eq]=Short-term`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const getLongLoans = (token) => {
+    return axios.get(`${API}clients?populate=*&filters[loans][loan_type][$eq]=Long-term`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const updateLoanStatus = (token, id, value) => {
+    return axios.put(`${API}loans/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 
 const ApplicationForm = async(data) => {
     await axios.post(`${API}newapplications`, data)
@@ -24,12 +37,20 @@ const getNewUsers = () => {
     return axios.get(`${API}newapplications`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const register = (token, data) => {
+    return axios.post(`${API}auth/local/register`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
+}
+
 const functions = {
     getAllUsers,
     updateStatus,
     ApplicationForm,
     getNewUsers,
-    deleteAUser
+    deleteAUser,
+    getShortLoans,
+    getLongLoans,
+    updateLoanStatus,
+    register
 }
 
 export default functions;

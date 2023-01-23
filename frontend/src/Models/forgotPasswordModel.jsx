@@ -1,7 +1,7 @@
-import { RxReset } from 'react-icons/rx';
-import React, { useRef } from 'react';
 import { Success, Error } from '../helpers/toasters';
+import { RxReset } from 'react-icons/rx';
 import AuthorService from "../Service/auth.service";
+import React, { useRef } from 'react';
 
 //Forgot Password Modal
 function ForgotPassword() {

@@ -1,6 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { HiDatabase } from 'react-icons/hi';
-import { RxReset} from 'react-icons/rx';
+import { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { Link, useNavigate,useSearchParams } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { getToken } from '../helpers/helpers';
+import * as Yup from 'yup';
 
 //Your account balance
 export const Balances = ({ title, subtitle, icon, balance  }) => {
@@ -163,8 +168,66 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, subtitle, ic
 };
 
 
+const updateUser = (params) =>{
+
+}
+
+
 //Edit profile
-export const EditProfile = ({ subtitle, firstname, lastname, email, age, phone, address, surbub, city, zip }) => {
+export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, phone, address, surbub, city, zip }) => {
+    
+    const token = getToken()
+
+    // form validation rules 
+    const formSchema = Yup.object().shape({
+        firstname: Yup.string().required('First Name is mendatory'),
+
+        lastname: Yup.string().required('Last name is mendatory'),
+
+        email: Yup.string().required('Email is mendatory')
+            .email('invalid Email'),
+
+        age: Yup.string().required('Age is mendatory')
+            .min(2, 'Age must be at least 2 char long'),
+
+        phone: Yup.string().required('Phone is mendatory'),
+
+        address: Yup.string().required('address is mendatory'),
+
+        surbub: Yup.string().required('surbub is mendatory'),
+
+        city: Yup.string().required('city is mendatory'),
+
+        zip: Yup.string().required('zip is mendatory')
+            .min(3, 'zip must be at least 3 char long')
+            .max(4, 'zip must not be longer than 4 characters'),
+    })
+
+    const formOptions = { resolver: yupResolver(formSchema) }
+    const { register, handleSubmit, reset, formState } = useForm(formOptions)
+    const { errors } = formState
+
+    function onSubmit(data, event) {
+        event.preventDefault();
+        console.log(JSON.stringify(data, null, 4))
+        let userData = {
+            data:{
+                firstname: data.firstname,
+                lastname : data.lastname,
+                email: data.email,
+                age : data.age,
+                phone: data.phone,
+                address : data.address,
+                surbub: data.surbub,
+                city : data.city,
+                zip : data.zip
+            }
+        }
+    
+        console.log(userData)
+        return false
+    }
+
     return (
         <Box>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
@@ -175,83 +238,69 @@ export const EditProfile = ({ subtitle, firstname, lastname, email, age, phone, 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">First Name</span></label>
-                            <input  type="text" disabled placeholder={firstname} className="input input-bordered w-full max-w-s email " /> 
+                            <input name="firstname" type="text" disabled placeholder={firstname} className="input input-bordered w-full max-w-s email " {...register('firstname')} /> 
+                            <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
                         </div>
 
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Last Name</span></label>
-                            <input  type="text" disabled placeholder={lastname}className="input input-bordered w-full max-w-s email " />
+                            <input name="lastname" type="text" disabled placeholder={lastname}className="input input-bordered w-full max-w-s email " {...register('lastname')} />
+                            <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
                         </div>
                     </div>
                     
 
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Email</span></label>
-                        <input  type="email" disabled placeholder={email} className="input input-bordered w-full max-w-s email " />
+                        <input name="email" type="email" disabled placeholder={email} className="input input-bordered w-full max-w-s email " {...register('email')} />
+                        <div className="invalid-feedback text-rose-600">{errors.email?.message}</div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Age</span></label>
-                            <input  type="number" disabled placeholder={age} className="input input-bordered w-full max-w-s email " />
+                            <input name="age" type="number" disabled placeholder={age} className="input input-bordered w-full max-w-s email " {...register('age')} />
+                            <div className="invalid-feedback text-rose-600">{errors.age?.message}</div>
                         </div>
 
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Phone</span></label>
-                            <input  type="text" placeholder={phone} className="input input-bordered w-full max-w-s email " />
+                            <input name="phone" type="text" placeholder={phone} className="input input-bordered w-full max-w-s email " {...register('phone')} />
+                            <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
                         </div>
                     </div>
 
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Address</span></label>
-                        <input  type="text" placeholder={address} className="input input-bordered w-full max-w-s email " />
+                        <input name="address" type="text" placeholder={address} className="input input-bordered w-full max-w-s email " {...register('address')} />
+                        <div className="invalid-feedback text-rose-600">{errors.surbub?.message}</div>
                     </div>
 
 
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Surbub</span></label>
-                        <input  type="text" placeholder={surbub} className="input input-bordered w-full max-w-s email " />
+                        <input name="surbub" type="text" placeholder={surbub} className="input input-bordered w-full max-w-s email " {...register('surbub')} />
+                        <div className="invalid-feedback text-rose-600">{errors.surbub?.message}</div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">City</span></label>
-                            <input  type="text" placeholder={city} className="input input-bordered w-full max-w-s email " />
+                            <input name="city" type="text" placeholder={city} className="input input-bordered w-full max-w-s email " {...register('city')} />
+                            <div className="invalid-feedback text-rose-600">{errors.city?.message}</div>
                         </div>
 
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Zip</span></label>
-                            <input  type="text" placeholder={zip} className="input input-bordered w-full max-w-s email " />
+                            <input name="zip" type="text" placeholder={zip} className="input input-bordered w-full max-w-s email " {...register('zip')} />
+                            <div className="invalid-feedback text-rose-600">{errors.zip?.message}</div>
                         </div>
                     </div>
 
                     <div className="form-group col mt-4 mb-2">
-                        <button className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                             <HiDatabase style={{ marginRight: "5px", fontSize: "20px" }}  />Update
                         </button>
-                    </div>
-                </label>
-            </label>
-        </Box>
-    );
-}
-
-
-//Edit profile
-export const DeleteUser = ({ subtitle, user }) => {
-    return (
-        <Box>
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label htmlFor="my-modal-4" className="modal cursor-pointer">
-                <label className="modal-box relative" htmlFor="">
-                    <h3 className="text-lg text-center font-bold">{subtitle}</h3>
-
-                    <div className="form-group col mb-4">
-
-                    </div>
-
-                    <div className="form-group col mb-8">
-                        <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><RxReset style={{ marginTop: "3px", marginRight: "5px" }} />Reset</button>
                     </div>
                 </label>
             </label>

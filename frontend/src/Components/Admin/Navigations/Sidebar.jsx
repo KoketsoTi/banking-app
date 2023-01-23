@@ -73,7 +73,7 @@ const Sidenavbar  = () => {
                 />
 
                 <Item
-                  title="Activate Users"
+                  title="Approve Applications"
                   to="/admin/activateUser"
                   icon={<AiOutlineUsergroupAdd style={{fontSize: "20px"}} />}
                   selected={selected}

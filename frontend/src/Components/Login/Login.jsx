@@ -37,12 +37,22 @@ function Login() {
         //Post data in the backend
         AuthorService.login(formData.identifier, formData.password).then((response) => { 
             // set the token
-            setToken(response.data.jwt);
-            console.log(response.data);
-            //Store data in a state using context
-            setUser(response.data.user);
-            Success(`Welcome back ${response.data.user.username}!`)
-            //window.location.href = "/admin/";  
+            if (response.data.user.usertype === 'Admin') {
+                setToken(response.data.jwt);
+                console.log(response.data.user.usertype);
+                //Store data in a state using context
+                setUser(response.data.user);
+                Success(`Welcome back ${response.data.user.username}!`)
+                window.location.href = "/admin/";  
+            } else if(response.data.user.usertype === 'Client'){
+                setToken(response.data.jwt);
+                console.log(response.data.user.usertype);
+                //Store data in a state using context
+                setUser(response.data.user);
+                Success(`Welcome back ${response.data.user.username}!`)
+                window.location.href = "/client/";  
+            }
+           
         })
         .catch((error) => {  
             console.log('An error occurred:', error.response);

@@ -5,8 +5,11 @@ import { Balances, AccountDetails, GeneraInfo, Loan, EditProfile } from '../../.
 import { FaUserEdit, FaRegUserCircle } from 'react-icons/fa'
 import { GiReceiveMoney } from 'react-icons/gi';
 import { AiOutlineBank } from 'react-icons/ai';
+import { useLocation } from "react-router-dom";
 
 function UserProfile() {
+  const {state} = useLocation();
+  console.log(state)
   return (
     <Box m="20px">
       <ToastContainer />
@@ -30,9 +33,11 @@ function UserProfile() {
               </figure>
 
               <Box className="card-body text-center ">
-                <Typography variant="h4">Excellent Mashengete</Typography>
+                <Typography variant="h4">
+                  {state.params.attributes.customer_id.data.attributes.firstname}  {state.params.attributes.customer_id.data.attributes.lastname}
+                </Typography>
                 <Typography>If a dog chews shoes whose shoes does he choose?</Typography>
-                <Box class="card-actions justify-center text-center ">
+                <Box className="card-actions justify-center text-center ">
                   <label htmlFor="my-modal-4" className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                     <FaUserEdit style={{ marginRight: "5px", fontSize: "20px" }} />Edit Profile
                   </label>
@@ -44,39 +49,28 @@ function UserProfile() {
           {/* Column 2 */}
           <Grid item md={4.5}>
             {/* your Total  Balance */}
-            <Box
-              style={{ backgroundColor: "#141b2d" }}
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Box style={{ backgroundColor: "#141b2d" }} alignItems="center" justifyContent="center" >
               <Balances
                 title="Your Total Balance"
                 subtitle="Balance"
-                balance="2000"/>
+                balance={state.params.attributes.Balance}
+              />
             </Box>
 
             {/* Bank Account Details */}
-            <Box
-              style={{ backgroundColor: "#141b2d" }}
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Box style={{ backgroundColor: "#141b2d" }} alignItems="center" justifyContent="center">
               <GeneraInfo
                 subtitle="General Info"
-                firstname="Excellent"
-                lastname="Mashengete"
-                email="mashengete@live.com"
-                age="40"
-                phone="079-551-7898"
-                address="25 Mareka Street"
-                surbub="Auckland Park"
-                city="Johannesburg"
-                zip="0125"
-                icon={
-                  <FaRegUserCircle
-                    style={{ color: "#4cceac", fontSize: "20px" }}
-                  />
-                }
+                firstname={state.params.attributes.customer_id.data.attributes.firstname}
+                lastname={state.params.attributes.customer_id.data.attributes.lastname}
+                email={state.params.attributes.customer_id.data.attributes.email}
+                age={state.params.attributes.customer_id.data.attributes.age}
+                phone={state.params.attributes.customer_id.data.attributes.phone}
+                address={state.params.attributes.customer_id.data.attributes.street_address}
+                surbub={state.params.attributes.customer_id.data.attributes.surbub}
+                city={state.params.attributes.customer_id.data.attributes.city}
+                zip={state.params.attributes.customer_id.data.attributes.zipcode}
+                icon={ <FaRegUserCircle style={{ color: "#4cceac", fontSize: "20px" }}  />  } 
               />
             </Box>
           </Grid>
@@ -99,9 +93,9 @@ function UserProfile() {
             >
               <AccountDetails
                 subtitle="Account Details"
-                accnumber="1455535789"
-                acctype="Savings"
-                accstatus="Active"
+                accnumber={state.params.attributes.accountnumber}
+                acctype={state.params.attributes.account_type}
+                accstatus={state.params.attributes.account_status}
                 virtualcard="inactive"
                 icon={
                   <AiOutlineBank
@@ -138,15 +132,17 @@ function UserProfile() {
       <Box  style={{ backgroundColor: "#141b2d" }} alignItems="center" justifyContent="center" >
         <EditProfile 
             subtitle="Update profile"
-            firstname={"Excellent"}
-            lastname="Mashengete"
-            email="mashengete@live.com"
-            age="40"
-            phone="079-551-7898"
-            address="25 Mareka Street"
-            surbub="Auckland Park"
-            city="Johannesburg"
-            zip="0125" />
+            id={state.params.attributes.customer_id.data.id}
+            firstname={state.params.attributes.customer_id.data.attributes.firstname}
+            lastname={state.params.attributes.customer_id.data.attributes.lastname}
+            email={state.params.attributes.customer_id.data.attributes.email}
+            age={state.params.attributes.customer_id.data.attributes.age}
+            phone={state.params.attributes.customer_id.data.attributes.phone}
+            address={state.params.attributes.customer_id.data.attributes.street_address}
+            surbub={state.params.attributes.customer_id.data.attributes.surbub}
+            city={state.params.attributes.customer_id.data.attributes.city}
+            zip={state.params.attributes.customer_id.data.attributes.zipcode}
+          />
       </Box>
     </Box>
   );

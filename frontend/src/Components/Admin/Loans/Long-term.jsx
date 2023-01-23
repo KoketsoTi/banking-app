@@ -1,209 +1,154 @@
-import { useEffect, useRef, useState } from 'react';
 import './Loans.css';
-import { Box, Typography, Button} from "@mui/material";
-import axios from 'axios';
-import { BsPencilSquare } from 'react-icons/bs';
-import { dataLoans } from '../../../Data/mockedData';
-// import { AiOutlineEye, AiOutlineCloseCircle } from 'react-icons/ai';
+import { useEffect, useState } from 'react';
+import { Box, Typography} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-// import { DataTables } from '../../../Models/DataTables';
 import { getToken } from '../../../helpers/helpers';
-import UserService from "../../../Service/clients.service";
 import { Error, Success } from '../../../helpers/toasters';
+import { ToastContainer } from 'react-toastify';
+import UserService from "../../../Service/clients.service";
 
 function LongTerm(){
   const navigate = useNavigate();
+ 
+  const [longLoan, setLongTerm] = useState([]);
+  const token = getToken(); 
 
-  //For loans
-  const [loanAmount, setLoanAmount] = useState(0);
-  const [interestRate, setInterestRate] = useState(0);
-  const [loanTerm, setLoanTerm] = useState(0);
-  const [unpaidInterest, setunpaidInterest] = useState(0);
-  const [paymentmonthly, setupmonpayment] = useState(0);
-
-
-   const [deactive, setDeactive] = useState([])
-   const [name, setName]=useState();
-   const [id, setId]=useState();
-   const [users, setActive] = useState([]);
-   const token = getToken(); 
-   const accStatus = useRef();
-
-  //  const [loan, setLoan] = useState()
-
-   
-  useEffect( () => {
-    if(token){
-      UserService.getAllUsers(token).then((response) => {
-        setDeactive(response.data.data);
-        console.log(response.data.data)
-      }).catch((error) => {
-          console.log("An error occurred:", error.response);
-      });
-    }
-  }, [])
-
-  function getAllUsers(){
-    UserService.getAllUsers().then((response) => {
-      setActive(response.data.data);
-      console.log(response.data.data)
+  function getallLoans(){
+    UserService.getLongLoans(token).then((response) => {
+      setLongTerm(response.data.data);
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     });
   }
 
   const activateUser = (params) => {
-    const id = params.id
-    accStatus.current = params.attributes.account_status;
-    console.log(params.attributes.account_status)
+    const id = params.attributes.loans.data[0].id
+
     let value ="";
-    if(params.attributes.account_status === 'Suspended'){
+    if(params.attributes.loans.data[0].attributes.loan_status === 'Inactive'){
       value = "Active";
-    }else if(params.attributes.account_status === 'Active'){
-      value = "Suspended";
+    }else if(params.attributes.loans.data[0].attributes.loan_status === 'Active'){
+      value = "Inactive";
     }
 
     const data = {
-      data:{account_status: value}
+      data:{loan_status: value}
     }
-  
     console.log(token , id, data)
-
-    UserService.updateStatus(token, id, data).then((data) => {
-      if(value === "Suspended"){
+    
+    UserService.updateLoanStatus(token, id, data).then((data) => {
+      if(value === "Inactive"){
         Success("Successfully Activated")
       }else {
-        Success("Successfully Suspended")
+        Success("Successfully Deactivated")
       }
     }).catch((error) => {
-      Error("Unable to update")
+      Error("Unable to update loan status")
     }).finally( () => {
-      getAllUsers();
+      getallLoans();
     })
   }
 
+  //Get Long Term Loans
   useEffect( () => {
     if(token){
-      getAllUsers()
+      getallLoans();
     }
   }, [])
 
-  const Activate = (params) => {
-    setName(params.attributes.customer_id.data.attributes.firstname)
-    setId(params.id)
-  }
 
-
-  const deleteAUser= (id) => {
-    // Show a confirm dialog before deleting the record
-    if(window.confirm("Are you sure you want to delete this record?")) {
-        // Make a DELETE request to the server
-        console.log(id,"delete")
-        axios.delete(`http://localhost:1337/api/accounts/${id}`)
-            .then(response => {
-                // Handle success
-                console.log(response);
-                // Remove the deleted record from the table data source
-           
-                alert("Record deleted successfully!");
-            })
-            .catch(error => {
-                // Handle error
-                console.log(error);
-                alert("Error deleting record, please try again later.");
-            });
-
-  
-    }
-}
-const edit = (params) =>{
-  navigate(`/admin/approveLoan/${params.id}`)
-}  
+  const edit = (params) =>{
+    navigate(`/admin/approveLoans`, {state:{params}})
+  }  
 
   return (
     <Box m="20px" >
-    {/* HEADER */}
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box mb="30px">
-        <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long term loan
-        </Typography>
+      <ToastContainer />
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box mb="30px">
+          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Long term loan
+          </Typography>
+        </Box>
       </Box>
-    </Box>
 
-    {/* Data in a table using Datagrid for creating a table  */}
-    <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
-      <table className="table w-full z-0">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Account Number</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>email</th>
-            <th>phone</th>
-            <th>status</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {deactive.map((user) => {
-            
-            return (
-              
-              <tr key={user.id}>
-                <td>
-                  <div className="avatar placeholder">
-                    <div className="bg-neutral-focus text-neutral-content rounded-full w-14">
-                      <span className="text-3xl">
-                      {user?.attributes.customer_id.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
-                      </span>
+      {/* Data in a table using Datagrid for creating a table  */}
+      <Box justifyContent="center" className='w-full' style={{ height: 650 }}>
+        <table className="table w-full z-0">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Account Number</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>email</th>
+              <th>phone</th>
+              <th>status</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {longLoan.map((long) => {
+              return (
+                <tr key={long.id}>
+                  <td>
+                    <div className="avatar placeholder">
+                      <div className="bg-neutral-focus text-neutral-content rounded-full w-14">
+                        <span className="text-3xl">
+                          {long?.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                        </span>
+                      </div>
                     </div>
-                    </div>
-                </td>
-                <td>
-                  {user?.attributes.accountnumber}
-                </td>
-                <td>
-                  {user?.attributes.customer_id.data.attributes.firstname}
-                </td>
-                <td>
-                  {user?.attributes.customer_id.data.attributes.lastname}
-                </td>
-                <td>
-                  {user?.attributes.customer_id.data.attributes.email}
-                </td>
-                <td>
-                  {user?.attributes.customer_id.data.attributes.phone}
-                </td>
-                <td>
-                  {user?.attributes.account_status}
-                </td>
-                <td>
-                    <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
                   </td>
-                <td >
-                    <button  className={
-                      user.attributes.account_status ==='Suspended'
+                  {/* <td>{long?.attributes.accounts.data[0].attributes.accountnumber}</td> */}
+                  <td>{long?.attributes.firstname}</td>
+                  <td>{long?.attributes.firstname}</td>
+                  <td>{long?.attributes.lastname}</td>
+                  <td>{long?.attributes.email}</td>
+                  <td>{long?.attributes.phone}</td>
+                  <td>{long?.attributes.loans.data[0].attributes.loan_status}</td>
+                  <td>
+                    <button onClick={() => edit(long)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
+                  </td>
+                  
+                  <td>
+                  <button className={
+                      long.attributes.loans.data[0].attributes.loan_status ==='Inactive'
                       ? "rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "
                       : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
-                    } onClick={() => activateUser(user)} >{user.attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
+                      } onClick={() => activateUser(long)} >{long.attributes.loans.data[0].attributes.loan_status ==='Inactive' ? "Inactive": "Activate"}
+                    </button>
                   </td>
 
-                  <td>
-                   <button  className="rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "  style={{background: "#FF5823", color:"#F9F9F9"}}>Delete</button>
-                  </td>
-
-              </tr>
-            );
-          })}
+                </tr>
+             );
+            })}
           </tbody>
-      </table>
-      {/* <DeleteUser subtitle={`Are you sure you want to Activate this client ${name}`} user={{id,name}} /> */}
-    </Box> 
-  </Box>
-    );
+        </table>
+      </Box> 
+      <Box>
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+          <label htmlFor="my-modal-4" className="modal cursor-pointer">
+            <label className="modal-box relative" htmlFor="">
+              <h3 className="text-lg text-center font-bold">Confirm Delete</h3>
+                <div className="form-group col mb-4 mt-4">
+                  <Typography variant='h5' >Are you sure you want to delete this user</Typography>
+                </div>
+
+                <div className='flex'>
+                  <div className="form-group col ">
+                    <button className="group suspend w-28 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white">Cancel</button>
+                  </div>
+                  <div className="form-group col ml-10">
+                    <button className="group activate w-28 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white">Reset</button>
+                  </div>
+                </div>
+              </label>
+          </label>
+        </Box>
+    </Box>
+  );
 }
 
 export default LongTerm;

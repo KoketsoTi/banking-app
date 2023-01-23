@@ -34,6 +34,7 @@ import Messages from "./Components/Client/Nortifications/Messages";
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./helpers/helpers";
 
+
 const Navigation = () => {
     return(   
         <Routes>  
@@ -45,12 +46,12 @@ const Navigation = () => {
                 <Route path="verify" element={<Verify /> } />
                 <Route path="card" element={<Cards /> } />  
                 <Route path="profile" element={<Profile /> } />
-                <Route path="userprofile/:id" element={<UserProfile /> } />
+                <Route path="userprofile" element={<UserProfile /> } />
                 <Route path="changePassword" element={<ChangePassword /> } />
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />
                 <Route path="addnewadmin" element={<RegisterAdmin />} />
-                <Route path="approveLoans/:id" element={<ApproveLoan /> } />
+                <Route path="approveLoans" element={<ApproveLoan /> } />
             </Route>
             
             <Route path="/client" element={ <Client />} >

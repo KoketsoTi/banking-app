@@ -129,27 +129,27 @@ export const Loan  = ({ shortloan, shortstatus, amount, term, rate, unpaid_inter
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Interest </Typography>
-                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {rate} p/a </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {rate}% p/a </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Unpaid Interest </Typography>
-                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {unpaid_interest} %</Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}>R {unpaid_interest} </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px" >
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Monthly Pay </Typography>
-                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {repayment} p/a </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> R {repayment} p/m </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between" mb="10px">
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Loan Status</Typography>
-                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {shortstatus} </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}>  {shortstatus} </Typography>
                 </Box>
 
                 <Box display="flex" justifyContent="space-between">
                     <Typography variant="h5" style={{ color: "#4cceac" }}>Total Amount</Typography>
-                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}> {totaldue} </Typography>
+                    <Typography variant="h5" className="second" style={{ color: "#4cceac" }}>R {totaldue} </Typography>
                 </Box>
             </Box>
         </Box>

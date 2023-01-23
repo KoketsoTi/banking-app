@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if(authToken){
-      AuthorService.loggedInUser().then((response) => { 
+      AuthorService.loggedInUser(authToken).then((response) => { 
         //set userData in a useContext 
         setUser(response.data.user);
       })
@@ -19,7 +19,6 @@ function App() {
         console.log('An error occurred:', error.response);
       });
     }
-
   }, []);
 
 
