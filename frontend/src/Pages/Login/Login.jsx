@@ -67,8 +67,7 @@ function Login() {
             }else{
                 console.log('An error occurred:', error.response);
                 Warning('Incorrect Username/Email or password entered')
-            }
-           
+            } 
         })
     }
 

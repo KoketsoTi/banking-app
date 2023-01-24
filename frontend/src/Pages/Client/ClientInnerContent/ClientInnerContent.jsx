@@ -2,7 +2,6 @@ import React from 'react';
 import "./client.css";
 import { Outlet } from 'react-router-dom';
 import { ProfileView } from '../../../Models/ClientProfile';
-import Bottom from '../Navigations/BottomNav';
 import Sidebar from '../Navigations/SIdeNavBar';
 
 function Client() {
@@ -12,7 +11,6 @@ function Client() {
             <div className="drawer-content ">
                 {/* <!-- Navbar--> */}
                
-                
                 {/* <!-- Page content here --> */}
                 <div className="container w-full lg:xl:pl-10 lg:xl:pr-10">
                     {/* <!-- Page content here --> */}
