@@ -2,10 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
 import { HiOutlineDocument } from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
 import { Success, Warning } from '../../../Helpers/toasters';
 import { ToastContainer } from 'react-toastify';
+import "./Loan.css";
+
 // import Newloan from '../../../Service/clients.service';
 
 function LoanApplication() {
@@ -23,14 +26,14 @@ function LoanApplication() {
             .min(13, 'Identity Number should be at least 13 characters long'),
         phone: Yup.string().required('Phone is mendatory'),
         address: Yup.string().required('address is mendatory'),
-        surbub: Yup.string().required('surbub is mendatory'),
-        city: Yup.string().required('city is mendatory'),
-        zip: Yup.string().required('zip is mendatory')
-            .min(3, 'zip must be at least 3 char long')
-            .max(4, 'zip must not be longer than 4 characters'),
-        desiredAmount: Yup.string().required('Last name is mendatory'),
+        // surbub: Yup.string().required('surbub is mendatory'),
+        // city: Yup.string().required('city is mendatory'),
+        // zip: Yup.string().required('zip is mendatory')
+        //     .min(3, 'zip must be at least 3 char long')
+        //     .max(4, 'zip must not be longer than 4 characters'),
+        // desiredAmount: Yup.string().required('Last name is mendatory'),
         occupation: Yup.string().required('Last name is mendatory'),
-        monthlyIncome: Yup.string().required('Last name is mendatory'),
+        // monthlyIncome: Yup.string().required('Last name is mendatory'),
 
     })
 
@@ -50,12 +53,12 @@ function LoanApplication() {
                 identity: data.identity,
                 phone: data.phone,
                 address: data.address,
-                surbub: data.surbub,
-                city: data.city,
-                zip: data.zip,
-                desiredAmount: data.desiredAmount,
+                // surbub: data.surbub,
+                // city: data.city,
+                // zip: data.zip,
+                // desiredAmount: data.desiredAmount,
                 occupation: data.occupation,
-                monthlyIncome: data.monthlyIncome,
+                // monthlyIncome: data.monthlyIncome,
 
             }
         }
@@ -72,6 +75,111 @@ function LoanApplication() {
         // return false
     }
 
+
+
+
+
+
+// state to storage the values given by the user when filling the input fields
+const [userValues, setUserValues] = useState({
+    amount: '',
+    interest: '',
+    years: '',
+  });
+
+  // state to storage the results of the calculation
+  const [results, setResults] = useState({
+    monthlyPayment: '',
+    totalPayment: '',
+    totalInterest: '',
+    isResult: false,
+  });
+
+
+  // state to storage error message
+  const [error, setError] = useState('');
+
+   // event handler to update state when the user enters values
+    const handleInputChange = (event) =>
+    setUserValues({ ...userValues, [event.target.name]: event.target.value });
+
+// Manage validations and error messages
+const isValid = () => {
+    const { amount, interest, years } = userValues;
+    let actualError = '';
+    // Validate if there are values
+    if (!amount || !interest || !years) {
+      actualError = 'All the values are required';
+    }
+    // Validade if the values are numbers
+    if (isNaN(amount) || isNaN(interest) || isNaN(years)) {
+      actualError = 'All the values must be a valid number';
+    }
+    // Validade if the values are positive numbers
+    if (Number(amount) <= 0 || Number(interest) <= 0 || Number(years) <= 0) {
+      actualError = 'All the values must be a positive number';
+    }
+    if (actualError) {
+      setError(actualError);
+      return false;
+    }
+    return true;
+  };
+
+
+  // Handle the data submited - validate inputs and send it as a parameter to the function that calculates the loan
+  const handleSubmitValues = (e) => {
+    e.preventDefault();
+    if (isValid()) {
+      setError('');
+      calculateResults(userValues);
+    }
+  };
+
+  // Calculation
+  const calculateResults = ({ amount, interest, years }) => {
+    const userAmount = Number(amount);
+    const calculatedInterest = Number(interest) / 100 / 12;
+    const calculatedPayments = Number(years) * 12;
+    const x = Math.pow(1 + calculatedInterest, calculatedPayments);
+    const monthly = (userAmount * x * calculatedInterest) / (x - 1);
+
+    if (isFinite(monthly)) {
+      const monthlyPaymentCalculated = monthly.toFixed(2);
+      const totalPaymentCalculated = (monthly * calculatedPayments).toFixed(2);
+      const totalInterestCalculated = (
+        monthly * calculatedPayments -
+        userAmount
+      ).toFixed(2);
+
+      // Set up results to the state to be displayed to the user
+      setResults({
+        monthlyPayment: monthlyPaymentCalculated,
+        totalPayment: totalPaymentCalculated,
+        totalInterest: totalInterestCalculated,
+        isResult: true,
+      });
+    }
+    return;
+  };
+
+  // Clear input fields
+  const clearFields = () => {
+    setUserValues({
+      amount: '',
+      interest: '',
+      years: '',
+    });
+
+    setResults({
+      monthlyPayment: '',
+      totalPayment: '',
+      totalInterest: '',
+      isResult: false,
+    });
+  };
+
+
     return (
         <Box className='login' >
             <ToastContainer />
@@ -87,6 +195,7 @@ function LoanApplication() {
                                 <div className="text-dark mt-2 user-cicle">Application Form</div>
                             </div>
 
+
                             <div className="hozitontal-line -mb-4">
                                 <div className="divider"></div>
                             </div>
@@ -100,7 +209,7 @@ function LoanApplication() {
                                    <div className="invalid-feedback text-rose-600">{errors.title?.message}</div>
                                </div> */}
                                 <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
-                                    <div className="form-group col">
+                                    <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">First Name</span></label>
                                         <input type="text" name="lastname" placeholder="Last Name" {...register('firstname')}
                                             className="input input-bordered w-full max-w-s firstname " />
@@ -116,15 +225,12 @@ function LoanApplication() {
                                     </div>
                                 </div>
 
-
                                 <div className="form-group col mb-2">
                                     <label className="label"><span className="label-text">Identity</span></label>
                                     <input type="text" name="identity" placeholder="identity" {...register('identity')}
                                         className="input input-bordered w-full max-w-s identity " />
                                     <div className="invalid-feedback text-rose-600">{errors.identity?.message}</div>
                                 </div>
-
-
 
                                 <div className="form-group col mb-2">
                                     <label className="label"><span className="label-text">Phone</span></label>
@@ -139,7 +245,7 @@ function LoanApplication() {
                                     <div className="invalid-feedback text-rose-600">{errors.address?.message}</div>
                                 </div>
 
-                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
+                                {/* <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
 
                                     <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">Surbub</span></label>
@@ -160,15 +266,15 @@ function LoanApplication() {
                                             className="input input-bordered w-full max-w-s zip " />
                                         <div className="invalid-feedback text-rose-600">{errors.zip?.message}</div>
                                     </div>
-                                </div>
+                                </div> */}
                                    
 
-                                    <div className="form-group col mb-2">
+                                    {/* <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">Desired Amount</span></label>
                                         <input type="number" name="desiredAmount" placeholder="desiredAmount" {...register('desiredAmount')}
                                             className="input input-bordered w-full max-w-s desiredAmount " />
                                         <div className="invalid-feedback text-rose-600">{errors.desiredAmount?.message}</div>
-                                    </div>
+                                    </div> */}
                                     <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">Occupation</span></label>
                                         <input type="text" name="occupation" placeholder="occupation" {...register('occupation')}
@@ -176,12 +282,155 @@ function LoanApplication() {
                                         <div className="invalid-feedback text-rose-600">{errors.identity?.message}</div>
                                     </div>
 
-                                    <div className="form-group col mb-2">
+                                    {/* <div className="form-group col mb-2">
                                     <label className="label"><span className="label-text">Monthly Income</span></label>
                                     <input type="number" name="monthlyIncome" placeholder="monthlyIncome" {...register('monthlyIncome')}
                                         className="input input-bordered w-full max-w-s monthlyIncome " />
                                     <div className="invalid-feedback text-rose-600">{errors.monthlyIncome?.message}</div>
-                                </div>
+                                </div> */}
+
+<div className='calculator'>
+      <div className='formcalc'>
+        <h1>Calculate loan</h1>
+        {/* Display the error when it exists */}
+        <p className='error'>{error}</p>
+        <form onSubmit={handleSubmitValues}>
+          {/* ternary operator manages when the calculator and results will be displayed to the user */}
+          {!results.isResult ? (
+            //   Form to collect data from the user
+            <div className=' grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-3 lg:xl:gap-8 mb-2'>
+              <div className=' form-group col mb-2'>
+                <label id='label'>Amount:</label>
+                <input className="input input-bordered w-full max-w-s " 
+                  type='text'
+                  name='amount'
+                  placeholder='Loan amount'
+                  value={userValues.amount}
+                  // onChange method sets the values given by the user as input to the userValues state
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label id='label'>Interest:</label>
+                <input className="input input-bordered w-full  "
+                  type='text'
+                  name='interest'
+                  placeholder='Interest'
+                  value={userValues.interest}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label id='label'>Years:</label>
+                <input className="input input-bordered w-full max-w-s "
+                  type='text'
+                  name='years'
+                  placeholder='Years to repay'
+                  value={userValues.years}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <input type='submit' className='b-button' />
+            </div>
+          ) : (
+            //   Form to display the results to the user
+            <div className='form-items'>
+              <h4>
+                Loan amount: ${userValues.amount} <br /> Interest:{' '}
+                {userValues.interest}% <br /> Years to repay: {userValues.years}
+              </h4>
+              <div>
+                <label id='label'>Monthly Payment:</label>
+                <input type='text' value={results.monthlyPayment} disabled />
+              </div>
+              <div>
+                <label id='label'>Total Payment: </label>
+                <input type='text' value={results.totalPayment} disabled />
+              </div>
+              <div>
+                <label id='label'>Total Interest:</label>
+                <input type='text' value={results.totalInterest} disabled />
+              </div>
+              {/* Button to clear fields */}
+              <input
+                className='b-button'
+                value='Calculate again'
+                type='button'
+                onClick={clearFields}
+              />
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                
 
                                 <div className='grid grid-cols-2 gap-8 '>
