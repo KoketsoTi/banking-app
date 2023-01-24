@@ -1,0 +1,16 @@
+.login{
+    text-align: -webkit-center;
+    justify-self: center
+}
+
+.body-header .user-cicle{
+    text-align: center;
+}
+.forgot{
+    color: var(--dark-orange);
+    cursor: pointer;
+}
+.apply{
+    color: var(--capitec-blue);
+    cursor: pointer; 
+}

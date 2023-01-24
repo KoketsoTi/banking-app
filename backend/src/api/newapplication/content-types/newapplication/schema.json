@@ -41,6 +41,18 @@
     },
     "zip": {
       "type": "string"
+    },
+    "account": {
+      "type": "biginteger"
+    },
+    "account_type": {
+      "type": "string"
+    },
+    "account_status": {
+      "type": "string"
+    },
+    "balance": {
+      "type": "float"
     }
   }
 }

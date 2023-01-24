@@ -48,8 +48,13 @@
     "loans": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::loan.loan",
-      "mappedBy": "client_id"
+      "target": "api::loan.loan"
+    },
+    "beneficary_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::beneficiary.beneficiary",
+      "mappedBy": "client"
     }
   }
 }

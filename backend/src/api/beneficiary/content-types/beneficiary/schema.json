@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "beneficiaries",
+  "info": {
+    "singularName": "beneficiary",
+    "pluralName": "beneficiaries",
+    "displayName": "beneficiary",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "money": {
+      "type": "float"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "beneficary_id"
+    }
+  }
+}

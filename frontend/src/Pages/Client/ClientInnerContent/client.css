@@ -1,0 +1,42 @@
+.drawer{
+    background-color: var(--background-color);
+}
+
+.card-request{
+    justify-items: center;
+}
+
+.card-description{
+    text-align: -webkit-left; 
+}
+
+.ben-card{
+    align-items: center;
+    text-align: center;
+}
+
+.Box{
+    align-items: center;
+    text-align: -webkit-center;
+}
+
+.heading{
+    margin-left: 10px;
+}
+
+.add-btn{
+    justify-content: start;
+}
+
+.clientNavbar:hover{
+    color: unset;
+    background-color: unset;
+}
+
+.navlink{
+    color: blue;
+}
+
+.menu{
+    border-right:solid 1px var(--grey);
+}

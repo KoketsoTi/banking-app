@@ -1,4 +1,4 @@
-import { API, BEARER } from "../Environment/constant";
+import { BEARER } from "../Environment/constant";
 import axios from 'axios';
 
 const getLoan = (token) => {
