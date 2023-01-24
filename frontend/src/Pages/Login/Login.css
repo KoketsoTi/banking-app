@@ -1,7 +1,8 @@
-.cards{
+.login{
     text-align: -webkit-center;
-    margin-top: 15vh;
+    justify-self: center
 }
+
 .body-header .user-cicle{
     text-align: center;
 }

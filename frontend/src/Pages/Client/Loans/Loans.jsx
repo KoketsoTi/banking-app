@@ -49,6 +49,7 @@ const formOptions = { resolver: yupResolver(formSchema) }
                <div className="form-group   col mb-4 back lg:hidden" >
                    {/* <Link to={goBack} ><BiArrowBack  className="rounded-none border-none absolute justify-center text-3xl border rounded-md " style={{marginTop: "3px", marginRight:"5px"}} /></Link> */}
                </div>
+               
                <div className="card  lg:xl:w-1/2 w-96 rounded-none shadow-xl ">
                    <div className="card-body">
                        

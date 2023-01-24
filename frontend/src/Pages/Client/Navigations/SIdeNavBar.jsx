@@ -1,4 +1,3 @@
-import "./navbar.css";
 import { Box, Typography} from "@mui/material";
 import { AiOutlineHome, AiOutlineMessage, AiOutlineQrcode } from 'react-icons/ai';
 import { HiOutlineUsers} from 'react-icons/hi';

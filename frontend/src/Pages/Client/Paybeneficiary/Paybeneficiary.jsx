@@ -1,9 +1,7 @@
-import "./Pay.css";
 import { Box, Typography} from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { GrUser } from "react-icons/gr";
-import { BsCreditCard } from "react-icons/bs";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 import { useForm } from "react-hook-form";
 import * as Yup from 'yup';
 
@@ -40,8 +38,8 @@ function PayBeneficiary(){
         <Box className="Box">
             {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
-                    <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>Pay Beneficiary</Typography>
+                <Box className="heading">
+                    <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}}>Pay Beneficiary</Typography>
                 </Box>
             </Box>
             {/* CONTENT */}
@@ -51,22 +49,39 @@ function PayBeneficiary(){
                         <div className='grid grid-cols-2 gap-4'>
                             <div><h1 >FROM</h1></div>
                             <div><h1 >TO</h1></div>
-                            <div className="card ben-card text-center bg-base-100 shadow-xl">
-                                
-                                <div className="card-body">
-                                    <h3><BsCreditCard/></h3>
-                                    <h1>Savings Account</h1>
-                                    <h1>R{state.params.amount} Bal</h1>
+                            <div><h1 ><IoIosArrowUp /></h1></div>
+                            <div><h1 ></h1></div>
+                            <div class="lg:xl:h-36 h-40 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                                <div className="card">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Savings Account</h1>
+                                            <h1>1000045454</h1>
+                                            <h1>R 3000 Bal</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="card ">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Easy Account</h1>
+                                            <h1>1000045454</h1>
+                                            <h1>R 3000 Bal</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="card ben-card bg-base-100  shadow-xl">
+                            <div className="card text-center bg-base-100 shadow-xl">
                                 <div className="card-body">
-                                    <h3><GrUser/></h3>
-                                    <h1>{state.params.fname}</h1>
-                                    <h4>{state.params.accNumber}</h4>
+                                    <h1>Brandon</h1>
+                                    <h1>R500</h1>
                                 </div>
                             </div>
+
+                            <div><h1><IoIosArrowDown /></h1></div>
+                            <div><h1></h1></div>
                         </div>
 
                         <div className="hozitontal-line -mb-4">

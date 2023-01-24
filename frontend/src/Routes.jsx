@@ -32,9 +32,13 @@ import CardRequest from "./Pages/Client/Card/CardRequest";
 import LoanApplication from "./Pages/Client/Loans/Loans";
 import QRCode from "./Pages/Client/QR_Code/QR_Code";
 import Messages from "./Pages/Client/Nortifications/Messages";
+import ViewAccount from "./Pages/Client/ViewAccount/ViewAccount";
+import All from "./Pages/Client/TransactionHistory/All";
+import In from "./Pages/Client/TransactionHistory/In";
+import Out from "./Pages/Client/TransactionHistory/Out";
+
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./Helpers/helpers";
-
 
 const Navigation = () => {
     return(   
@@ -56,6 +60,7 @@ const Navigation = () => {
                 <Route path="approveLoans" element={<ApproveLoan /> } />
             </Route>
             
+            {/* Nested routings */}
             <Route path="/client" element={getToken() ? <Client />  : <Navigate replace to="/auth/login" />} >
                 <Route path="/client" element={<Navigate replace to="home" />} />
                 <Route path="home" element={<ClientHome /> } />
@@ -67,6 +72,12 @@ const Navigation = () => {
                 <Route path="loanApplications" element={<LoanApplication /> } />
                 <Route path="qrcode" element={<QRCode /> } />
                 <Route path="messages" element={<Messages /> } />
+                <Route path="viewAccount" element={<ViewAccount /> } >
+                    <Route path="/client/viewAccount" element={<Navigate replace to="all" />} />
+                    <Route path="all" element={<All /> } />
+                    <Route path="in" element={<In /> } />
+                    <Route path="out" element={<Out /> } />
+                </Route>
             </Route>
             
             <Route path="application" element={<Applications /> } />

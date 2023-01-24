@@ -67,8 +67,7 @@ function Login() {
             }else{
                 console.log('An error occurred:', error.response);
                 Warning('Incorrect Username/Email or password entered')
-            }
-           
+            } 
         })
     }
 
@@ -87,53 +86,49 @@ function Login() {
     return (
         <Box className='login' >
             <ToastContainer />
-            <div className="md:container md:mx-auto">
-                <div className="flex justify-center">
-                    <div className="card cards lg:xl:1/2 w-96 rounded-none shadow-xl ">
-                        <div className="card-body">
-                            <div className="body-header mb-4">
-                                <div className="text-dark text-left mt-2 text-xl">BANK</div>
-                            </div>
+            <div className="card cards lg:xl:mt-10 mt-16 lg:xl:w-2/5 w-96 rounded-none shadow-xl ">
+                <div className="card-body">
+                    <div className="body-header mb-4">
+                        <div className="text-dark text-left mt-2 text-xl">BANK</div>
+                    </div>
+                    
+                    <div className="body-header -mb-4">
+                        <div className="text-dark mt-2 text-left text-lg">Sign in to your account</div>
+                    </div>
 
-                            <div className="body-header -mb-4">
-                                <div className="text-dark mt-2 text-left text-lg">Sign in to your account</div>
-                            </div>
-
-                            <div className="hozitontal-line -mb-4">
-                                <div className="divider"></div> 
-                            </div>
+                    <div className="hozitontal-line -mb-4">
+                        <div className="divider"></div> 
+                    </div>
                  
-                            <form >
-                                <div className="form-group col mb-4">
-                                    <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
-                                    <input type="text" name="identifier"  placeholder="Username or Email" value={formData.identifier} onChange={handleChange}
-                                        className="input input-bordered w-full max-w-s email "/>
-                                       {errors.identifier && <span className='errors text-left'>{errors.identifier}</span>}
-                                </div>
-
-                                <div className="form-group col mb-8">
-                                    <label className="label"><span className="label-text">PASSWORD</span></label>
-                                    <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}
-                                        className="input input-bordered w-full max-w-s email "/>
-                                   {errors.password && <span className='errors justify-start'>{errors.password}</span>}
-                                </div>
-                                
-                                <div className="form-group col text-left mb-4">
-                                    <button onClick={handleSubmit} className="rounded-none relative  w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
-                                </div>
-                            </form>
-                            <div className="form-group col text-left">
-                                <label htmlFor="my-modal-4" className="forgot" >Forgot Password?</label>
-                                <ForgotPassword />
-                            </div>
-
-                            <div className="form-group text-left col mb-4 ">
-                                <div>Don't have an account? click  <label htmlFor="my-modal-4" onClick={applicationForm} className="apply" >here </label>to Apply</div>
-                            </div>
+                    <form >
+                        <div className="form-group col mb-4">
+                            <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
+                            <input type="text" name="identifier"  placeholder="Username or Email" value={formData.identifier} onChange={handleChange}
+                                className="input input-bordered w-full max-w-s email "/>
+                               {errors.identifier && <span className='errors text-left'>{errors.identifier}</span>}
                         </div>
+
+                        <div className="form-group col mb-8">
+                            <label className="label"><span className="label-text">PASSWORD</span></label>
+                            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}
+                                className="input input-bordered w-full max-w-s email "/>
+                           {errors.password && <span className='errors justify-start'>{errors.password}</span>}
+                        </div>
+                                
+                        <div className="form-group col text-left mb-4">
+                            <button onClick={handleSubmit} className="rounded-none relative  w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
+                        </div>
+                    </form>
+                    <div className="form-group col text-left">
+                        <label htmlFor="my-modal-4" className="forgot" >Forgot Password?</label>
+                        <ForgotPassword />
+                    </div>
+
+                    <div className="form-group text-left col">
+                        <div>Don't have an account? click  <label htmlFor="my-modal-4" onClick={applicationForm} className="apply" >here </label>to Apply</div>
                     </div>
                 </div>
-            </div>
+            </div>      
         </Box>
     );
 }

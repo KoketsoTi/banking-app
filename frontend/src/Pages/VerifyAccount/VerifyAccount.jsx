@@ -99,6 +99,6 @@ function VerifyAccount() {
                 </div>
             </div>
         </Box>
-    )
+    );
 }
 export default VerifyAccount;
