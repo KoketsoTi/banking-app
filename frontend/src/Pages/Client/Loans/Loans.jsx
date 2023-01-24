@@ -64,31 +64,31 @@ const formOptions = { resolver: yupResolver(formSchema) }
                           
                                <div className="form-group col mb-2">
                                    <label className="label"><span className="label-text">Title</span></label>
-                                   <input type="text" name="firstname" placeholder="First Name" {...register('firstname')}
-                                       className="input input-bordered w-full max-w-s email "/>
+                                   <input type="text" name="firstname" placeholder="First Name" {...register('title')}
+                                       className="input input-bordered w-full max-w-s title "/>
                                    <div className="invalid-feedback text-rose-600">{errors.title?.message}</div>
                                </div>
 
                                <div className="form-group col">
                                    <label className="label"><span className="label-text">First Name</span></label>
-                                   <input type="text" name="lastname" placeholder="Last Name" {...register('lastname')}
-                                       className="input input-bordered w-full max-w-s email "/>
+                                   <input type="text" name="lastname" placeholder="Last Name" {...register('firstname')}
+                                       className="input input-bordered w-full max-w-s firstname "/>
                                    <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
                                </div>
                           
 
                            <div className="form-group col mb-2">
                                <label className="label"><span className="label-text">Last Name</span></label>
-                               <input type="text" name="email" placeholder="Email" {...register('email')}
-                                       className="input input-bordered w-full max-w-s email "/>
+                               <input type="text" name="email" placeholder="Email" {...register('lastname')}
+                                       className="input input-bordered w-full max-w-s lastname "/>
                                <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
                            </div>
 
                            <div className="form-group col mb-2">
                                <label className="label"><span className="label-text">Identity</span></label>
-                               <input type="text" name="email" placeholder="Email" {...register('email')}
-                                       className="input input-bordered w-full max-w-s email "/>
-                               <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
+                               <input type="number" name="identity" placeholder="identity" {...register('identity')}
+                                       className="input input-bordered w-full max-w-s identity "/>
+                               <div className="invalid-feedback text-rose-600">{errors.identity?.message}</div>
                            </div>
 
                            <div className='grid grid-cols-2 gap-8 '>
