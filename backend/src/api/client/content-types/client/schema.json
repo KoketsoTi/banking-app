@@ -24,9 +24,6 @@
     "street_address": {
       "type": "string"
     },
-    "age": {
-      "type": "integer"
-    },
     "surbub": {
       "type": "string"
     },
@@ -50,11 +47,16 @@
       "relation": "oneToMany",
       "target": "api::loan.loan"
     },
+    "birth_date": {
+      "type": "date"
+    },
+    "country": {
+      "type": "string"
+    },
     "beneficary_id": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::beneficiary.beneficiary",
-      "mappedBy": "client"
+      "target": "api::beneficiary.beneficiary"
     }
   }
 }

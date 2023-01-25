@@ -2,13 +2,10 @@ import { Box, Typography} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Home(){
-
     const navigate = useNavigate()
-
     const viewAccount  = (params) => {
         navigate('/client/viewAccount', {state:{params} })
     }
-
     return (
         <Box className="Box" >
             {/* HEADER */}

@@ -50,10 +50,7 @@ function All(){
                                     <div className="text-sm lg:xl:text-lg self-center">R Amount</div>
                                 </div>  
                             </div>
-                        </div>
-
-                       
-                        
+                        </div> 
                     </div>
                 </div>
             </Box>

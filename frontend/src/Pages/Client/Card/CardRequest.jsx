@@ -1,7 +1,5 @@
 import { Box, Typography} from "@mui/material";
-
 function CardRequest(){
-    
     return (
         <Box className="Box" >
             {/* HEADER */}

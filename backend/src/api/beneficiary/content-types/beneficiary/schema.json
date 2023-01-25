@@ -15,17 +15,11 @@
     "Name": {
       "type": "string"
     },
-    "date": {
-      "type": "date"
-    },
-    "money": {
+    "amount": {
       "type": "float"
     },
-    "client": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::client.client",
-      "inversedBy": "beneficary_id"
+    "account_no": {
+      "type": "biginteger"
     }
   }
 }

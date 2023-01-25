@@ -47,7 +47,7 @@ function Transfer(){
                             <div><h1 >TO</h1></div>
                             <div><h1 ><IoIosArrowUp /></h1></div>
                             <div><h1 ><IoIosArrowUp /></h1></div>
-                            <div class="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                            <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
                                 <div className="card">
                                     <div className="carousel-item ">
                                         <div className="card-body">
