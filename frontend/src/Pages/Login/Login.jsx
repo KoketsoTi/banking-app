@@ -4,8 +4,7 @@ import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { FaSignInAlt} from 'react-icons/fa';
 import { Success, Warning } from '../../Helpers/toasters';
-import { setToken } from "../../Helpers/helpers";
-import { UserContext } from "../../Authorization/userContext";
+import { setToken, setData } from "../../Helpers/helpers";
 import { useNavigate } from 'react-router-dom';
 import ForgotPassword from '../../Models/forgotPasswordModel';
 import AuthorService from '../../Service/auth.service';
@@ -13,9 +12,8 @@ import AuthorService from '../../Service/auth.service';
 function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
     const [errors, setErrors] = useState({}); 
-    const {user, setUser } = useContext(UserContext);
-  
-    const navigate = useNavigate();
+
+      const navigate = useNavigate();
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -41,8 +39,8 @@ function Login() {
                 setToken(response.data.jwt);
                 console.log(response.data.user.usertype);
                
-                //Store data in a state using context
-                setUser(response.data.user);
+                //Store data in a state using LocalStorage
+                setData(response.data.user);
                 Success(`Welcome back ${response.data.user.username}!`)
 
                 //redirect to correct page
@@ -51,8 +49,8 @@ function Login() {
                 setToken(response.data.jwt);
                 console.log(response.data.user.usertype);
                
-                //Store data in a state using context
-                setUser(response.data.user);
+                //Store data in a state using LocalStorage
+                setData(response.data.user);
                 Success(`Welcome back ${response.data.user.username}!`)
                 
                 //redirect to correct page

@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
-import { UserContext } from '../../../Authorization/userContext';
 import "./navbar.css";
+import React from "react";
+import { Box, Typography, IconButton } from "@mui/material";
+import { getUser } from "../../../Helpers/helpers";
 
 const  AppHeader = () => {
-    const {user } = useContext(UserContext);
-    
+    const user = getUser();
+
     return (
         <Box style={{ background: "#141b2d" }}>
             {/* HEADER */}
@@ -15,8 +15,7 @@ const  AppHeader = () => {
             <Box justifyItems={"end"}>
                 <Typography variant="h5" style={{ color: "#F9F9F9" }}></Typography>
                 <IconButton style={{ color: "#F9F9F9" }}>
-                {/* {user.firstname}  {user.lastname} */}
-              ddsad
+                {user[1]}  {user[2]}
                 </IconButton>
             </Box>
         </Box>
