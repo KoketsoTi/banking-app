@@ -1,14 +1,15 @@
-import { Box, Typography} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box} from "@mui/material";
+import { useEffect } from "react";
+import { useLocation, useOutletContext } from "react-router-dom";
 
-function All(){
+function All({passData}){
+    const {state} = useLocation();
+   // console.log(state.params.attributes);
+   const { setData } = useOutletContext();
 
-    const navigate = useNavigate()
-
-    const viewAccount  = (params) => {
-        navigate('/client/viewAccount', {state:{params} })
-    }
-
+    useEffect( () =>{
+        setData(state.params)
+    })
     return (
         <Box className="Box" >
              all
@@ -16,7 +17,7 @@ function All(){
                 <div className="card lg:xl:p-0" >
                     {/*  View All Transctions */}  
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">                
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl" >
+                        <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>
@@ -28,7 +29,7 @@ function All(){
                             </div>
                         </div>
 
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl">
+                        <div className="card bg-base-100 shadow-xl">
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>
@@ -40,7 +41,7 @@ function All(){
                             </div>
                         </div>
                         
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl" >
+                        <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>

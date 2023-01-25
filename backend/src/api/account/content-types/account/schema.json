@@ -18,16 +18,7 @@
     "account_status": {
       "type": "string"
     },
-    "accountnumber": {
-      "type": "string"
-    },
-    "customer_id": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::client.client",
-      "inversedBy": "accounts"
-    },
-    "Balance": {
+    "balance": {
       "type": "float"
     },
     "card_id": {
@@ -35,6 +26,9 @@
       "relation": "oneToOne",
       "target": "api::card.card",
       "inversedBy": "account"
+    },
+    "accountno": {
+      "type": "uid"
     }
   }
 }

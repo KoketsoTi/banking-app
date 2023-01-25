@@ -14,20 +14,32 @@ const getBeneficiaries = (id) => {
 
 const updateClientBeneficiaryList = (id, data) => {
     const token = getToken();
-    return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
+const getAccountDetails = () => {
+    const id  = localStorage.getItem(id);
+    const token = getToken();
+    return axios.put(`${API}accounts/${id}`, {headers: {Authorization: `${BEARER} ${token}`}});
+}
 
 const createBeneficiary = (data) => {
     const token = getToken();
     return axios.post(`${API}beneficiaries`, data, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const createAccout = (data) => {
+    const token = getToken();
+    return axios.post(`${API}accounts`, data, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 const functions = {
     getClientUser,
     getBeneficiaries,
     createBeneficiary,
-    updateClientBeneficiaryList
+    updateClientBeneficiaryList,
+    getAccountDetails,
+    createAccout
 }
 
 export default functions;
