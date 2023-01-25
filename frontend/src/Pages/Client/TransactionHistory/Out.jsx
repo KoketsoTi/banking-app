@@ -52,9 +52,6 @@ function Out(){
                                 </div>  
                             </div>
                         </div>
-
-                       
-                        
                     </div>
                 </div>
             </Box>

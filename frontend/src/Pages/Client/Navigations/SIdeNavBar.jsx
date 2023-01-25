@@ -101,7 +101,7 @@ function Sidebar() {
             {/* User Profile*/}
             <div className="dropdown dropdown-top absolute lg:bottom-59 ">
                 <div tabIndex={0} className="flex cursor-pointer">
-                    <label  className="btn btn-ghost btn-circle avatar">
+                    <label className="btn btn-ghost btn-circle avatar">
                         <div className="avatar placeholder">
                             <div className="bg-neutral-focus text-neutral-content rounded-full w-11   ">
                                 <span className="text-xl">

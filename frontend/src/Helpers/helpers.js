@@ -33,6 +33,7 @@ export const removeToken = () => {
 };
 
 export const decodedToken = (token) =>{
-    const decoded = jwt_decode(token)
-    return decoded;
+    const decoded = jwt_decode(token);
+    const id = decoded.id;
+    return id;
 }

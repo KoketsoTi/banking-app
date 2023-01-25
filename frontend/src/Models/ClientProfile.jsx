@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export const ProfileView = ({fname, lname, age, phone, street_address, surbub, city, zip, country}) => {
+export const ProfileView = ({fname, lname, date_of_birth, phone, street_address, surbub, city, zip, country}) => {
     return (
         <Box>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
@@ -11,36 +11,36 @@ export const ProfileView = ({fname, lname, age, phone, street_address, surbub, c
                     <Box width="100%" p="20px 30px">
                         <Box justifyContent="space-between" mt="-5px" >
                             <div className="grid grid-cols-2 gap-8">
-                                <Box justifyContent="space-between" mb="10px" >
-                                    <h4 >First Name</h4>
+                                <Box justifyContent="space-between"  >
+                                    <h4 className="font-semibold">First Name</h4>
                                     <h4  >{fname}</h4>
                                 </Box>
 
-                                <Box justifyContent="space-between" mb="10px" >
-                                    <h4 >Last Name</h4>
+                                <Box justifyContent="space-between" >
+                                    <h4 className="font-semibold">Last Name</h4>
                                     <h4 >{lname}</h4>
                                 </Box>
 
                                 <Box justifyContent="space-between" mb="10px" >
-                                    <h4 >Age</h4>
-                                    <h4 >{age}</h4>
+                                    <h4 className="font-semibold">Date of birth</h4>
+                                    <h4 >{date_of_birth}</h4>
                                 </Box>
 
                                 <Box justifyContent="space-between" mb="10px" >
-                                    <h4 >Contact</h4>
+                                    <h4 className="font-semibold">Contact</h4>
                                     <h4 >{phone}</h4>
                                 </Box>
                             </div> 
                             <Box justifyContent="space-between" mb="10px" >
-                                <h4 >Address</h4>
-                                <h4 >{street_address}</h4>
-                                <h4 >{surbub}</h4>
-                                <h4 >{city}</h4>
-                                <h4 >{zip}</h4>
+                                <h4 className="font-semibold" >Address</h4>
+                                <h4 className="mb-2" >{street_address}</h4>
+                                <h4 className="mb-2" >{surbub}</h4>
+                                <h4 className="mb-2" >{city}</h4>
+                                <h4 className="mb-2" >{zip}</h4>
                             </Box>
 
                             <Box justifyContent="space-between" mb="10px" >
-                                <h4 >Nationality</h4>
+                                <h4 className="font-semibold" >Nationality</h4>
                                 <h4 >{country}</h4>
                             </Box>
                         </Box>

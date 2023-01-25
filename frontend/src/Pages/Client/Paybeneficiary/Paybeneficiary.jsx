@@ -8,8 +8,10 @@ import * as Yup from 'yup';
 function PayBeneficiary(){
     const {state} = useLocation();
 
-       // form validation rules 
-       const formSchema = Yup.object().shape({
+    console.log(state.params.attributes.Name)
+    
+    // form validation rules 
+    const formSchema = Yup.object().shape({
         amount: Yup.string().required('Amount Name is mendatory'),
         ownref: Yup.string().required('Own Reference is mendatory'),
         recipient: Yup.string().required('Recipient Reference is mendatory'),
@@ -30,7 +32,6 @@ function PayBeneficiary(){
                 mystatement: data.mystatement,
             }
         }
-        console.log(userData)
         return false
     }
 
@@ -51,7 +52,7 @@ function PayBeneficiary(){
                             <div><h1 >TO</h1></div>
                             <div><h1 ><IoIosArrowUp /></h1></div>
                             <div><h1 ></h1></div>
-                            <div class="lg:xl:h-36 h-40 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                            <div className="lg:xl:h-36 h-40 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
                                 <div className="card">
                                     <div className="carousel-item ">
                                         <div className="card-body">
@@ -75,8 +76,8 @@ function PayBeneficiary(){
 
                             <div className="card text-center bg-base-100 shadow-xl">
                                 <div className="card-body">
-                                    <h1>Brandon</h1>
-                                    <h1>R500</h1>
+                                    <h1>{state.params.attributes.Name}</h1>
+                                    <h1>R {state.params.attributes.amount}</h1>
                                 </div>
                             </div>
 
