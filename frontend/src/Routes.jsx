@@ -36,6 +36,8 @@ import ViewAccount from "./Pages/Client/ViewAccount/ViewAccount";
 import All from "./Pages/Client/TransactionHistory/All";
 import In from "./Pages/Client/TransactionHistory/In";
 import Out from "./Pages/Client/TransactionHistory/Out";
+import Bills from "./Pages/Client/TransactionHistory/Bills";
+import History from "./Pages/Client/TransactionHistory/History";
 
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./Helpers/helpers";
@@ -66,7 +68,12 @@ const Navigation = () => {
                 <Route path="home" element={<ClientHome /> } />
                 <Route path="pay" element={<Pay /> } />
                 <Route path="paybeneficiary" element={<PayBeneficiary /> } />
-                <Route path="paybills" element={<PayBills /> } />
+                <Route path="paybills" element={<PayBills /> } >
+                    <Route path="/client/paybills" element={<Navigate replace to="bills" />} />
+                    <Route path="bills" element={<Bills /> } />
+                    <Route path="history" element={<History /> } />
+                </Route> 
+
                 <Route path="transfer" element={<Transfer /> } />
                 <Route path="cardRequest" element={<CardRequest /> } />
                 <Route path="loanApplications" element={<LoanApplication /> } />
