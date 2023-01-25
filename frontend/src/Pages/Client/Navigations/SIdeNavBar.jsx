@@ -5,12 +5,11 @@ import { GiTakeMyMoney, GiPayMoney } from 'react-icons/gi';
 import { BiUserCircle, BiTransfer } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { removeToken } from '../../../Helpers/helpers';
+import { removeToken, getUser } from '../../../Helpers/helpers';
 import { NavLink } from "react-router-dom";
 
 const Item = ({ title, to, icon }) => {
-  let activeClassName = "navlink";
-
+    let activeClassName = "navlink";
     return (
         <NavLink className={({ isActive }) => isActive ? activeClassName : 'undefined' } to={to} >
             <Typography >{icon} </Typography>
@@ -20,6 +19,7 @@ const Item = ({ title, to, icon }) => {
 };
 
 function Sidebar() {
+    const user = getUser();
     let activeClassName = "navlink";
     const logout =() =>{
         removeToken();
@@ -105,13 +105,13 @@ function Sidebar() {
                         <div className="avatar placeholder">
                             <div className="bg-neutral-focus text-neutral-content rounded-full w-11   ">
                                 <span className="text-xl">
-                                E
+                                    {user[1].slice(0, 1)?.toUpperCase()}
                                 </span>
                             </div>
                         </div>
                         
                     </label>
-                    <div className="mt-4 ml-2">Excellent Mashengete</div>
+                    <div className="mt-4 ml-2">{user[1]} {user[2]}</div>
                 </div>
             
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
