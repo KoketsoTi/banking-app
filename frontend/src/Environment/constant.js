@@ -5,3 +5,4 @@ export const FIRSTNAME = "firstname";
 export const LASTNAME = "lastname";
 export const PHONENUMBER = "phone";
 export const BEARER = "Bearer";
+export const ID = "id";

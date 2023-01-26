@@ -1,15 +1,14 @@
 import './Profile.css';
-import {useContext, useState} from 'react';
+import { useState } from 'react';
 import { Box, Typography, Grid } from "@mui/material";
-import { getToken } from '../../../Helpers/helpers';
+import { getToken, getUser, setData } from '../../../Helpers/helpers';
 import { Success, Warning } from '../../../Helpers/toasters';
 import { ToastContainer } from 'react-toastify';
-import { UserContext } from "../../../Authorization/userContext";
 import AuthorService from "../../../Service/auth.service";
 
 function Profile(){  
   const [formInfo, setForm] = useState({ firstname: "", lastname: "" , email: "", phone:""});
-  const {user, setUser } = useContext(UserContext);
+  const user = getUser();
   const authToken = getToken();
 
   const pic = "https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png";
@@ -20,17 +19,18 @@ function Profile(){
   }
   
   const data  = {
-    firstname: formInfo.firstname,
-    lastname: formInfo.lastname,
-    phone: formInfo.phone
+    firstname: formInfo.firstname || user[1],
+    lastname: formInfo.lastname || user[2],
+    phone: formInfo.phone || user[3]
   }
-
+ 
   //Update user infor of current loggein user
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     AuthorService.UpdateUser(data, authToken).then((response) => { 
+      setData(response.data);
       Success('Update was successfull')
-      setUser(response.data);
+      window.location.reload();
     }).catch(error => {  
       Warning('Unable to update')
     });
@@ -69,25 +69,25 @@ function Profile(){
               <form>
                 <Box className="profile">
                   <label className="label"><span className="label-text">First Name</span></label>
-                  <input type="text" name="firstname" placeholder="First Name"  value={formInfo.firstname || user.firstname} onChange={handleChange}
+                  <input type="text" name="firstname" placeholder="First Name"  value={formInfo.firstname || user[1] } onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Last Name</span></label>
-                  <input type="text" name="lastname" placeholder="Last Name"  value={formInfo.lastname || user.lastname} onChange={handleChange}
+                  <input type="text" name="lastname" placeholder="Last Name"  value={formInfo.lastname || user[2]} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
     
                 <Box className="profile">
                   <label className="label"><span className="label-text">Email</span></label>
-                  <input type="email" name="email" disabled placeholder="Email" value={user.email} onChange={handleChange}
+                  <input type="email" name="email" disabled placeholder="Email" value={user[0]} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
 
                 <Box className="profile">
                   <label className="label"><span className="label-text">Phone Number</span></label>
-                  <input type="text" name="phone" placeholder="Phone" value={user.contact} onChange={handleChange}
+                  <input type="text" name="phone" placeholder="Phone" value={formInfo.phone || user[3]} onChange={handleChange}
                     className="input shadow-m input-bordered w-full max-w-s email "  /> 
                 </Box>
                 

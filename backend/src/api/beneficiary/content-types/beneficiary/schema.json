@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "beneficiaries",
+  "info": {
+    "singularName": "beneficiary",
+    "pluralName": "beneficiaries",
+    "displayName": "beneficiary",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "account_no": {
+      "type": "biginteger"
+    }
+  }
+}

@@ -6,10 +6,10 @@ import { BiArrowBack } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { Success, Warning } from '../../Helpers/toasters';
 import { ToastContainer } from 'react-toastify';
 import NewUser from '../../Service/clients.service';
+import * as Yup from 'yup';
 
 function Apply() {
     let navigate = useNavigate();

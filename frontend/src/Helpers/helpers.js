@@ -1,8 +1,12 @@
-import { AUTH_TOKEN, FIRSTNAME, EMAIL, LASTNAME, PHONENUMBER } from "../Environment/constant";
+import { AUTH_TOKEN, ID,FIRSTNAME, EMAIL, LASTNAME, PHONENUMBER } from "../Environment/constant";
 import jwt_decode from 'jwt-decode';
 
 export const getToken = () => {
     return localStorage.getItem(AUTH_TOKEN);
+};
+
+export const getId = () => {
+    return localStorage.getItem(ID);
 };
 
 export const getUser = () => {
@@ -33,6 +37,7 @@ export const removeToken = () => {
 };
 
 export const decodedToken = (token) =>{
-    const decoded = jwt_decode(token)
-    return decoded;
+    const decoded = jwt_decode(token);
+    const id = decoded.id;
+    return id;
 }

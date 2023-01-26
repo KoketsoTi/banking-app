@@ -5,7 +5,7 @@ function QR_Code(){
         <Box m="20px" >
             {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
+                <Box className="heading">
                     <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>QR_Code</Typography>
                 </Box>
             </Box>

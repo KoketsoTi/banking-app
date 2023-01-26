@@ -24,9 +24,6 @@
     "street_address": {
       "type": "string"
     },
-    "age": {
-      "type": "integer"
-    },
     "surbub": {
       "type": "string"
     },
@@ -39,16 +36,26 @@
     "phone": {
       "type": "string"
     },
-    "accounts": {
+    "acc_id": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::account.account",
-      "mappedBy": "customer_id"
+      "target": "api::account.account"
     },
     "loans": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::loan.loan"
+    },
+    "birth_date": {
+      "type": "date"
+    },
+    "country": {
+      "type": "string"
+    },
+    "beneficary_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::beneficiary.beneficiary"
     }
   }
 }

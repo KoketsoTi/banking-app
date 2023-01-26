@@ -2,10 +2,10 @@
 import { Box, Typography} from "@mui/material";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 import * as Yup from 'yup';
 
 function Transfer(){
-
     // form validation rules 
     const formSchema = Yup.object().shape({
         amount: Yup.string().required('Amount Name is mendatory'),
@@ -13,7 +13,7 @@ function Transfer(){
     })
 
     const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, reset, formState } = useForm(formOptions)
+    const { register, handleSubmit, formState } = useForm(formOptions)
     const { errors } = formState;
 
     function onSubmit(data, event) {
@@ -24,6 +24,7 @@ function Transfer(){
                 ownref : data.ownref,
             }
         }
+        
         console.log(userData)
         return false
     }
@@ -32,10 +33,11 @@ function Transfer(){
         <Box className="Box" >
             {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box mb="30px">
-                    <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}>Transfer</Typography>
+                <Box className="heading">
+                    <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Transfer</Typography>
                 </Box>
             </Box>
+
             {/* CONTENT */}
             <Box>
                 <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
@@ -43,20 +45,49 @@ function Transfer(){
                         <div className='grid grid-cols-2 gap-4'>
                             <div><h1 >FROM</h1></div>
                             <div><h1 >TO</h1></div>
-                            <div className="card ben-card text-center bg-base-100 shadow-xl">
-                                
-                                <div className="card-body">
-                                    <h1>Savings Account</h1>
-                                    <h1>R 5000 Bal</h1>
+                            <div><h1 ><IoIosArrowUp /></h1></div>
+                            <div><h1 ><IoIosArrowUp /></h1></div>
+                            <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                                <div className="card">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Savings Account</h1>
+                                            <h1>R 5000 Bal</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="card ">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Easy Account</h1>
+                                            <h1>R 5000 Bal</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="card ben-card bg-base-100  shadow-xl">
-                                <div className="card-body">
-                                    <h1>Savings Account</h1>
-                                    <h1>R 5000 Bal</h1>
+                            <div class="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                                <div className="card">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Savings Account</h1>
+                                            <h1>R 5000 Bal</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="card ">
+                                    <div className="carousel-item ">
+                                        <div className="card-body">
+                                            <h1>Easy Account</h1>
+                                            <h1>R 5000 Bal</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div><h1 ><IoIosArrowDown /></h1></div>
+                            <div><h1 ><IoIosArrowDown /></h1></div>
                         </div>
 
                         <div className="hozitontal-line -mb-4">
