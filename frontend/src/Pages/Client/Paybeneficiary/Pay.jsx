@@ -5,17 +5,17 @@ import { GrAddCircle } from 'react-icons/gr';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getToken } from "../../../Helpers/helpers";
-import User from '../../../Service/Client/client.service';
-import * as Yup from 'yup';
 import { Error, Success } from "../../../Helpers/toasters";
 import { ToastContainer } from "react-toastify";
+import User from '../../../Service/Client/client.service';
+import * as Yup from 'yup';
 
 function Pay(){
     const navigate = useNavigate()
     const [useBeneficiary, setBeneficiary] = useState([]);
     const [getId, setId] = useState([]);
-    const setNewID = [];
     const [checkUser, setCheckUser] = useState([]);
+    const setNewID = [];
 
     const auth_token = getToken();
   
@@ -33,13 +33,10 @@ function Pay(){
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState;
 
-    
-
     function getBeneficiary(){
         //Fetch client id
         User.getClientUser().then((response) => {
             setId(response.data.client_id.id)
-            console.log(response.data.client_id.id);
             //fetch client beneficiaries using the id returned by the cliet
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setBeneficiary(response.data.data.attributes.beneficary_id.data);
@@ -67,12 +64,13 @@ function Pay(){
 
         //return an error if beneficiary already exist
         User.createBeneficiary(userData).then((response) => {
-            // console.log(response.data.data.id)
+            console.log(response.data.data.id)
             // console.log(getId);
+
             setNewID.push(response.data.data.id)
 
             let id = {data:{beneficary_id : setNewID}}
-                   
+            
             //Update relationships for the newly added beneficiary a new beneficiary
             User.updateClientBeneficiaryList(getId, id).then((response) => {
                 Success(`${data.beneficiary} Successfully Added`)
@@ -115,25 +113,25 @@ function Pay(){
                 {/*  View added beneficiaries */}  
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-2 lg:xl:gap-4">  
                 {useBeneficiary.map((benefit) => {    
-                     return (          
-                    <div className="card bg-base-100 shadow-xl cursor-pointer" key={benefit.id} onClick={() => payUser(benefit)} >
-                        <div className="card-body" >
-                            <div className="flex ">
-                                <div className="avatar placeholder">
-                                    <div className="bg-neutral-focus text-neutral-content rounded-full w-16 lg:xl:w-20">
-                                        <span className="text-2xl lg:xl:text-3xl">
-                                        {benefit?.attributes.Name?.slice(0, 1)?.toUpperCase()}
-                                        </span>
+                    return (          
+                        <div className="card bg-base-100 shadow-xl cursor-pointer" key={benefit.id} onClick={() => payUser(benefit)} >
+                            <div className="card-body" >
+                                <div className="flex ">
+                                    <div className="avatar placeholder">
+                                        <div className="bg-neutral-focus text-neutral-content rounded-full w-16 lg:xl:w-20">
+                                            <span className="text-2xl lg:xl:text-3xl">
+                                            {benefit?.attributes.Name?.slice(0, 1)?.toUpperCase()}
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="ml-5 mt-1">
-                                    <div className="text-sm lg:xl:text-lg text-start">{benefit?.attributes.Name}</div>
-                                    <div className="text-xs lg:xl:text-base text-start">{benefit?.attributes.updatedAt}</div>
-                                    <div className="text-xs lg:xl:text-base text-start">R {benefit?.attributes.amount || 0}</div>
-                                </div>
-                            </div>    
+                                    <div className="ml-5 mt-1">
+                                        <div className="text-sm lg:xl:text-lg text-start">{benefit?.attributes.Name}</div>
+                                        <div className="text-xs lg:xl:text-base text-start">{(new Date(benefit?.attributes.updatedAt).toLocaleDateString())}</div>
+                                        <div className="text-xs lg:xl:text-base text-start">R {benefit?.attributes.amount.toLocaleString()}</div>
+                                    </div>
+                                </div>    
+                            </div>
                         </div>
-                    </div>
                     );
                 })}
                 </div>

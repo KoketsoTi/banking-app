@@ -7,9 +7,7 @@ import * as Yup from 'yup';
 
 function PayBeneficiary(){
     const {state} = useLocation();
-
-    console.log(state.params.attributes.Name)
-    
+    console.log(state);
     // form validation rules 
     const formSchema = Yup.object().shape({
         amount: Yup.string().required('Amount Name is mendatory'),

@@ -1,22 +1,28 @@
-import { Box, Typography} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box} from "@mui/material";
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
+import User from '../../../Service/Client/client.service';
 
 function All(){
-
-    const navigate = useNavigate()
-
-    const viewAccount  = (params) => {
-        navigate('/client/viewAccount', {state:{params} })
+    const { setData } = useOutletContext();
+    
+    function getAccount() {
+        User.getAccountDetails().then((response) => {
+            setData(response.data.data.attributes)
+        })
     }
+    useEffect( () =>{
+        getAccount()
+    }, [])
 
     return (
         <Box className="Box" >
-             all
+           
             <Box className="card-request mt-2 lg:xl:mt-2">
                 <div className="card lg:xl:p-0" >
                     {/*  View All Transctions */}  
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">                
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl" >
+                        <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>
@@ -28,7 +34,7 @@ function All(){
                             </div>
                         </div>
 
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl">
+                        <div className="card bg-base-100 shadow-xl">
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>
@@ -40,7 +46,7 @@ function All(){
                             </div>
                         </div>
                         
-                        <div className="card lg:xl:w-96 bg-base-100 shadow-xl" >
+                        <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body" >
                                 <div className="flex justify-between">
                                     <div>
