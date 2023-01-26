@@ -64,7 +64,7 @@ function LoanApplication() {
         monthlyIncome: results.monthlyPayment,
 
       }
-  
+
     }
 
     // Newloan.ApplicationForm(userData).then((response) => {
@@ -94,7 +94,7 @@ function LoanApplication() {
     isResult: false,
   });
 
-  
+
 
   // state to storage error message
   const [error, setError] = useState('');
@@ -135,15 +135,15 @@ function LoanApplication() {
       calculateResults(userValues);
       // this.setState({condition: false}); // to enable the button
       setIsDisabled(false);
-      console.log(isDisabled,"False disbled");
+      console.log(isDisabled, "False disbled");
     }
     else {
       // this.setState({condition: true}); // to disable the button
       setIsDisabled(true);
-      console.log(isDisabled,"True disabled");
+      console.log(isDisabled, "True disabled");
     }
   };
-  
+
 
   // Calculation
   const calculateResults = ({ amount, interest, years }) => {
@@ -156,7 +156,7 @@ function LoanApplication() {
     if (isFinite(monthly)) {
       const monthlyPaymentCalculated = monthly.toFixed(2);
       const totalPaymentCalculated = (monthly * calculatedPayments).toFixed(2);
-      const totalInterestCalculated = (monthly * calculatedPayments -userAmount ).toFixed(2);
+      const totalInterestCalculated = (monthly * calculatedPayments - userAmount).toFixed(2);
 
       // Set up results to the state to be displayed to the user
       setResults({
@@ -189,169 +189,159 @@ function LoanApplication() {
 
 
   return (
-    
+
     <>
-    {/* <div  className=' grid grid-cols-1 lg:xl:grid-cols-2  lg:xl:gap-8 mb-2'> */}
-    <Box>
-    <div className='calculator'>
-                  <div className='formcalc'>
-                    <h1>Calculate loan</h1><br />
-                    {/* Display the error when it exists */}
-                    <p className='error'>{error}</p>
-                    <form onSubmit={handleSubmitValues}>
-                      {/* ternary operator manages when the calculator and results will be displayed to the user */}
-                      {!results.isResult ? (
-                        //   Form to collect data from the user
-                        <div className=' grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-3 lg:xl:gap-8 mb-2'>
-                          <div className=' form-group col mb-2'>
-                            <label id='label'>Amount:</label>
-                            <input className="input input-bordered w-full max-w-s "
-                              type='text'
-                              name='amount'
-                              placeholder='Loan amount'
-                              value={userValues.amount}
-                              // onChange method sets the values given by the user as input to the userValues state
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                          <div>
-                            <label id='label'>Interest:</label>
-                            <input className="input input-bordered w-full  " disabled
-                              type='text'
-                              name='interest'
-                              placeholder=' 12'
-                              value={userValues.interest}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                          <div>
-                            <label id='label'>Years:</label>
-                            <input className="input input-bordered w-full max-w-s "
-                              type='text'
-                              name='years'
-                              placeholder='Years to repay'
-                              value={userValues.years}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                          <input type='submit' className='b-button' />
-                        </div>
-                      ) : (
-                        //   Form to display the results to the user
-                        <div className='results'>
-                          {/* <h4>
-                            Loan amount: R{userValues.amount} <br /> Interest:{' '}
-                            {userValues.interest}% <br /> Years to repay: {userValues.years}
-                          </h4> */}
+      <div className=' grid grid-cols-1 lg:xl:grid-cols-2  lg:xl:gap-8 mb-2'>
+        <Box>
+          <div className='calculator'>
+            <div className='formcalc'>
+              <h1>Calculate loan</h1><br />
+              {/* Display the error when it exists */}
+              <p className='error'>{error}</p>
+              <form onSubmit={handleSubmitValues}>
+                {/* ternary operator manages when the calculator and results will be displayed to the user */}
+                {!results.isResult ? (
+                  //   Form to collect data from the user
+                  <div className="inputfilter">
+                    <div className=' form-group col mb-2'>
+                      <label id='label'>Amount:</label>
+                      <br />
+                      <input className="input input-bordered w-full max-w-s "
+                        type='text'
+                        name='amount'
+                        placeholder='Loan amount'
+                        value={userValues.amount}
+                        // onChange method sets the values given by the user as input to the userValues state
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <label id='label'>Interest:</label>
+                      <br />
+                      <input className="input input-bordered w-full  " disabled
+                        type='text'
+                        name='interest'
+                        placeholder=' 12'
+                        value={userValues.interest}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <label id='label'>Years:</label>
+                      <br />
+                      <input className="input input-bordered w-full max-w-s "
+                        type='text'
+                        name='years'
+                        placeholder='Years to repay'
+                        value={userValues.years}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <input type='submit' className='b-button' />
+                  </div>
+                ) : (
+                  //   Form to display the results to the user
+                  <div className='results'>
 
-                          <div class="card-1">
-                <p id="monthlyPayment">R {results.monthlyPayment}</p><br />
-                <p class="indicators">Monthly Payments  </p>
-                
-            </div>
 
-                          {/* <div>
-                            <label id='label'>Monthly Payment:</label>
-                            <input className="input input-bordered w-full max-w-s " type='text' value={results.monthlyPayment} disabled />
-                          </div> */}
+                    <div className="results">
 
-{/*                          
+                      <div class="card-1">
+                        <p id="monthlyPayment">R {results.monthlyPayment}</p><br />
+                        <p class="indicators">Monthly Payments  </p>
 
-                          <div>
-                            <label id='label'>Total Interest:</label>
-                            <input type='text' value={results.totalInterest} disabled />
-                          </div> */}
+                      </div>
 
-                          <div class="card-2">
-                <p id="totalInterest">%{results.totalInterest}</p>
-                <p class="indicators">Total Interest</p>
-                {/* <div>
+                      <div class="card-2">
+                        <p id="totalInterest">%{results.totalInterest}</p>
+                        <p class="indicators">Total Interest</p>
+                        {/* <div>
                             <label id='label'>Total Payment: </label>
                             <input type='text' value={results.totalPayment} disabled />
                           </div> */}
+                      </div>
 
-                          <div class="card-3">
-                <p id="totalPayment">R{results.totalPayment} </p>
-                <p class="indicators">Total Amount to be Paid</p>
-            </div>
-
-            </div>
-                          {/* Button to clear fields */}
-                          <input
-                            className='b-button'
-                            value='Calculate again'
-                            type='button'
-                            onClick={clearFields}
-                          />
-                        </div>
-                      )}
-                    </form>
+                      <div class="card-3">
+                        <p id="totalPayment">R{results.totalPayment} </p>
+                        <p class="indicators">Total Amount to be Paid</p>
+                      </div>
+                    </div>
+                    {/* Button to clear fields */}
+                    <input
+                      className='b-button'
+                      value='Calculate again'
+                      type='button'
+                      onClick={clearFields}
+                    />
                   </div>
-                </div>
-    </Box>
-
-    <Box className='login' >
-      <ToastContainer />
-      <div className="md:container md:mx-auto">
-        <div className="flex justify-center">
-          <div className="form-group   col mb-4 back lg:hidden" >
-            {/* <Link to={goBack} ><BiArrowBack  className="rounded-none border-none absolute justify-center text-3xl border rounded-md " style={{marginTop: "3px", marginRight:"5px"}} /></Link> */}
+                )}
+              </form>
+            </div>
           </div>
-          <div className="card  lg:xl:w-1/2 w-96 rounded-none shadow-xl ">
-            <div className="card-body">
+        </Box>
 
-              <div className="body-header -mb-4">
-                <div className="text-dark mt-2 user-cicle">Application Form</div>
+        <Box className='login' >
+          <ToastContainer />
+          <div className="md:container md:mx-auto">
+            <div className="flex justify-center">
+              <div className="form-group   col mb-4 back lg:hidden" >
+                {/* <Link to={goBack} ><BiArrowBack  className="rounded-none border-none absolute justify-center text-3xl border rounded-md " style={{marginTop: "3px", marginRight:"5px"}} /></Link> */}
               </div>
-              <div className="hozitontal-line -mb-4">
-                <div className="divider"></div>
-              </div>
+              <div className="card  lg:xl:w-1/2 w-96 rounded-none shadow-xl ">
+                <div className="card-body">
 
-              <form >
+                  <div className="body-header -mb-4">
+                    <div className="text-dark mt-2 user-cicle">Application Form</div>
+                  </div>
+                  <div className="hozitontal-line -mb-4">
+                    <div className="divider"></div>
+                  </div>
 
-                {/* <div className="form-group col mb-2">
+                  <form >
+
+                    {/* <div className="form-group col mb-2">
                                    <label className="label"><span className="label-text">Title</span></label>
                                    <input type="text" name="firstname" placeholder="First Name" {...register('title')}
                                        className="input input-bordered w-full max-w-s title "/>
                                    <div className="invalid-feedback text-rose-600">{errors.title?.message}</div>
                                </div> */}
-                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
-                  <div className="form-group col mb-2">
-                    <label className="label"><span className="label-text">First Name</span></label>
-                    <input type="text" name="lastname" placeholder="Last Name" {...register('firstname')}
-                      className="input input-bordered w-full max-w-s firstname " />
-                    <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
-                  </div>
+                    <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
+                      <div className="form-group col mb-2">
+                        <label className="label"><span className="label-text">First Name</span></label>
+                        <input type="text" name="lastname" placeholder="Last Name" {...register('firstname')}
+                          className="input input-bordered w-full max-w-s firstname " />
+                        <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
+                      </div>
 
-                  <div className="form-group col mb-2">
-                    <label className="label"><span className="label-text">Last Name</span></label>
-                    <input type="text" name="lastname" placeholder="lastname" {...register('lastname')}
-                      className="input input-bordered w-full max-w-s lastname " />
-                    <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
-                  </div>
-                </div>
+                      <div className="form-group col mb-2">
+                        <label className="label"><span className="label-text">Last Name</span></label>
+                        <input type="text" name="lastname" placeholder="lastname" {...register('lastname')}
+                          className="input input-bordered w-full max-w-s lastname " />
+                        <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
+                      </div>
+                    </div>
 
-                <div className="form-group col mb-2">
-                  <label className="label"><span className="label-text">Identity</span></label>
-                  <input type="text" name="identity" placeholder="identity" {...register('identity')}
-                    className="input input-bordered w-full max-w-s identity " />
-                  <div className="invalid-feedback text-rose-600">{errors.identity?.message}</div>
-                </div>
+                    <div className="form-group col mb-2">
+                      <label className="label"><span className="label-text">Identity</span></label>
+                      <input type="text" name="identity" placeholder="identity" {...register('identity')}
+                        className="input input-bordered w-full max-w-s identity " />
+                      <div className="invalid-feedback text-rose-600">{errors.identity?.message}</div>
+                    </div>
 
-                <div className="form-group col mb-2">
-                  <label className="label"><span className="label-text">Phone</span></label>
-                  <input type="text" name="phone" placeholder="phone" {...register('phone')}
-                    className="input input-bordered w-full max-w-s phone " />
-                  <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
-                </div>
-                <div className="form-group col mb-2">
-                  <label className="label"><span className="label-text">Address</span></label>
-                  <input type="text" name="address" placeholder="address" {...register('address')}
-                    className="input input-bordered w-full max-w-s address " />
-                  <div className="invalid-feedback text-rose-600">{errors.address?.message}</div>
-                </div>
+                    <div className="form-group col mb-2">
+                      <label className="label"><span className="label-text">Phone</span></label>
+                      <input type="text" name="phone" placeholder="phone" {...register('phone')}
+                        className="input input-bordered w-full max-w-s phone " />
+                      <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
+                    </div>
+                    <div className="form-group col mb-2">
+                      <label className="label"><span className="label-text">Address</span></label>
+                      <input type="text" name="address" placeholder="address" {...register('address')}
+                        className="input input-bordered w-full max-w-s address " />
+                      <div className="invalid-feedback text-rose-600">{errors.address?.message}</div>
+                    </div>
 
-                {/* <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
+                    {/* <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
 
                                     <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">Surbub</span></label>
@@ -375,45 +365,45 @@ function LoanApplication() {
                                 </div> */}
 
 
-                {/* <div className="form-group col mb-2">
+                    {/* <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">Desired Amount</span></label>
                                         <input type="number" name="desiredAmount" placeholder="desiredAmount" {...register('desiredAmount')}
                                             className="input input-bordered w-full max-w-s desiredAmount " />
                                         <div className="invalid-feedback text-rose-600">{errors.desiredAmount?.message}</div>
                                     </div> */}
-                <div className="form-group col mb-2">
-                  <label className="label"><span className="label-text">Occupation</span></label>
-                  <input type="text" name="occupation" placeholder="occupation" {...register('occupation')}
-                    className="input input-bordered w-full max-w-s occupation " />
-                  <div className="invalid-feedback text-rose-600">{errors.occupation?.message}</div>
-                </div>
+                    <div className="form-group col mb-2">
+                      <label className="label"><span className="label-text">Occupation</span></label>
+                      <input type="text" name="occupation" placeholder="occupation" {...register('occupation')}
+                        className="input input-bordered w-full max-w-s occupation " />
+                      <div className="invalid-feedback text-rose-600">{errors.occupation?.message}</div>
+                    </div>
 
-                {/* <div className="form-group col mb-2">
+                    {/* <div className="form-group col mb-2">
                                     <label className="label"><span className="label-text">Monthly Income</span></label>
                                     <input type="number" name="monthlyIncome" placeholder="monthlyIncome" {...register('monthlyIncome')}
                                         className="input input-bordered w-full max-w-s monthlyIncome " />
                                     <div className="invalid-feedback text-rose-600">{errors.monthlyIncome?.message}</div>
                                 </div> */}
 
-                <div className='grid grid-cols-2 gap-8 '>
-                  <div className="form-group col mb-4 hidden lg:contents">
-                    <button disabled={isDisabled ? true : false} onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{ marginTop: "3px", marginRight: "5px" }} />Submit Application </button>
-                  </div>
+                    <div className='grid grid-cols-2 gap-8 '>
+                      <div className="form-group col mb-4 hidden lg:contents">
+                        <button disabled={isDisabled ? true : false} onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{ marginTop: "3px", marginRight: "5px" }} />Submit Application </button>
+                      </div>
 
+                    </div>
+
+                  </form>
                 </div>
-
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+        </Box>
+
+
       </div>
-    </Box>
 
 
-    {/* </div> */}
-
-    
-</>
+    </>
   );
 }
 
