@@ -1,11 +1,32 @@
 
 import { Box, Typography} from "@mui/material";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState, useEffect } from "react";
+import { getToken } from "../../../Helpers/helpers";
 import { useForm } from "react-hook-form";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import User from '../../../Service/Client/client.service';
+import Calculations from '../../../Components/Transactions';
 import * as Yup from 'yup';
 
 function Transfer(){
+    const account ={
+        attributes:{
+          account_name:"Check Account",
+          account_status: "Suspended",
+          account_type: "Cheque",
+          accountno:  "1414535733",
+          balance: 7000,
+          createdAt: "2023-01-25T18:25:51.391Z",
+          updatedAt :  "2023-01-26T17:28:21.352Z",
+        },
+        id: 5
+    }
+
+    const [getId, setId] = useState([]);
+    const [useAccount, setAccount] = useState([account]);
+    const auth_token = getToken();
+
     // form validation rules 
     const formSchema = Yup.object().shape({
         amount: Yup.string().required('Amount Name is mendatory'),
@@ -24,10 +45,34 @@ function Transfer(){
                 ownref : data.ownref,
             }
         }
+        let value = Calculations.TransferMoney(30000,data.amount);
+        console.log(value);
+        console.log(userData);
         
-        console.log(userData)
         return false
     }
+
+    function getUserAccounts(){
+        //Fetch client id
+        User.getClientUser().then((response) => {
+            setId(response.data.client_id.id)
+
+            //fetch client accounts using the id returned by the request above
+            User.getBeneficiaries(response.data.client_id.id).then((response) => {
+                setAccount(response.data.data.attributes.acc_id.data);
+            }).catch((error) => {
+                console.log(error);
+                console.log("unable to get user accounts");
+            })
+        })
+    }
+
+    useEffect(() => {
+        if(auth_token){
+            getUserAccounts(); 
+        }
+    },[])
+
 
     return (
         <Box className="Box" >
@@ -48,43 +93,33 @@ function Transfer(){
                             <div><h1 ><IoIosArrowUp /></h1></div>
                             <div><h1 ><IoIosArrowUp /></h1></div>
                             <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
-                                <div className="card">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Savings Account</h1>
-                                            <h1>R 5000 Bal</h1>
+                                {useAccount.map((element) => {
+                                    return(
+                                        <div className="card" key={element.id}>
+                                            <div className="carousel-item ">
+                                                <div className="card-body">
+                                                    <h1>{element?.attributes.account_type}</h1>
+                                                    <h1>R {element?.attributes.balance.toLocaleString()} Bal</h1>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="card ">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Easy Account</h1>
-                                            <h1>R 5000 Bal</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })} 
                             </div>
 
                             <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
-                                <div className="card">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Savings Account</h1>
-                                            <h1>R 5000 Bal</h1>
+                                {useAccount.map((element) => {
+                                    return(
+                                        <div className="card" key={element.id}>
+                                            <div className="carousel-item ">
+                                                <div className="card-body">
+                                                    <h1>{element?.attributes.account_type}</h1>
+                                                    <h1>R {element?.attributes.balance.toLocaleString()} Bal</h1>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="card ">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Easy Account</h1>
-                                            <h1>R 5000 Bal</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })} 
                             </div>
                             <div><h1 ><IoIosArrowDown /></h1></div>
                             <div><h1 ><IoIosArrowDown /></h1></div>

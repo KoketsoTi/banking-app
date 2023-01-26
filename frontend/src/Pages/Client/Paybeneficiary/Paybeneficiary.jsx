@@ -1,13 +1,32 @@
 import { Box, Typography} from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getToken } from "../../../Helpers/helpers";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 import { useForm } from "react-hook-form";
+import User from '../../../Service/Client/client.service';
 import * as Yup from 'yup';
 
 function PayBeneficiary(){
+    const account ={
+        attributes:{
+          account_name:"Check Account",
+          account_status: "Suspended",
+          account_type: "Cheque",
+          accountno:  "1414535733",
+          balance: 7000,
+          createdAt: "2023-01-25T18:25:51.391Z",
+          updatedAt :  "2023-01-26T17:28:21.352Z",
+        },
+        id: 5
+    }
+
+    const [getId, setId] = useState([]);
+    const [useAccount, setAccount] = useState([account]);
+    const auth_token = getToken();
     const {state} = useLocation();
-    console.log(state);
+   
     // form validation rules 
     const formSchema = Yup.object().shape({
         amount: Yup.string().required('Amount Name is mendatory'),
@@ -33,6 +52,27 @@ function PayBeneficiary(){
         return false
     }
 
+    function getUserAccounts(){
+        //Fetch client id
+        User.getClientUser().then((response) => {
+            setId(response.data.client_id.id)
+
+            //fetch client accounts using the id returned by the request above
+            User.getBeneficiaries(response.data.client_id.id).then((response) => {
+                setAccount(response.data.data.attributes.acc_id.data);
+            }).catch((error) => {
+                console.log(error);
+                console.log("unable to get user accounts");
+            })
+        })
+    }
+
+    useEffect(() => {
+        if(auth_token){
+            getUserAccounts(); 
+        }
+    },[])
+
     return (
         <Box className="Box">
             {/* HEADER */}
@@ -51,25 +91,19 @@ function PayBeneficiary(){
                             <div><h1 ><IoIosArrowUp /></h1></div>
                             <div><h1 ></h1></div>
                             <div className="lg:xl:h-36 h-40 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
-                                <div className="card">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Savings Account</h1>
-                                            <h1>1000045454</h1>
-                                            <h1>R 3000 Bal</h1>
+                               {useAccount.map((element) => {
+                                    return(
+                                        <div className="card" key={element.id}>
+                                            <div className="carousel-item ">
+                                                <div className="card-body">
+                                                    <h1>{element?.attributes.account_type}</h1>
+                                                    <h1>{element?.attributes.accountno}</h1>
+                                                    <h1>R {element?.attributes.balance.toLocaleString()} Bal</h1>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="card ">
-                                    <div className="carousel-item ">
-                                        <div className="card-body">
-                                            <h1>Easy Account</h1>
-                                            <h1>1000045454</h1>
-                                            <h1>R 3000 Bal</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })}
                             </div>
 
                             <div className="card text-center bg-base-100 shadow-xl">
