@@ -36,8 +36,8 @@ function Home(){
     }
   }, []);
 
-  const active = clients.filter((list) => list.attributes.account_status === "Active")
-  const deactive = clients.filter((list) => list.attributes.account_status === "Suspended") 
+  const active = clients.filter((list) => list.attributes.acc_id.data[0].attributes.account_status === "Active")
+  const deactive = clients.filter((list) => list.attributes.acc_id.data[0].attributes.account_status === "Suspended") 
   
   const StatBox = ({ title, subtitle, icon, progress, increase }) => {
     return (

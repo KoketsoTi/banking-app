@@ -1,10 +1,10 @@
 import { API, BEARER } from "../Environment/constant";
-import axios from 'axios';
 import { getToken } from "../Helpers/helpers";
+import axios from 'axios';
 
 const getAllUsers = () => {
     const token = getToken();
-    return axios.get(`${API}accounts?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${API}clients?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const updateStatus = (token, id, value) => {
@@ -29,7 +29,7 @@ const updateLoanStatus = (token, id, value) => {
 
 const getUser = (id) => {
     const token = getToken();
-    return axios.get(`${API}accounts?populate=*&filters[customer_id][id][$eq]=${id}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${API}clients/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const ApplicationForm = async(data) => {
