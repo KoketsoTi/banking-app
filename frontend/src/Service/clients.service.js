@@ -32,10 +32,13 @@ const getUser = (id) => {
     return axios.get(`${API}accounts?populate=*&filters[customer_id][id][$eq]=${id}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-
 const ApplicationForm = async(data) => {
     await axios.post(`${API}newapplications`, data)
 }
+
+// const LoanApplicationForm = async(data) => {
+//     await axios.post(`${API}`, data)
+// }
 
 const getNewUsers = () => {
     const token = getToken();
@@ -50,6 +53,7 @@ const functions = {
     getAllUsers,
     updateStatus,
     ApplicationForm,
+    // LoanApplicationForm,
     getNewUsers,
     deleteAUser,
     getShortLoans,
