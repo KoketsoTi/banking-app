@@ -55,7 +55,7 @@ function Home(){
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 ">  
                     {useAccount.map((account) => {    
                         return (               
-                            <div className="card  bg-base-100 shadow-xl cursor-pointer" key={account.id} onClick={() => viewAccount(account)} >
+                            <div className="card bg-base-100 shadow-xl cursor-pointer" key={account.id} onClick={() => viewAccount(account)} >
                                 <div className="card-body" >
                                     <div className="flex justify-between">
                                         <div className="text-sm lg:xl:text-lg">{account?.attributes.account_name}</div> 

@@ -67,7 +67,7 @@ function Transfer(){
                                 </div>
                             </div>
 
-                            <div class="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
+                            <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
                                 <div className="card">
                                     <div className="carousel-item ">
                                         <div className="card-body">
