@@ -1,5 +1,5 @@
 import { API, BEARER } from "../../Environment/constant";
-import { getToken } from "../../Helpers/helpers";
+import { getToken, getId } from "../../Helpers/helpers";
 import axios from 'axios';
 
 const getClientUser = () => {
@@ -12,15 +12,23 @@ const getBeneficiaries = (id) => {
     return axios.get(`${API}clients/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+//Update beneficiaries with new beneficiaries
 const updateClientBeneficiaryList = (id, data) => {
     const token = getToken();
     return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
-const getAccountDetails = () => {
-    const id  = localStorage.getItem(id);
+//Update user account with newly added savings plan
+const updateClientWithNewSavings = (id, data) => {
     const token = getToken();
-    return axios.put(`${API}accounts/${id}`, {headers: {Authorization: `${BEARER} ${token}`}});
+    return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
+}
+
+
+const getAccountDetails = () => {
+    const userId  = getId()
+    const token = getToken();
+    return axios.get(`${API}accounts/${userId}`, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
 const createBeneficiary = (data) => {
@@ -38,6 +46,7 @@ const functions = {
     getBeneficiaries,
     createBeneficiary,
     updateClientBeneficiaryList,
+    updateClientWithNewSavings,
     getAccountDetails,
     createAccout
 }

@@ -1,18 +1,23 @@
 import { Box} from "@mui/material";
 import { useEffect } from "react";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
+import User from '../../../Service/Client/client.service';
 
-function All({passData}){
-    const {state} = useLocation();
-   // console.log(state.params.attributes);
-   const { setData } = useOutletContext();
-
+function All(){
+    const { setData } = useOutletContext();
+    
+    function getAccount() {
+        User.getAccountDetails().then((response) => {
+            setData(response.data.data.attributes)
+        })
+    }
     useEffect( () =>{
-        setData(state.params)
-    })
+        getAccount()
+    }, [])
+
     return (
         <Box className="Box" >
-             all
+           
             <Box className="card-request mt-2 lg:xl:mt-2">
                 <div className="card lg:xl:p-0" >
                     {/*  View All Transctions */}  

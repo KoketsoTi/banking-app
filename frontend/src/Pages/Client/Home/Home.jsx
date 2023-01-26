@@ -12,8 +12,7 @@ function Home(){
 
     const viewAccount  = (params) => {
         localStorage.setItem("id", params.id)
-        navigate('/client/viewAccount/all', {state:{params}})
-
+        navigate('/client/viewAccount/all',)
     }
 
     function getUserAccounts(){
@@ -59,7 +58,7 @@ function Home(){
                             <div className="card  bg-base-100 shadow-xl cursor-pointer" key={account.id} onClick={() => viewAccount(account)} >
                                 <div className="card-body" >
                                     <div className="flex justify-between">
-                                        <div className="text-sm lg:xl:text-lg">{account?.attributes.account_type} Account</div> 
+                                        <div className="text-sm lg:xl:text-lg">{account?.attributes.account_name}</div> 
                                         <div className="text-sm lg:xl:text-lg">Bal R {account?.attributes.balance.toLocaleString()} </div>
                                     </div>    
                                 </div>

@@ -4,17 +4,31 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from "react";
+import { Error, Success } from "../../../Helpers/toasters";
+import { ToastContainer } from "react-toastify";
 import * as Yup from 'yup';
 import User from '../../../Service/Client/client.service';
 import Tab from "../Navigations/TabNavbar";
-import { Error, Success } from "../../../Helpers/toasters";
+import { useEffect } from "react";
 
 function ViewAccount(){
-    const [account, setData] = useState("");
-    
+    //Inititialize state with dummy data
+    const userData = {
+        account_status : "Active",
+        account_type: "Cheque ",
+        accountno: "1435835554",
+        balance: 20000,
+        createdAt: "2023-01-25T18:27:01.193Z",
+        updatedAt: "2023-01-25T18:27:01.193Z" 
+    }
+    const [account, setData] = useState(userData);
+    const [getId, setId] = useState(userData);
+    const [getAccounts, setAccount] = useState(userData);
+    const setNewID = [];
     const navigate = useNavigate();
 
     let randomDigits = 0;
+    
     // form validation rules 
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Savings Name is mendatory')
@@ -24,16 +38,37 @@ function ViewAccount(){
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState;
 
+    //create account number of 8 numbers 
     for (let i = 0; i < 8; i++) {
         let randomNum = parseInt(10000000 + Math.random() * (90000000 - 10000000))
         randomDigits = randomNum;
     }
 
-    console.log(account.id);
+    //Get view userAccount
+    function getUserAccounts(){
+        //Fetch client id
+        User.getClientUser().then((response) => {
+            setId(response.data.client_id.id)
+
+            //fetch client accounts using the id returned by the request above
+            User.getBeneficiaries(response.data.client_id.id).then((response) => {
+                setAccount(response.data.data.attributes.acc_id.data);
+                console.log(response.data.data.attributes.acc_id.data)
+            }).catch((error) => {
+                console.log(error);
+                console.log("unable to get user accounts");
+            })
+        })
+    }
+
+    useEffect(() => {
+        getUserAccounts();
+    }, [])
     
     function onSubmit(data, event) {
         event.preventDefault();
 
+        //group all data to be sent to backend
         let userData = {
             data:{
                 accountno : "16" + randomDigits,
@@ -44,23 +79,34 @@ function ViewAccount(){
             }
         }
 
-        
-        User.createAccout(userData).then((reponse) => {
-            console.log(reponse.data.data.id);
-            Success('New Savings plan added');
-            
+        getAccounts.map((response) => {
+            setNewID.push(response.id)
+        })
 
-            
+        //the account created 
+        User.createAccout(userData).then((reponse) => {
+            setNewID.push(reponse.data.data.id)
+
+            //Join the new saving plan added with the old savings plans added
+            let id = {data:{acc_id: setNewID}}
+
+            //link the account added to the user who created the account
+            //Update relationships for the newly added savings plan
+            User.updateClientWithNewSavings(getId, id).then((response) => {
+                Success(`${data.beneficiary} Savings plan Successfully Added`)
+            })
+
         }).catch((error) => {
             Error('Unable to add new savings plan')
         })
 
         return false
     }
-    
+
     return (
         <Box className="Box" >
             {/* HEADER */}
+            <ToastContainer />
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box className="heading">
                     <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} ></Typography>
@@ -84,8 +130,8 @@ function ViewAccount(){
                         <div className="card w-full bg-base-100 shadow-xl">
                             <div className="card-body" >
                                 <div className="flex justify-between">
-                                    <div className="text-sm lg:xl:text-lg">{account.attributes.account_type}Account</div> 
-                                    <div className="text-sm lg:xl:text-lg">Bal R {account.attributes.balance} </div>
+                                    <div className="text-sm lg:xl:text-lg">{account.account_name}</div> 
+                                    <div className="text-sm lg:xl:text-lg">Bal R {account.balance.toLocaleString()} </div>
                                 </div>    
                             </div>
                         </div>

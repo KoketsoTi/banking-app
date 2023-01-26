@@ -29,6 +29,15 @@
     },
     "accountno": {
       "type": "uid"
+    },
+    "account_name": {
+      "type": "string"
+    },
+    "trans_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::transaction.transaction",
+      "mappedBy": "acc_id"
     }
   }
 }

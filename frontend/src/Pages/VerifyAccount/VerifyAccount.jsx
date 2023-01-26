@@ -11,7 +11,7 @@ import AuthorService from "../../Service/auth.service";
 import * as Yup from 'yup';
 
 function VerifyAccount() {
-
+    const navigate = useNavigate();
     // form validation rules 
     const formSchema = Yup.object().shape({
         password: Yup.string().required('Password is mendatory')
@@ -27,8 +27,6 @@ function VerifyAccount() {
     // get functions to build form with useForm() hook
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState
-
-    const navigate = useNavigate();
 
     function onSubmit(data) {
         console.log(JSON.stringify(data, null, 4))

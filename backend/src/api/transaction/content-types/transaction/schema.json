@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "accountno": {
+      "type": "biginteger"
+    },
+    "name": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "biginteger"
+    },
+    "debit": {
+      "type": "string"
+    },
+    "credit": {
+      "type": "string"
+    },
+    "acc_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::account.account",
+      "inversedBy": "trans_id"
+    }
+  }
+}
