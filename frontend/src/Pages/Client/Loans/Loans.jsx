@@ -189,8 +189,10 @@ function LoanApplication() {
 
 
   return (
+    
     <>
-<Box>
+    {/* <div  className=' grid grid-cols-1 lg:xl:grid-cols-2  lg:xl:gap-8 mb-2'> */}
+    <Box>
     <div className='calculator'>
                   <div className='formcalc'>
                     <h1>Calculate loan</h1><br />
@@ -236,23 +238,44 @@ function LoanApplication() {
                         </div>
                       ) : (
                         //   Form to display the results to the user
-                        <div className='form-items'>
-                          <h4>
+                        <div className='results'>
+                          {/* <h4>
                             Loan amount: R{userValues.amount} <br /> Interest:{' '}
                             {userValues.interest}% <br /> Years to repay: {userValues.years}
-                          </h4>
-                          <div>
+                          </h4> */}
+
+                          <div class="card-1">
+                <p id="monthlyPayment">R {results.monthlyPayment}</p><br />
+                <p class="indicators">Monthly Payments  </p>
+                
+            </div>
+
+                          {/* <div>
                             <label id='label'>Monthly Payment:</label>
                             <input className="input input-bordered w-full max-w-s " type='text' value={results.monthlyPayment} disabled />
-                          </div>
-                          <div>
-                            <label id='label'>Total Payment: </label>
-                            <input type='text' value={results.totalPayment} disabled />
-                          </div>
+                          </div> */}
+
+{/*                          
+
                           <div>
                             <label id='label'>Total Interest:</label>
                             <input type='text' value={results.totalInterest} disabled />
-                          </div>
+                          </div> */}
+
+                          <div class="card-2">
+                <p id="totalInterest">%{results.totalInterest}</p>
+                <p class="indicators">Total Interest</p>
+                {/* <div>
+                            <label id='label'>Total Payment: </label>
+                            <input type='text' value={results.totalPayment} disabled />
+                          </div> */}
+
+                          <div class="card-3">
+                <p id="totalPayment">R{results.totalPayment} </p>
+                <p class="indicators">Total Amount to be Paid</p>
+            </div>
+
+            </div>
                           {/* Button to clear fields */}
                           <input
                             className='b-button'
@@ -385,6 +408,9 @@ function LoanApplication() {
         </div>
       </div>
     </Box>
+
+
+    {/* </div> */}
 
     
 </>
