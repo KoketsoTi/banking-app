@@ -59,7 +59,7 @@ function Home(){
                                 <div className="card-body" >
                                     <div className="flex justify-between">
                                         <div className="text-sm lg:xl:text-lg">{account?.attributes.account_name}</div> 
-                                        <div className="text-sm lg:xl:text-lg">Bal R {account?.attributes.balance.toLocaleString()} </div>
+                                        <div className="text-sm lg:xl:text-lg">Bal R {account?.attributes.balance.toLocaleString() || 77} </div>
                                     </div>    
                                 </div>
                             </div>

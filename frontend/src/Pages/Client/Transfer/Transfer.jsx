@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import { getToken } from "../../../Helpers/helpers";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import * as Yup from 'yup';
 import User from '../../../Service/Client/client.service';
 import Calculations from '../../../Components/Transactions';
-import * as Yup from 'yup';
+
 
 function Transfer(){
     const account ={
@@ -26,6 +27,20 @@ function Transfer(){
     const [getId, setId] = useState([]);
     const [useAccount, setAccount] = useState([account]);
     const auth_token = getToken();
+    const [amount, setAmt] = useState();
+    const [fromData, setFromData] = useState();
+    const [toData, setToData] = useState();
+
+    function ToAccount(params){
+        setFromData(params);
+    } 
+
+    function FromAccount(params){
+        setToData(params);
+    } 
+
+    console.log(fromData);
+    console.log(toData);
 
     // form validation rules 
     const formSchema = Yup.object().shape({
@@ -39,16 +54,17 @@ function Transfer(){
 
     function onSubmit(data, event) {
         event.preventDefault();
+        setAmt(useAccount[1].attributes.balance)
+        let value = Calculations.TransferMoney(amount, data.amount);
         let userData = {
             data:{
                 beneficiary: data.amount,
                 ownref : data.ownref,
+                amount:value
             }
         }
-        let value = Calculations.TransferMoney(30000,data.amount);
-        console.log(value);
-        console.log(userData);
-        
+
+        console.log(userData);      
         return false
     }
 
@@ -73,7 +89,6 @@ function Transfer(){
         }
     },[])
 
-
     return (
         <Box className="Box" >
             {/* HEADER */}
@@ -87,42 +102,31 @@ function Transfer(){
             <Box>
                 <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
                     <div className="card-body">
-                        <div className='grid grid-cols-2 gap-4'>
-                            <div><h1 >FROM</h1></div>
-                            <div><h1 >TO</h1></div>
-                            <div><h1 ><IoIosArrowUp /></h1></div>
-                            <div><h1 ><IoIosArrowUp /></h1></div>
-                            <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
-                                {useAccount.map((element) => {
-                                    return(
-                                        <div className="card" key={element.id}>
-                                            <div className="carousel-item ">
-                                                <div className="card-body">
-                                                    <h1>{element?.attributes.account_type}</h1>
-                                                    <h1>R {element?.attributes.balance.toLocaleString()} Bal</h1>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })} 
+                        <div className='grid grid-cols-1 gap-2'>
+                            <div>
+                                <label className="label"><span className="label-text">FROM:</span></label> 
+                                <select  className="input input-bordered w-full max-w-s email" name="numYears" >
+                                    {useAccount.map((index) => {
+                                        return(
+                                            <option key={index.id} value={index.attributes.account_name} onClick={() =>FromAccount(index)}>
+                                                {index.attributes.account_name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>   
                             </div>
-
-                            <div className="h-32 carousel bg-base-100 shadow-xl carousel-vertical rounded-box">
-                                {useAccount.map((element) => {
-                                    return(
-                                        <div className="card" key={element.id}>
-                                            <div className="carousel-item ">
-                                                <div className="card-body">
-                                                    <h1>{element?.attributes.account_type}</h1>
-                                                    <h1>R {element?.attributes.balance.toLocaleString()} Bal</h1>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })} 
+                            <div>
+                                <label className="label"><span className="label-text">TO:</span></label>
+                                <select className="input input-bordered w-full max-w-s email" name="numYears" >
+                                    {useAccount.map((index) => {
+                                        return(
+                                            <option key={index.id} value={index.attributes.account_name} onClick={()=>ToAccount(index)}>
+                                                {index.attributes.account_name}
+                                            </option>
+                                        );
+                                    })}                  
+                                </select>    
                             </div>
-                            <div><h1 ><IoIosArrowDown /></h1></div>
-                            <div><h1 ><IoIosArrowDown /></h1></div>
                         </div>
 
                         <div className="hozitontal-line -mb-4">

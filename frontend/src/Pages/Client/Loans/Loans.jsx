@@ -249,6 +249,8 @@ function LoanApplication() {
                                   <option value={60}>60 Months</option>
                                 </select>
                               }
+
+                              
                             </div>
 
                             <div className="form-group col ">
