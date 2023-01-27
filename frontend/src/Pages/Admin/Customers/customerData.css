@@ -7,3 +7,10 @@
 .activate{
     background-color: var(  --capitec-blue);
 }
+.profile_card{
+    background-color: var( --side-background);
+    color: var(--background-color);
+}
+.picture_card{
+    width: 250px;
+}

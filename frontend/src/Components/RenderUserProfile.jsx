@@ -6,122 +6,116 @@ import { Link, useNavigate,useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getToken } from '../Helpers/helpers';
 import * as Yup from 'yup';
+import { Success } from "../Helpers/toasters";
+import { ToastContainer } from "react-toastify";
 
 //Your account balance
-export const Balances = ({ title, subtitle, icon, balance  }) => {
+export const Balances = ({ title, subtitle, balance  }) => {
     return (
-        <Box width="100%" p="20px 30px">
-            <Box display="flex" justifyContent="space-between" mt="2px" style={{ marginBottom: "10px" }} >
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {subtitle} </Typography>
-            </Box>
- 
-            <Box display="flex" className="mt-2"  >
-                <Typography variant="h5" > {icon} </Typography>
-                <Typography variant="h5" style={{ color: "#4cceac",  fontSize: "25px", }} > {balance} </Typography>
-            </Box>
-
-            <Box className="mt-2">
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {title} </Typography>
-            </Box>
-        </Box>
+        <div className="-mt-3">
+            <p>{subtitle} </p>
+            <p className="text-xl mt-2">R {balance} </p>
+            <p className="-mb-3 mt-3">{title} </p>
+        </div>
     );
 };
+
 
 //Your account Details
 export const AccountDetails = ({ accnumber, acctype, accstatus, virtualcard, subtitle, icon  }) => {
     return (
-        <Box width="100%" mt="20px" p="20px 30px">
-            <Box display="flex" justifyContent="space-between">
-                <Typography variant="h5" style={{ color: "#4cceac" }}>{subtitle} </Typography>
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {icon} </Typography>
-            </Box>
+        <div className="-mt-3">
+            <div className="flex justify-between" >
+                <h5 >{subtitle} </h5>
+                <h5> {icon} </h5>
+            </div>
 
-            <Box style={{ color: "#4cceac" }} className="divider"></Box>
+            <hr className="divider"></hr>
             
-            <Box justifyContent="space-between" mt="-5px" >
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Account Number</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {accnumber} </Typography>
-                </Box>
+            <div className="justify-between -mt-2" >
+                <div className="flex justify-between mb-2" >
+                    <h5 >Account Number</h5>
+                    <h5 >{accnumber} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Account Type</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {acctype} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Account Type</h5>
+                    <h5>{acctype} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Account Status</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {accstatus} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Account Status</h5>
+                    <h5 >{accstatus} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Virtual Card</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {virtualcard} </Typography>
-                </Box>
-            </Box>
-        </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Virtual Card</h5>
+                    <h5 >{virtualcard} </h5>
+                </div>
+            </div>
+        </div>
     );
 };
 
 
 //User Information
-export const GeneraInfo  = ({ firstname, lastname, email, age, phone, address, surbub, city, zip, subtitle, icon  }) => {
+export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, address, surbub, city, zip, subtitle, icon  }) => {
     return (
-        <Box width="100%" mt="20px" p="20px 30px">
-            <Box display="flex" justifyContent="space-between" >
-                <Typography variant="h5" style={{ color: "#4cceac" }}>{subtitle} </Typography>
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {icon} </Typography>
-            </Box>
+        <div className="-mt-3">
+            <div className="flex justify-between" >
+                <h5>{subtitle} </h5>
+                <h5> {icon} </h5>
+            </div>
 
-            <Box style={{ color: "#4cceac" }} className="divider"></Box>
+            <hr className="divider"></hr>
             
-            <Box justifyContent="space-between" mt="-5px" >
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>First Name</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {firstname} </Typography>
-                </Box>
+            <div className="justify-between -mt-2" >
+                <div className="flex justify-between mb-2" >
+                    <h5 >First Name</h5>
+                    <h5 className="">{firstname} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Last Name</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {lastname} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Last Name</h5>
+                    <h5 >{lastname} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Email</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {email} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Email</h5>
+                    <h5 >{email} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Age</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {age} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Birth Date</h5>
+                    <h5 >{birth_date} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Phone</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {phone} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Phone</h5>
+                    <h5 >{phone} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Address</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {address} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Address</h5>
+                    <h5 >{address} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Surbub</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {surbub} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Surbub</h5>
+                    <h5 >{surbub} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>City</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {city} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >City</h5>
+                    <h5 >{city} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Zip Code</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {zip} </Typography>
-                </Box>
-            </Box>
-        </Box>
+                <div className="flex justify-between" >
+                    <h5>Zip Code</h5>
+                    <h5>{zip} </h5>
+                </div>
+            </div> 
+        </div>
     );
 };
 
@@ -174,8 +168,8 @@ const updateUser = (params) =>{
 
 
 //Edit profile
-export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, phone, address, surbub, city, zip }) => {
-    
+export const EditProfile = ({ id, subtitle, firstname, lastname, email, birth_date, phone, address, surbub, city, zip }) => {
+   
     const token = getToken()
 
     // form validation rules 
@@ -187,7 +181,7 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, pho
         email: Yup.string().required('Email is mendatory')
             .email('invalid Email'),
 
-        age: Yup.string().required('Age is mendatory')
+        birth_date: Yup.string().required('Age is mendatory')
             .min(2, 'Age must be at least 2 char long'),
 
         phone: Yup.string().required('Phone is mendatory'),
@@ -215,7 +209,7 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, pho
                 firstname: data.firstname,
                 lastname : data.lastname,
                 email: data.email,
-                age : data.age,
+                birth_date : data.birth_date,
                 phone: data.phone,
                 address : data.address,
                 surbub: data.surbub,
@@ -223,13 +217,19 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, pho
                 zip : data.zip
             }
         }
-    
+        Success("Client information was updated succesffully")
         console.log(userData)
         return false
     }
 
+    const click = () =>{
+        console.log("Hello WOrld");
+    }
+  
+
     return (
         <Box>
+            <ToastContainer /> 
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
             <label htmlFor="my-modal-4" className="modal cursor-pointer">
                 <label className="modal-box relative w-full" htmlFor="">
@@ -253,13 +253,12 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, pho
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Email</span></label>
                         <input name="email" type="email" disabled value={email} className="input input-bordered w-full max-w-s email" />
-                      
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group col mb-4">
-                            <label className="label"><span className="label-text">Age</span></label>
-                            <input name="age" type="number" disabled value={age} className="input input-bordered w-full max-w-s email" />
+                            <label className="label"><span className="label-text">Date of Birth</span></label>
+                            <input name="birth_date" type="text" disabled value={birth_date} className="input input-bordered w-full max-w-s email" />
                           
                         </div>
 
@@ -298,7 +297,7 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, age, pho
                     </div>
 
                     <div className="form-group col mt-4 mb-2">
-                        <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        <button onClick={handleSubmit(onSubmit)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                             <HiDatabase style={{ marginRight: "5px", fontSize: "20px" }}  />Update
                         </button>
                     </div>
