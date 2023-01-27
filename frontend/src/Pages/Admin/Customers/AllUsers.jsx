@@ -22,12 +22,12 @@ function AllUsers(){
   }
 
   const activateUser = (params) => {
-    const id = params.id
-    accStatus.current = params.attributes.account_status;
+    const id = params.attributes.acc_id.data[0].id
+    accStatus.current = params.attributes.acc_id.data[0].attributes.account_status;
     let value ="";
-    if(params.attributes.account_status === 'Suspended'){
+    if(params.attributes.acc_id.data[0].attributes.account_status === 'Suspended'){
       value = "Active";
-    }else if(params.attributes.account_status === 'Active'){
+    }else if(params.attributes.acc_id.data[0].attributes.account_status === 'Active'){
       value = "Suspended";
     }
 
@@ -35,8 +35,6 @@ function AllUsers(){
       data:{account_status: value}
     }
   
-    console.log(token , id, data)
-
     UserService.updateStatus(token, id, data).then((data) => {
       if(value === "Suspended"){
         Success("Successfully Activated")
@@ -57,12 +55,13 @@ function AllUsers(){
   }, [])
 
   const edit = (params) =>{
-    navigate(`/admin/userprofile`, {state: {params}})
+    const id = params.id
+    navigate(`/admin/userprofile`, {state: {id}})
   }
 
   return (
     <Box m="20px" >
-        <ToastContainer />
+      <ToastContainer />
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mb="30px">
@@ -92,37 +91,37 @@ function AllUsers(){
                 <tr key={user.id}>
                   <td>
                     <div className="avatar placeholder">
-                      <div className="bg-neutral-focus text-neutral-content rounded-full w-14">
-                        <span className="text-3xl">
-                        {user?.attributes.customer_id.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                      <div className="bg-neutral-focus text-neutral-content rounded-full w-10">
+                        <span className="text-2xl">
+                          {user?.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                         </span>
                       </div>
                     </div>
                   </td>
                   <td>
-                    {user?.attributes.accountnumber}
+                    {user?.attributes.acc_id.data[0].attributes.accountno}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.firstname}
+                    {user?.attributes.firstname}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.lastname}
+                    {user?.attributes.lastname}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.email}
+                  {user?.attributes.email}
                   </td>
                   <td>
-                    {user?.attributes.customer_id.data.attributes.phone}
+                    {user?.attributes.phone}
                   </td>
                   <td>
-                    {user?.attributes.account_status}
+                    {user?.attributes.acc_id.data[0].attributes.account_status}
                   </td>
                   <td >
                     <button  className={
-                      user.attributes.account_status ==='Suspended'
+                      user?.attributes.acc_id.data[0].attributes.account_status ==='Suspended'
                       ? "rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "
                       : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
-                    } onClick={() => activateUser(user)} >{user.attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
+                    } onClick={() => activateUser(user)} >{user?.attributes.acc_id.data[0].attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
                   </td>
 
                   <td>
@@ -131,7 +130,7 @@ function AllUsers(){
 
                 </tr>
               );
-            })}
+            })} 
             </tbody>
         </table>
       </Box> 

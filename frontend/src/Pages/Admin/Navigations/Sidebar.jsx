@@ -42,7 +42,7 @@ const Sidenavbar  = () => {
               {!isCollapsed && (
                 <Box display="flex"  justifyContent="space-between" alignItems="center" ml="15px" >
                   <Typography variant="h3" >
-                    ADMINIS
+                    ADMIN
                   </Typography>
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                     <HiOutlineMenuAlt1 style={{color: "#F9F9F9"}} />

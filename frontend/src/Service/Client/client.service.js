@@ -24,7 +24,6 @@ const updateClientWithNewSavings = (id, data) => {
     return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
-
 const getAccountDetails = () => {
     const userId  = getId()
     const token = getToken();
