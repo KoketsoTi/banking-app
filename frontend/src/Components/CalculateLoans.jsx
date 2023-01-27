@@ -1,9 +1,16 @@
 //Calculate loans amount 
-const calcShortTerm = (setamt, inter, loanterm) =>{
-    const term = loanterm/12
-    const interest = 1 + inter / 100; 
-    const totalpayment = setamt * interest * term;
-    return totalpayment; 
+const calcShortTerm = (setamt, inter, loanterm, loan_type) =>{
+    // if (loan_type ==="Short-term") {
+        const term = (loanterm/12)
+        const interest = 1 + (inter / 100 * term) ; 
+        const totalpayment = setamt * interest;
+        return totalpayment; 
+    // } else if( loan_type==="Long-term"){
+
+        
+    //     return "long Term"; 
+    // }
+  
 }
 
 const calcLongTerm = () =>{
@@ -17,8 +24,7 @@ const interestpaid = (setamt, totalAmt) => {
 }
 
 const monthly = (totalAmt, loanterm) => {
-    const term = loanterm/12
-    const monthlypayment = totalAmt/term; 
+    const monthlypayment = totalAmt/loanterm; 
     return monthlypayment; 
 }
 
