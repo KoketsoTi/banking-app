@@ -106,7 +106,7 @@ function LoanApplication() {
       data: {
         loantype: loanType,
         amount: formData.loanAmt,
-        loanStatus: 'Inactive',
+        loanStatus: 'Pending',
         term: loanMonths ,
         interest: loanPer,
         unpaidInterest: totalInterest,
