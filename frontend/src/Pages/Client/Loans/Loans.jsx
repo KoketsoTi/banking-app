@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { HiOutlineDocument } from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
 import { Success, Warning } from '../../../Helpers/toasters';
-
+import Calculations from '../../../Components/CalculateLoans';
 import "./Loan.css";
 import { GiReceiveMoney } from "react-icons/gi";
 
@@ -192,13 +192,14 @@ function LoanApplication() {
   //   });
   // };
 
-
-
-
   const [loans, setLoans] = useState([]);
-  const monthlyPayment = 0;
-  const totalInterest = 0;
-  const totalDue = 0;
+  const [monthlyPayment, setmonthly] = useState(0)
+  const [totalInterest, setTotalInterest] = useState(0);
+  const [totalDue, seTotalDue] = useState(0);
+
+  let seTotal = 0;
+  let setInterest = 0;
+  let setMonth = 0;
 
   const [formData, setFormData] = useState({ loanType: "", interest: "", loanAmt: "", numYears: "" });
 
@@ -211,26 +212,45 @@ function LoanApplication() {
   function onSubmit(event) {
     event.preventDefault();
 
-    console.log(formData.interest);
-    console.log(formData.loanType);
+    seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
+    setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
+    setMonth = Calculations.monthly(seTotal, loanMonths)
+
+    // seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
+    // setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
+    // setMonth = Calculations.monthly(seTotal, loanMonths)
+
+    setTotalInterest(setInterest)
+    seTotalDue(seTotal)
+    setmonthly(setMonth)
 
     let userData = {
       data: {
         loan_type: loanType,
         amount: formData.loanAmt,
         loan_status: 'Inactive',
-        term: loanMonths,
+        term: loanMonths ,
         interest: loanPer,
-        // unpaid_interest: 0,
-        // monthly_pay: 0,
-        // total_repay: 0
+        totalInterest: setInterest,
+        totalDue: seTotal,
+        monthlyPayment: setMonth, 
+       
       }
     }
 
+    // Calculations
+    // const calculateResults = ({ loanAmt, interest, numYears }) => {
+     
+        // totalDue = loanAmt * (1+ totalInterest ) * numYears;
+        // monthlyPayment = totalDue / 12;
+
+
+    //   return;
+    // }
+    
+
     console.log(userData)
   }
-
-
 
   const [loanType, setLoanTpye] = useState('Long-term');
   const [loanPer, setLoanPer] = useState(0.105);
@@ -247,12 +267,12 @@ function LoanApplication() {
     setLoanTpye(e.target.value);
     switch (e.target.value) {
       case "long-term":
-        setLoanPer(0.105);
-        setLoanMonths(2);
+        setLoanPer(10.5);
+        setLoanMonths(24);
         break;
       case "short-term":
-        setLoanPer(0.1);
-        setLoanMonths(0.25)
+        setLoanPer(10);
+        setLoanMonths(3)
       default:
         break;
     }
@@ -342,16 +362,16 @@ function LoanApplication() {
                               {loanType === "Short-term"
                                 ?
                                 <select className="input input-bordered w-full max-w-s email" name="numYears" onChange={handleChangeMonths}>
-                                  <option value={0.25}>3 Months</option>
-                                  <option value={0.5}>6 Months</option>
-                                  <option value={1}>12 Months</option>
+                                  <option value={3}>3 Months</option>
+                                  <option value={6}>6 Months</option>
+                                  <option value={12}>12 Months</option>
                                 </select>
                                 :
                                 <select className="input input-bordered w-full max-w-s email" name="numYears" onChange={handleChangeMonths} >
-                                  <option value={2}>24 Months</option>
-                                  <option value={3}>36 Months</option>
-                                  <option value={4}>48 Months</option>
-                                  <option value={5}>60 Months</option>
+                                  <option value={24}>24 Months</option>
+                                  <option value={36}>36 Months</option>
+                                  <option value={48}>48 Months</option>
+                                  <option value={60}>60 Months</option>
                                 </select>
                               }
                             </div>
@@ -361,13 +381,13 @@ function LoanApplication() {
                               {loanType === "Short-term"
                                 ?
                                 <select className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
-                                  <option value={0.1}>10%</option>
-                                  <option value={0.15}>15%</option>
-                                  <option value={0.2}>20%</option>
+                                  <option value={10}>10%</option>
+                                  <option value={15}>15%</option>
+                                  <option value={20}>20%</option>
                                 </select>
                                 :
                                 <select selected className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
-                                  <option value={0.105}>10.5%</option>
+                                  <option value={10.5}>10.5%</option>
                                 </select>
 
                               }
@@ -392,22 +412,22 @@ function LoanApplication() {
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:xl:grid-cols-3  gap-3">
                           <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-money text-xl"> {monthlyPayment} </div>
-                              <div className="results-body">Monthly Payment</div>
+                              <div className="results-money text-xl"> {monthlyPayment } </div>
+                              <div className="results-body"> Monthly Payment</div>
                             </div>
                           </div>
 
 
                           <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-body text-xl"> {totalInterest} </div>
+                              <div className="results-body text-xl"> {totalInterest } </div>
                               <div className="results-body">Total Interest (%)</div>
                             </div>
                           </div>
 
                           <div className="card bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-body text-xl"> {totalDue} </div>
+                              <div className="results-body text-xl">R {totalDue } </div>
                               <div className="results-body">Total Amount to be paid Pay</div>
                             </div>
                           </div>
