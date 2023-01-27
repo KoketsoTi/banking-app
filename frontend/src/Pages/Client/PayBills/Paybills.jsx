@@ -14,8 +14,17 @@ function PayBills() {
 
             {/* CONTENT */}
             <Box className="card-request mt-10 lg:xl:mt-10">
+           
                 <Tab />
                 <Outlet />
+
+              
+            </Box>
+
+            <Box>
+
+
+          
             </Box>
         </Box>
     );
