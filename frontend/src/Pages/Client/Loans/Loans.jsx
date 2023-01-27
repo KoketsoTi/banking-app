@@ -76,19 +76,28 @@ function LoanApplication() {
 
   function CalCulateLoan(event) {
     event.preventDefault();
-    seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
-    setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
-    setMonth = Calculations.monthly(seTotal, loanMonths)
+
+    switch (loanType) {
+      case "Long-term":
+        seTotal = Calculations.calcLongTerm(formData.loanAmt,loanPer, loanMonths);
+        setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
+        setMonth = Calculations.monthly(seTotal, loanMonths);
+        break;
+      case "Short-term":
+        seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths);
+        setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
+        setMonth = Calculations.monthly(seTotal, loanMonths);
+          break;
+      default:
+        break;
+    }
 
     setTotalInterest(setInterest)
     seTotalDue(seTotal)
     setmonthly(setMonth)
 
-    console.log();
-
     return
   }
-
 
   function onSubmit(event){
     event.preventDefault();
@@ -133,11 +142,11 @@ function LoanApplication() {
   const handleChangeLoanTerm = (e) => {
     setLoanTpye(e.target.value);
     switch (e.target.value) {
-      case "long-term":
+      case "Long-term":
         setLoanPer(10.5);
         setLoanMonths(24);
         break;
-      case "short-term":
+      case "Short-term":
         setLoanPer(10);
         setLoanMonths(3);
         break;

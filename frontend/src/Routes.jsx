@@ -12,7 +12,7 @@ import Cards from './Pages/Admin/Card/Cards';
 import Profile from './Pages/Admin/Profile/Profile';
 import ChangePassword from "./Pages/Admin/ChangePassword/Changepassword";
 import RegisterAdmin from './Pages/Admin/RegisterAdmin/RegisterAdmin';
-
+import LoanApplications from './Pages/Admin/ApproveLoan/AproveLoanApplication';
 
 /////////////////////////Pages that don't require users to be logged in//////////////////
 import Login from './Pages/Login/Login'
@@ -58,6 +58,7 @@ const Navigation = () => {
                 <Route path="long-term" element={<LongTerm /> } />
                 <Route path="addnewadmin" element={<RegisterAdmin />} />
                 <Route path="approveLoans" element={<ApproveLoan /> } />
+                <Route path="loan-application" element={<LoanApplications />} />
             </Route>
             
             {/* Nested routings */}
