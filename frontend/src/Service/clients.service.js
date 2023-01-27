@@ -36,13 +36,14 @@ const ApplicationForm = async(data) => {
     await axios.post(`${API}newapplications`, data)
 }
 
-// const LoanApplicationForm = async(data) => {
-//     await axios.post(`${API}`, data)
-// }
-
 const getNewUsers = () => {
     const token = getToken();
     return axios.get(`${API}newapplications`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const getLoanApplication = () => {
+    const token = getToken();
+    return axios.get(`${API}loan-applications`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const register = (token, data) => {
@@ -53,14 +54,14 @@ const functions = {
     getAllUsers,
     updateStatus,
     ApplicationForm,
-    // LoanApplicationForm,
     getNewUsers,
     deleteAUser,
     getShortLoans,
     getLongLoans,
     updateLoanStatus,
     register,
-    getUser
+    getUser,
+    getLoanApplication
 }
 
 export default functions;

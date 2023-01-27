@@ -60,8 +60,7 @@
     "loan_applications_id": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::loan-application.loan-application",
-      "mappedBy": "client_id"
+      "target": "api::loan-application.loan-application"
     }
   }
 }

@@ -35,12 +35,6 @@
     },
     "totalDue": {
       "type": "float"
-    },
-    "client_id": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::client.client",
-      "inversedBy": "loan_applications_id"
     }
   }
 }

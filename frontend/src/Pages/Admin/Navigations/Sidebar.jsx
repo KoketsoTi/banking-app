@@ -100,6 +100,14 @@ const Sidenavbar  = () => {
                   setSelected={setSelected}
                 />
 
+                <Item
+                  title="Verify Loan applicactions"
+                  to="/admin/loan-application"
+                  icon={<CgCloseO style={{fontSize: "20px"}} />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+
               <Typography  variant="h6" style={{color: "#a3a3a3"}} sx={{ m: "15px 0 5px 20px" }} >
                 Visual Cards
               </Typography>              

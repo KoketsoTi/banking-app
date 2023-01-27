@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { HiOutlineDocument } from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
-import { Error, Success, Warning } from '../../../Helpers/toasters';
+import { Error, Success } from '../../../Helpers/toasters';
 import Calculations from '../../../Components/CalculateLoans';
 import "./Loan.css";
 import { getToken } from "../../../Helpers/helpers";
@@ -36,7 +36,9 @@ function LoanApplication() {
   const [totalDue, seTotalDue] = useState(0);
   const [getId, setId] = useState([]);
   const [useClientData, setClientData] = useState(general);
+  const [client, setClient] = useState([])
   const auth_token = getToken();
+  const setNewID = [];
 
   let seTotal = 0;
   let setInterest = 0;
@@ -44,9 +46,6 @@ function LoanApplication() {
 
   const [formData, setFormData] = useState({ loanType: "", interest: "", loanAmt: "", numYears: "" });
 
-  function onSubmit(){
-
-  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -61,7 +60,7 @@ function LoanApplication() {
         //fetch client accounts using the id returned by the request above
         User.getBeneficiaries(response.data.client_id.id).then((response) => {
             setClientData(response.data.data);
-            console.log(response.data.data);
+            setClient(response.data.data)
         }).catch((error) => {
             console.log(error);
             console.log("unable to get user accounts");
@@ -75,18 +74,33 @@ function LoanApplication() {
       }
   },[])
 
-  console.log(useClientData);
-
-
   function CalCulateLoan(event) {
     event.preventDefault();
-    seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
-    setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
-    setMonth = Calculations.monthly(seTotal, loanMonths)
+
+    switch (loanType) {
+      case "Long-term":
+        seTotal = Calculations.calcLongTerm(formData.loanAmt,loanPer, loanMonths);
+        setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
+        setMonth = Calculations.monthly(seTotal, loanMonths);
+        break;
+      case "Short-term":
+        seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths);
+        setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
+        setMonth = Calculations.monthly(seTotal, loanMonths);
+          break;
+      default:
+        break;
+    }
 
     setTotalInterest(setInterest)
     seTotalDue(seTotal)
     setmonthly(setMonth)
+
+    return
+  }
+
+  function onSubmit(event){
+    event.preventDefault();
 
     let userData = {
       data: {
@@ -95,19 +109,28 @@ function LoanApplication() {
         loanStatus: 'Inactive',
         term: loanMonths ,
         interest: loanPer,
-        unpaidInterest: setInterest,
-        monthly_due: setMonth, 
-        totalDue: seTotal,
+        unpaidInterest: totalInterest,
+        monthly_due: monthlyPayment, 
+        totalDue: totalDue,
       }
-    } 
-    User.applyForLoan(userData).then((response) => {
-      Success("Application successful")
+    }
+
+    useClientData.attributes.loan_applications_id.data.map((response) => {
+      setNewID.push(response.id)
+    })
+ 
+    User.applyForLoan(userData).then((response) => {  
+      setNewID.push(response.data.data.id);
+      
+      let id = {data:{loan_applications_id : setNewID}}
+      User.updateClientLoanApplicationList(getId, id).then((response) => {
+        Success("Application successful")
+      })
     }).catch((error) => {
       Error('Unable to apply for a loan')
     }) 
-
-    return
   }
+
 
   const handleChangePer = (e) => {
     setLoanPer(e.target.value);
@@ -119,13 +142,14 @@ function LoanApplication() {
   const handleChangeLoanTerm = (e) => {
     setLoanTpye(e.target.value);
     switch (e.target.value) {
-      case "long-term":
+      case "Long-term":
         setLoanPer(10.5);
         setLoanMonths(24);
         break;
-      case "short-term":
+      case "Short-term":
         setLoanPer(10);
-        setLoanMonths(3)
+        setLoanMonths(3);
+        break;
       default:
         break;
     }
@@ -141,7 +165,7 @@ function LoanApplication() {
             <Box className="text-start mb-5 hed">
               <Typography variant="h5" fontWeight="bold" style={{ color: "#141b2d" }} >Loans</Typography>
             </Box>
-            {loans.length != 0 ?
+            {loans.length !== 0 ?
               <label htmlFor="my-modal-4" className="rounded-none bg-white add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
                 <GiReceiveMoney style={{ color: "#009DE0", marginTop: "1px" }} className="mr-2.5 text-2xl" />
                 <h1 className="text-xl" >Apply For loan</h1>
@@ -152,7 +176,7 @@ function LoanApplication() {
         </div>
 
         {/* CONTENTS */}
-        {loans.length != 0 ?
+        {loans.length !== 0 ?
           <Box className="card-request lg:xl:mt-5">
             <div className="card p-4 lg:xl:p-0" >
               <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">
@@ -225,6 +249,8 @@ function LoanApplication() {
                                   <option value={60}>60 Months</option>
                                 </select>
                               }
+
+                              
                             </div>
 
                             <div className="form-group col ">
