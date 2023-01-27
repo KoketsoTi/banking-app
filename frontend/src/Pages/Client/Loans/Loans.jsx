@@ -1,201 +1,42 @@
 import { Box, Typography } from "@mui/material";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from "react-hook-form";
-import { useState, useRef } from 'react';
-
+import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
-import * as Yup from 'yup';
-
 import { HiOutlineDocument } from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
-import { Success, Warning } from '../../../Helpers/toasters';
+import { Error, Success, Warning } from '../../../Helpers/toasters';
 import Calculations from '../../../Components/CalculateLoans';
 import "./Loan.css";
+import { getToken } from "../../../Helpers/helpers";
 import { GiReceiveMoney } from "react-icons/gi";
-
-
-
-// import Newloan from '../../../Service/clients.service';
+import User from '../../../Service/Client/client.service';
 
 function LoanApplication() {
-
-  // // form validation rules 
-  // const formSchema = Yup.object().shape({
-
-  //   // title: Yup.string().required('address is mendatory'),
-
-  //   firstname: Yup.string().required('First Name is mendatory'),
-  //   lastname: Yup.string().required('Last name is mendatory'),
-  //   identity: Yup.string().required('Identity Number is required')
-  //     .max(13, 'Identity Number should be at most 13 characters long')
-  //     .min(13, 'Identity Number should be at least 13 characters long'),
-  //   phone: Yup.string().required('Phone is mendatory'),
-  //   address: Yup.string().required('address is mendatory'),
-  //   // surbub: Yup.string().required('surbub is mendatory'),
-  //   // city: Yup.string().required('city is mendatory'),
-  //   // zip: Yup.string().required('zip is mendatory')
-  //   //     .min(3, 'zip must be at least 3 char long')
-  //   //     .max(4, 'zip must not be longer than 4 characters'),
-  //   // desiredAmount: Yup.string().required('Last name is mendatory'),
-  //   occupation: Yup.string().required('Last name is mendatory'),
-  //   // monthlyIncome: Yup.string().required('Last name is mendatory'),
-
-  // })
-
-  // const [loading, setLoading] = React.useState(true);
-  // function handleClick() {
-  //   setLoading(false);
-  // }
-  // const formOptions = { resolver: yupResolver(formSchema) }
-  // const { register, handleSubmit, reset, formState } = useForm(formOptions)
-  // const [isDisabled, setIsDisabled] = useState(true);
-  // const { errors } = formState
-
-  // function onSubmit(data, event) {
-  //   event.preventDefault();
-  //   console.log(JSON.stringify(data, null, 4))
-  //   let userData = {
-  //     data: {
-  //       // title: data.title,
-  //       firstname: data.firstname,
-  //       lastname: data.lastname,
-  //       identity: data.identity,
-  //       phone: data.phone,
-  //       address: data.address,
-  //       // surbub: data.surbub,
-  //       // city: data.city,
-  //       // zip: data.zip,
-  //       desiredAmount: userValues.amount,
-  //       occupation: data.occupation,
-  //       monthlyIncome: results.monthlyPayment,
-
-  //     }
-
-  //   }
-
-  //   // Newloan.ApplicationForm(userData).then((response) => {
-  //   //     Success("Application was successful");
-  //   // })
-  //   //     .catch((error) => {
-  //   //         console.log('An error occurred:', error.response);
-  //   //         Warning('Unable to apply ')
-  //   //     });
-
-  //   console.log(userData)
-  //   // return false
-  // }
-
-  // // state to storage the values given by the user when filling the input fields
-  // const [userValues, setUserValues] = useState({
-  //   amount: '',
-  //   interest: 12,
-  //   years: '',
-  // });
-
-  // // state to store the results of the calculation
-  // const [results, setResults] = useState({
-  //   monthlyPayment: '',
-  //   totalPayment: '',
-  //   totalInterest: '',
-  //   isResult: false,
-  // });
-
-
-
-  // // state to storage error message
-  // const [error, setError] = useState('');
-
-  // // event handler to update state when the user enters values
-  // const handleInputChange = (event) =>
-  //   setUserValues({ ...userValues, [event.target.name]: event.target.value });
-
-  // // Manage validations and error messages
-  // const isValid = () => {
-  //   const { amount, interest, years } = userValues;
-  //   let actualError = '';
-  //   // Validate if there are values
-  //   if (!amount || !interest || !years) {
-  //     actualError = 'All the values are required';
-  //   }
-  //   // Validade if the values are numbers
-  //   if (isNaN(amount) || isNaN(interest) || isNaN(years)) {
-  //     actualError = 'All the values must be a valid number';
-  //   }
-  //   // Validade if the values are positive numbers
-  //   if (Number(amount) <= 0 || Number(interest) <= 0 || Number(years) <= 0) {
-  //     actualError = 'All the values must be a positive number';
-  //   }
-  //   if (actualError) {
-  //     setError(actualError);
-  //     return false;
-  //   }
-  //   return true;
-  // };
-
-
-  // // Handle the data submited - validate inputs and send it as a parameter to the function that calculates the loan
-  // const handleSubmitValues = (e) => {
-  //   e.preventDefault();
-  //   if (isValid()) {
-  //     setError('');
-  //     calculateResults(userValues);
-  //     // this.setState({condition: false}); // to enable the button
-  //     setIsDisabled(false);
-  //     console.log(isDisabled, "False disbled");
-  //   }
-  //   else {
-  //     // this.setState({condition: true}); // to disable the button
-  //     setIsDisabled(true);
-  //     console.log(isDisabled, "True disabled");
-  //   }
-  // };
-
-
-  // // Calculation
-  // const calculateResults = ({ amount, interest, years }) => {
-  //   const userAmount = Number(amount);
-  //   const calculatedInterest = Number(interest) / 100 / 12;
-  //   const calculatedPayments = Number(years) * 12;
-  //   const x = Math.pow(1 + calculatedInterest, calculatedPayments);
-  //   const monthly = (userAmount * x * calculatedInterest) / (x - 1);
-
-  //   if (isFinite(monthly)) {
-  //     const monthlyPaymentCalculated = monthly.toFixed(2);
-  //     const totalPaymentCalculated = (monthly * calculatedPayments).toFixed(2);
-  //     const totalInterestCalculated = (monthly * calculatedPayments - userAmount).toFixed(2);
-
-  //     // Set up results to the state to be displayed to the user
-  //     setResults({
-  //       monthlyPayment: monthlyPaymentCalculated,
-  //       totalPayment: totalPaymentCalculated,
-  //       totalInterest: totalInterestCalculated,
-  //       isResult: true,
-  //     });
-  //   }
-  //   return;
-
-  // };
-
-  // // Clear input fields
-  // const clearFields = () => {
-  //   setUserValues({
-  //     amount: '',
-  //     interest: '',
-  //     years: '',
-  //   });
-
-  //   setResults({
-  //     monthlyPayment: '',
-  //     totalPayment: '',
-  //     totalInterest: '',
-  //     isResult: false,
-  //   });
-  // };
-
+  const general ={
+    attributes:{
+      birth_date: "2002-01-09",
+      city: "Johannesburg",
+      country: "South Africa",
+      createdAt: "2023-01-25T13:42:36.280Z",
+      email: "fridah.dikobe@dadevs.co.za",
+      firstname: "Fridah",
+      lastname: "Dikobe",
+      phone: "079-222-1123",
+      street_address:  "14th street",
+      surbub: "Randburg",
+      zipcode: "0012"
+    },
+    id: 1
+  }
+  const [loanType, setLoanTpye] = useState('Long-term');
+  const [loanPer, setLoanPer] = useState(0.105);
+  const [loanMonths, setLoanMonths] = useState(2);
   const [loans, setLoans] = useState([]);
   const [monthlyPayment, setmonthly] = useState(0)
   const [totalInterest, setTotalInterest] = useState(0);
   const [totalDue, seTotalDue] = useState(0);
+  const [getId, setId] = useState([]);
+  const [useClientData, setClientData] = useState(general);
+  const auth_token = getToken();
 
   let seTotal = 0;
   let setInterest = 0;
@@ -203,22 +44,45 @@ function LoanApplication() {
 
   const [formData, setFormData] = useState({ loanType: "", interest: "", loanAmt: "", numYears: "" });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData(prevData => ({ ...prevData, [name]: value }));
+  function onSubmit(){
 
   }
 
-  function onSubmit(event) {
-    event.preventDefault();
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+  }
 
+
+  function getUserAccounts(){
+    //Fetch client id
+    User.getClientUser().then((response) => {
+        setId(response.data.client_id.id)
+        //fetch client accounts using the id returned by the request above
+        User.getBeneficiaries(response.data.client_id.id).then((response) => {
+            setClientData(response.data.data);
+            console.log(response.data.data);
+        }).catch((error) => {
+            console.log(error);
+            console.log("unable to get user accounts");
+        })
+    })
+  }
+
+  useEffect(() => {
+      if(auth_token){
+          getUserAccounts(); 
+      }
+  },[])
+
+  console.log(useClientData);
+
+
+  function CalCulateLoan(event) {
+    event.preventDefault();
     seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
     setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
     setMonth = Calculations.monthly(seTotal, loanMonths)
-
-    // seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths, loanType)
-    // setInterest = Calculations.interestpaid( formData.loanAmt, seTotal)
-    // setMonth = Calculations.monthly(seTotal, loanMonths)
 
     setTotalInterest(setInterest)
     seTotalDue(seTotal)
@@ -226,35 +90,24 @@ function LoanApplication() {
 
     let userData = {
       data: {
-        loan_type: loanType,
+        loantype: loanType,
         amount: formData.loanAmt,
-        loan_status: 'Inactive',
+        loanStatus: 'Inactive',
         term: loanMonths ,
         interest: loanPer,
-        totalInterest: setInterest,
+        unpaidInterest: setInterest,
+        monthly_due: setMonth, 
         totalDue: seTotal,
-        monthlyPayment: setMonth, 
-       
       }
-    }
+    } 
+    User.applyForLoan(userData).then((response) => {
+      Success("Application successful")
+    }).catch((error) => {
+      Error('Unable to apply for a loan')
+    }) 
 
-    // Calculations
-    // const calculateResults = ({ loanAmt, interest, numYears }) => {
-     
-        // totalDue = loanAmt * (1+ totalInterest ) * numYears;
-        // monthlyPayment = totalDue / 12;
-
-
-    //   return;
-    // }
-    
-
-    console.log(userData)
+    return
   }
-
-  const [loanType, setLoanTpye] = useState('Long-term');
-  const [loanPer, setLoanPer] = useState(0.105);
-  const [loanMonths, setLoanMonths] = useState(2);
 
   const handleChangePer = (e) => {
     setLoanPer(e.target.value);
@@ -281,9 +134,7 @@ function LoanApplication() {
   return (
     <Box className="Box">
       <ToastContainer />
-
       {/* HEADER */}
-
       <Box className="card-request mt-10 lg:xl:mt-10">
         <div className="card p-4 lg:xl:p-0" >
           <div className="flex justify-between">
@@ -393,10 +244,10 @@ function LoanApplication() {
                               }
                             </div>
                           </div>
-
                           <div className="form-group col text-left mt-4">
-                            <button onClick={onSubmit} className="rounded-none relative w-full lg:xl:w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 ">Calculate </button>
+                            <button onClick={CalCulateLoan} className="rounded-none relative w-full lg:xl:w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 ">Calculate </button>
                           </div>
+
                         </form>
                       </div>
                     </div>
@@ -410,33 +261,32 @@ function LoanApplication() {
 
                       <div>
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:xl:grid-cols-3  gap-3">
-                          <div className="card bg-base-100 shadow-xl" >
+                          <div className="card card1 bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-money text-xl"> {monthlyPayment } </div>
+                              <div className="results-money text-xl"> {monthlyPayment.toFixed(2) } </div>
                               <div className="results-body"> Monthly Payment</div>
                             </div>
                           </div>
 
-
-                          <div className="card bg-base-100 shadow-xl" >
+                          <div className="card card2 bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-body text-xl"> {totalInterest } </div>
+                              <div className="results-body text-xl"> {totalInterest.toFixed(2) } </div>
                               <div className="results-body">Total Interest (%)</div>
                             </div>
                           </div>
 
-                          <div className="card bg-base-100 shadow-xl" >
+                          <div className="card card3 bg-base-100 shadow-xl" >
                             <div className="card-body items-center" >
-                              <div className="results-body text-xl">R {totalDue } </div>
+                              <div className="results-body text-xl">R {totalDue.toFixed(2) } </div>
                               <div className="results-body">Total Amount to be paid Pay</div>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              
 
                 <div className="card bg-base-100  rounded-none shadow-xl">
                   <div className="card-body">
@@ -444,6 +294,80 @@ function LoanApplication() {
                       <Typography variant="h5" fontWeight="bold" style={{ color: "#141b2d" }} >Application Form</Typography>
                     </div>
 
+                    <form >
+                      <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">First Name</span></label>
+                          <input type="text" name="lastname" disabled placeholder="Last Name" value={useClientData.attributes.firstname}
+                            className="input input-bordered w-full max-w-s firstname " />
+                        </div>
+
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Last Name</span></label>
+                          <input type="text" name="lastname" disabled placeholder="lastname" value={useClientData.attributes.lastname}
+                            className="input input-bordered w-full max-w-s lastname " />
+                        </div>
+                      </div>
+
+                      <div className="form-group col mb-2">
+                        <label className="label"><span className="label-text">Email</span></label>
+                        <input type="text" name="phone" disabled placeholder="phone" value={useClientData.attributes.email}
+                          className="input input-bordered w-full max-w-s phone " />
+                      </div>
+
+                      <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-3">
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Identity</span></label>
+                          <input type="text" name="identity" disabled placeholder="identity" value={useClientData.attributes.birth_date}
+                            className="input input-bordered w-full max-w-s identity " />
+                        </div>
+
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Phone</span></label>
+                          <input type="text" name="phone" disabled placeholder="phone" value={useClientData.attributes.phone}
+                            className="input input-bordered w-full max-w-s phone " />
+                        </div>
+                      </div>
+                    
+                      <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Address</span></label>
+                          <input type="text" name="address" disabled placeholder="address" value={useClientData.attributes.street_address}
+                            className="input input-bordered w-full max-w-s address " />
+                        </div> 
+
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Surbub</span></label>
+                          <input type="text" name="surbub"disabled placeholder="surbub" value={useClientData.attributes.surbub}
+                            className="input input-bordered w-full max-w-s surbub " />
+                        </div>
+                      <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:grid-cols-2 lg:xl:gap-3 mt-4'>
+                       
+
+                        <div className="form-group col mb-2">
+                        <label className="label"><span className="label-text">City</span></label>
+                            <input type="text" name="city" disabled placeholder="city" value={useClientData.attributes.city}
+                            className="input input-bordered w-full max-w-s city " />
+                        </div>
+
+                        <div className="form-group col mb-2">
+                          <label className="label"><span className="label-text">Zip</span></label>
+                          <input type="text" name="zip" disabled placeholder="zip" value={useClientData.attributes.zipcode}
+                            className="input input-bordered w-full max-w-s zip " />
+                        </div>
+                                
+                                            
+                      </div>
+
+                      <div className="form-group col mb-2">
+                        <label className="label"><span className="label-text">Occupation</span></label>
+                        <input type="text" name="occupation" disabled placeholder="occupation" value={useClientData.attributes}
+                          className="input input-bordered w-full max-w-s occupation " />
+                      </div>
+                    
+                      <div className="form-group col mb-2 mt-7">
+                        <button onClick={onSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4"><HiOutlineDocument style={{ marginTop: "3px", marginRight: "5px" }} />Submit Application </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

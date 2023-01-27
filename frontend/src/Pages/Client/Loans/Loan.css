@@ -172,29 +172,29 @@
 .card-1 {
     color: white;
     background-color: #47a386;
-    padding: 20px;
+    /* padding: 20px;
     margin: 10px;
     width: 200px;
     height: 170px;
-    border-radius: 5px;
+    border-radius: 5px; */
 }
 .card-2 {
-    color: white;
+    /* color: white; */
     background-color: #FF5823;
-    padding: 20px;
+    /* padding: 20px;
     margin: 10px;
     width: 200px;
     height:170px;
-    border-radius: 5px;
+    border-radius: 5px; */
 }
 .card-3 {
-    color: white;
+    /* color: white; */
     background-color: #009DE0;
-    padding: 20px;
+    /* padding: 20px;
     margin: 10px;
     width: 200px;
     height: 170px;
-    border-radius: 5px;
+    border-radius: 5px; */
 
 }
 

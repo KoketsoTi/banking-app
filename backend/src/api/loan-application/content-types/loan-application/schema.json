@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "loan_applications",
+  "info": {
+    "singularName": "loan-application",
+    "pluralName": "loan-applications",
+    "displayName": "LoanApplication",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "loantype": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "loanStatus": {
+      "type": "string"
+    },
+    "term": {
+      "type": "float"
+    },
+    "interest": {
+      "type": "float"
+    },
+    "unpaidInterest": {
+      "type": "float"
+    },
+    "monthly_due": {
+      "type": "float"
+    },
+    "totalDue": {
+      "type": "float"
+    },
+    "client_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "loan_applications_id"
+    }
+  }
+}
