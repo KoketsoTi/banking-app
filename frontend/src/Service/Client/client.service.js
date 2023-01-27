@@ -26,6 +26,13 @@ const updateClientBeneficiaryList = (id, data) => {
     return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
+//Update application loans with new beneficiaries
+const updateClientLoanApplicationList = (id, data) => {
+    const token = getToken();
+    return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
+}
+
+
 //Update user account with newly added savings plan
 const updateClientWithNewSavings = (id, data) => {
     const token = getToken();
@@ -54,6 +61,7 @@ const functions = {
     getBeneficiaries,
     createBeneficiary,
     updateClientBeneficiaryList,
+    updateClientLoanApplicationList,
     updateClientWithNewSavings,
     getAccountDetails,
     createAccout
