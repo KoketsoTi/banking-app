@@ -16,11 +16,16 @@ const deleteAUser = (token, id) => {
 }
 
 const getShortLoans = (token) => {
-    return axios.get(`${API}clients?populate=*&filters[loans][loan_type][$eq]=Short-term`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${API}loans?populate=*&filters[loan_type][$eq]=Short-term&filters[loan_status][$ne]=Pending`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const getPending = () => {
+    const token = getToken();
+    return axios.get(`${API}loans?populate=*&&filters[loan_status][$eq]=Pending`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const getLongLoans = (token) => {
-    return axios.get(`${API}clients?populate=*&filters[loans][loan_type][$eq]=Long-term`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${API}loans?populate=*&filters[loan_type][$eq]=Long-term&filters[loan_status][$ne]=Pending`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const updateLoanStatus = (token, id, value) => {
@@ -50,6 +55,10 @@ const register = (token, data) => {
     return axios.post(`${API}auth/local/register`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
 }
 
+const RejectLoan = (token, id, value) => {
+    return axios.delete(`${API}loans/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 const functions = {
     getAllUsers,
     updateStatus,
@@ -61,6 +70,8 @@ const functions = {
     updateLoanStatus,
     register,
     getUser,
+    getPending,
+    RejectLoan,
     getLoanApplication
 }
 

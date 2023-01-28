@@ -1,13 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { HiDatabase } from 'react-icons/hi';
 import { useState } from 'react';
-import { useForm } from "react-hook-form";
-import { Link, useNavigate,useSearchParams } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { getToken } from '../Helpers/helpers';
-import * as Yup from 'yup';
-import { Success } from "../Helpers/toasters";
+import { Error, Success } from "../Helpers/toasters";
 import { ToastContainer } from "react-toastify";
+import UserService from "../Service/Client/client.service";
 
 //Your account balance
 export const Balances = ({ title, subtitle, balance  }) => {
@@ -59,7 +56,7 @@ export const AccountDetails = ({ accnumber, acctype, accstatus, virtualcard, sub
 
 
 //User Information
-export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, address, surbub, city, zip, subtitle, icon  }) => {
+export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, address, surbub, city, zip, country, subtitle, icon  }) => {
     return (
         <div className="-mt-3">
             <div className="flex justify-between" >
@@ -110,10 +107,15 @@ export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, add
                     <h5 >{city} </h5>
                 </div>
 
-                <div className="flex justify-between" >
+                <div className="flex justify-between mb-2" >
                     <h5>Zip Code</h5>
                     <h5>{zip} </h5>
                 </div>
+                <div className="flex justify-between" >
+                    <h5>Nationality</h5>
+                    <h5>{country} </h5>
+                </div>
+                
             </div> 
         </div>
     );
@@ -121,112 +123,89 @@ export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, add
 
 
 //Your account Details
-export const Loan  = ({ shortloan, shortstatus, amount, term, rate, subtitle, icon  }) => {
+export const Loan  = ({ shortloan, shortstatus, amount, term, rate, month, totalInterest, totalDue, subtitle, icon  }) => {
     return (
-        <Box width="100%" mt="20px" p="20px 30px">
-            <Box display="flex" justifyContent="space-between" >
-                <Typography variant="h5" style={{ color: "#4cceac" }}>{subtitle} </Typography>
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {icon} </Typography>
-            </Box>
+        <div className="-mt-3">
+            <div className="flex justify-between" >
+                <h5>{subtitle} </h5>
+                <h5> {icon} </h5>
+            </div>
 
-            <Box style={{ color: "#4cceac" }} className="divider"></Box>
+            <hr className="divider"></hr>
             
-            <Box justifyContent="space-between" mt="-5px" >
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> Loan</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {shortloan} </Typography>
-                </Box>
+            <div className="justify-between -mt-2" >
+                <div className="flex justify-between mb-2" >
+                    <h5 >Loan</h5>
+                    <h5 >{shortloan} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Amount</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {amount} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Amount</h5>
+                    <h5 > {amount.toLocaleString()} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Term</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {term} months </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Term</h5>
+                    <h5 > {term} months </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Rate</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {rate} p/a </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Rate</h5>
+                    <h5 > {rate} p/a </h5>
+                </div>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Total Interest</h5>
+                    <h5 >R {totalInterest.toLocaleString()} </h5>
+                </div>
+                
+                <div className="flex justify-between mb-2" >
+                    <h5 >Monthly Repayment</h5>
+                    <h5 >R {month.toLocaleString()} </h5>
+                </div>
+                
+                <div className="flex justify-between mb-2" >
+                    <h5 >Total Repayment</h5>
+                    <h5 >R {totalDue.toLocaleString()} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between">
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Loan Status</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {shortstatus} </Typography>
-                </Box>
-            </Box>
-        </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Loan Status</h5>
+                    <h5 >{shortstatus} </h5>
+                </div>
+            </div>
+        </div>
     );
 };
 
 
-const updateUser = (params) =>{
-
-}
-
-
 //Edit profile
 export const EditProfile = ({ id, subtitle, firstname, lastname, email, birth_date, phone, address, surbub, city, zip }) => {
-   
     const token = getToken()
+    const [formData, setFormData] = useState({phone:phone, address:address, surbub:surbub, city:city, zip:zip})
 
-    // form validation rules 
-    const formSchema = Yup.object().shape({
-        firstname: Yup.string().required('First Name is mendatory'),
-
-        lastname: Yup.string().required('Last name is mendatory'),
-
-        email: Yup.string().required('Email is mendatory')
-            .email('invalid Email'),
-
-        birth_date: Yup.string().required('Age is mendatory')
-            .min(2, 'Age must be at least 2 char long'),
-
-        phone: Yup.string().required('Phone is mendatory'),
-
-        address: Yup.string().required('address is mendatory'),
-
-        surbub: Yup.string().required('surbub is mendatory'),
-
-        city: Yup.string().required('city is mendatory'),
-
-        zip: Yup.string().required('zip is mendatory')
-            .min(3, 'zip must be at least 3 char long')
-            .max(4, 'zip must not be longer than 4 characters'),
-    })
-
-    const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, reset, formState } = useForm(formOptions)
-    const { errors } = formState
-
-    function onSubmit(data, event) {
-        event.preventDefault();
-        console.log(JSON.stringify(data, null, 4))
-        let userData = {
-            data:{
-                firstname: data.firstname,
-                lastname : data.lastname,
-                email: data.email,
-                birth_date : data.birth_date,
-                phone: data.phone,
-                address : data.address,
-                surbub: data.surbub,
-                city : data.city,
-                zip : data.zip
-            }
-        }
-        Success("Client information was updated succesffully")
-        console.log(userData)
-        return false
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
     }
 
     const click = () =>{
-        console.log("Hello WOrld");
+        let user = {
+            data: {
+                phone: formData.phone,
+                street_address: formData.address,
+                surbub: formData.surbub,
+                city: formData.city,
+                zipcode: formData.zip
+            }
+        }
+
+        UserService.updateClientBeneficiaryList(id, user).then((response) => {
+            Success("Client Details Updated successfully");
+        }).catch((error) => {
+            Error("Unable to update user information")
+        })
     }
   
-
     return (
         <Box>
             <ToastContainer /> 
@@ -264,40 +243,40 @@ export const EditProfile = ({ id, subtitle, firstname, lastname, email, birth_da
 
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Phone</span></label>
-                            <input name="phone" type="text" value={phone} className="input input-bordered w-full max-w-s email " {...register('phone')} />
-                            <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
+                            <input name="phone" type="text" value={formData.phone}  onChange={handleChange} className="input input-bordered w-full max-w-s email" />
+                          
                         </div>
                     </div>
 
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Address</span></label>
-                        <input name="address" type="text" value={address} className="input input-bordered w-full max-w-s email " {...register('address')} />
-                        <div className="invalid-feedback text-rose-600">{errors.surbub?.message}</div>
+                        <input name="address" type="text" value={formData.address} onChange={handleChange} className="input input-bordered w-full max-w-s email " />
+                       
                     </div>
 
 
                     <div className="form-group col mb-4">
                         <label className="label"><span className="label-text">Surbub</span></label>
-                        <input name="surbub" type="text" value={surbub} className="input input-bordered w-full max-w-s email " {...register('surbub')} />
-                        <div className="invalid-feedback text-rose-600">{errors.surbub?.message}</div>
+                        <input name="surbub" type="text" value={formData.surbub} onChange={handleChange} className="input input-bordered w-full max-w-s email "  />
+                        
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">City</span></label>
-                            <input name="city" type="text" value={city} className="input input-bordered w-full max-w-s email " {...register('city')} />
-                            <div className="invalid-feedback text-rose-600">{errors.city?.message}</div>
+                            <input name="city" type="text" value={ formData.city} onChange={handleChange} className="input input-bordered w-full max-w-s email " />
+                           
                         </div>
 
                         <div className="form-group col mb-4">
                             <label className="label"><span className="label-text">Zip</span></label>
-                            <input name="zip" type="text" value={zip} className="input input-bordered w-full max-w-s email " {...register('zip')} />
-                            <div className="invalid-feedback text-rose-600">{errors.zip?.message}</div>
+                            <input name="zip" maxLength={5} type="number" value={formData.zip} onChange={handleChange} className="input input-bordered w-full max-w-s email " />
+                     
                         </div>
                     </div>
 
                     <div className="form-group col mt-4 mb-2">
-                        <button onClick={handleSubmit(onSubmit)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        <button onClick={click} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                             <HiDatabase style={{ marginRight: "5px", fontSize: "20px" }}  />Update
                         </button>
                     </div>

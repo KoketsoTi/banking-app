@@ -33,7 +33,7 @@ const Sidenavbar  = () => {
   }
 
   return (
-    <div style={{height: "100vh", background: "#141b2d", paddingTop: "20px"}} >
+    <div style={{ background: "#141b2d", paddingTop: "20px"}} >
       <ProSidebarProvider >
         <Sidebar defaultCollapsed={isCollapsed}  >
           <Menu iconShape="square" style={{height: "100%", background: "#141b2d", paddingTop: "20px"}}>
