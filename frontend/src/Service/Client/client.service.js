@@ -12,13 +12,10 @@ const getBeneficiaries = (id) => {
     return axios.get(`${API}clients/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-
 const applyForLoan = (data) => {
     const token = getToken();
-    return axios.post(`${API}loan-applications`,data, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.post(`${API}loans`,data, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
-
-
 
 //Update beneficiaries with new beneficiaries
 const updateClientBeneficiaryList = (id, data) => {

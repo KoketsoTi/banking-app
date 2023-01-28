@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { Box, Typography } from "@mui/material";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ModalOpen } from '../../../Models/CardView';
+import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
 
 function Verify(){
   const initData = {
@@ -17,6 +18,7 @@ function Verify(){
   };
 
   const [data, setData] = useState(initData);
+  const [loading, setLoading] = useState(false);
 
   //Columns for the table
   const columns = [
@@ -57,15 +59,21 @@ function Verify(){
 
   return (
     <Box m="20px" >
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box mb="30px">
-          <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Active Accounts </Typography>
-        </Box>
-      </Box>
-        
-      {/* Data in a table using Datagrid for creating a table  */}
-      <ModalOpen cardData={data}/>  
+      {loading ? <LoadingSpinner /> :
+        (
+          <>
+            {/* HEADER */}
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box mb="30px">
+                <Typography variant="h2" fontWeight="bold" style={{color: "#141b2d"}} sx={{ m: "0 0 5px 0" }}> Active Accounts </Typography>
+              </Box>
+            </Box>
+              
+            {/* Data in a table using Datagrid for creating a table  */}
+            <ModalOpen cardData={data}/>
+          </>
+        )
+      }  
     </Box>
   );
 }

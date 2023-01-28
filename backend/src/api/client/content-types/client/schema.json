@@ -41,10 +41,11 @@
       "relation": "oneToMany",
       "target": "api::account.account"
     },
-    "loans": {
+    "loans_ids": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::loan.loan"
+      "target": "api::loan.loan",
+      "mappedBy": "client"
     },
     "birth_date": {
       "type": "date"
@@ -57,10 +58,8 @@
       "relation": "oneToMany",
       "target": "api::beneficiary.beneficiary"
     },
-    "loan_applications_id": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::loan-application.loan-application"
+    "Occupation": {
+      "type": "string"
     }
   }
 }
