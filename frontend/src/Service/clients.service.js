@@ -83,6 +83,16 @@ const Nortification = (value) => {
     return axios.post(`${API}nortifications`, value, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+const payBeneficiary = (account) => {
+    const token = getToken();
+    return axios.get(`${API}clients?populate=*&filters[acc_id][accountno][$eq]=${account}`,{headers: {Authorization: `${BEARER} ${token}`}})
+}
+
+const UpdateBeneficiary = (id, balance) => {
+    const token = getToken();
+    return axios.put(`${API}beneficiaries/${id}`, balance, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 const functions = {
     getAllUsers,
     updateStatus,
@@ -101,7 +111,9 @@ const functions = {
     getTransaction,
     getCreditTrans,
     getdebitTrans,
-    Nortification
+    Nortification,
+    payBeneficiary,
+    UpdateBeneficiary,
 }
 
 export default functions;

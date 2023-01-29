@@ -1,4 +1,3 @@
-import "./Loan.css";
 import { Box, Typography } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -6,6 +5,7 @@ import { HiOutlineDocument } from 'react-icons/hi';
 import { Error, Success } from '../../../Helpers/toasters';
 import { getToken } from "../../../Helpers/helpers";
 import { GiReceiveMoney } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 import User from '../../../Service/Client/client.service';
 import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 import Calculations from '../../../Components/CalculateLoans';
@@ -41,6 +41,7 @@ function LoanApplication() {
   const [loading, setLoading] = useState(false);
   const auth_token = getToken();
   const setNewID = [];
+  const navigate = useNavigate();
 
   let seTotal = 0;
   let setInterest = 0;
@@ -168,9 +169,9 @@ function LoanApplication() {
   }
 
   const changeLength = () => {
-    console.log(loans);
-
+    navigate('/client/loanApplication')
   }
+
   return (
     <Box className="Box">
       {loading ? <LoadingSpinner /> :
@@ -204,8 +205,8 @@ function LoanApplication() {
                           <div className="card-body" >
                             <div className="flex">
                               <div className="avatar placeholder">
-                                <div className="bg-neutral-focus text-neutral-content rounded-full w-10 lg:xl:w-20">
-                                  <span className="text-xl lg:xl:text-3xl">
+                                <div className="bg-neutral-focus text-neutral-content rounded-full w-14 lg:xl:w-20">
+                                  <span className="text-2xl lg:xl:text-3xl">
                                     {useClientData.attributes.firstname.slice(0, 1)?.toUpperCase()}
                                   </span>
                                 </div>
@@ -213,9 +214,17 @@ function LoanApplication() {
 
                               <div className="ml-5 block">
                                 <div className="text-sm font-semibold lg:xl:text-lg text-start">{response.attributes.term} Months</div>
+                                
                                 <div className="flex justify-between">
-                                  <div className="text-sm lg:xl:text-lg">Initial Amount</div>
-                                  <div className="text-sm justify-end lg:xl:text-lg ml-16 lg:xl:ml-42">R {response.attributes.amount.toLocaleString()}</div>
+                                  <div>
+                                    <div className="text-sm lg:xl:text-lg text-start">Status</div>
+                                    <div className="text-sm lg:xl:text-lg  text-start">Initial Amount</div>
+                                  </div>
+
+                                  <div>
+                                    <div className="text-sm justify-end lg:xl:text-lg ml-16 lg:xl:ml-42"> {response.attributes.loan_status}</div>
+                                    <div className="text-sm justify-end lg:xl:text-lg ml-16 lg:xl:ml-42">R {response.attributes.amount.toLocaleString()}</div>
+                                  </div>
                                 </div>
                               </div>
                             </div>

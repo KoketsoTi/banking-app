@@ -80,15 +80,6 @@ function Sidebar() {
                 />
             </li>
             <li ></li>
-            {/* QR Code */}
-            <li>
-                <Item
-                    title="QR Code"
-                    to="/client/qrcode"
-                   icon={<AiOutlineQrcode style={{fontSize: "25px",  color:"#009DE0"}} />}
-                />
-            </li>
-            <li ></li>
             {/* Push Notifications */}
             <li>
                 <Item

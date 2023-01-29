@@ -19,7 +19,7 @@ function All(){
 
     function getTransactions(){
         Account.getTransaction(id).then((response) => {
-            setStatement(response.data.data.attributes.trans_id.data)
+            setStatement(response.data.data.attributes.trans_ids.data)
         }).catch((error) => {
             console.log("Unable to fetch transaction history");
         })

@@ -72,7 +72,6 @@ function Transfer(){
         
         User.getClientUser().then((response) => {
             setId(response.data.client_id.id)
-            console.log(response.data.client_id.id);
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setAccount(response.data.data.attributes.acc_id.data);
@@ -94,16 +93,7 @@ function Transfer(){
         setLoading(true);
         event.preventDefault();
         let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(data.amount));
-        let increase = Calculations.ReceiveMoney(parseFloat(receipientAccount.attributes.balance), parseFloat(data.amount))
-            
-        //return Success("Transfer Cannot exceed available balance"); 
-        let userData = {
-            data:{
-                baalnce: data.amount,
-                ownref : data.ownref,
-                amount: decreae
-            }
-        }
+        let increase = Calculations.ReceiveMoney(parseFloat(receipientAccount.attributes.balance), parseFloat(data.amount)) 
 
         //Decrease From  account
         await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
@@ -134,9 +124,8 @@ function Transfer(){
             Account.Nortification(Nortification);
         })
 
-        //Increae TO  account
+        //Increase TO account
         await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
-            console.log(response.data.data);
             let transHistory = {
                 data: {
                     accountno: receipientAccount.attributes.accountno,

@@ -5,15 +5,13 @@ import User from '../../../Service/Client/client.service';
 
 function Messages(){
     const [getNortifications, setNortifications] = useState([]);
-    const [getId, setId] = useState([]);
     const auth_token = getToken();
 
     function getUserAccounts(){
         //Fetch client id
         
         User.getClientUser().then((response) => {
-            setId(response.data.client_id.id)
-            console.log(response.data.client_id.id);
+
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setNortifications(response.data.data.attributes.nortifications.data);
@@ -29,8 +27,6 @@ function Messages(){
             getUserAccounts(); 
         }
     },[])
-
-    console.log(getNortifications);
     
     return (
         <Box m="20px" >
@@ -47,7 +43,7 @@ function Messages(){
                         {/*  View All Transctions */}  
                         <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">  
                             {getNortifications.map((data) =>           
-                                <div className="card bg-base-100 shadow-xl" >
+                                <div className="card bg-base-100 shadow-xl" key={data.id}>
                                     <div className="card-body" >
                                         <p className="text-sm lg:xl:text-lg text-start">
                                             Bank: {data.attributes.type_Transaction} R{data.attributes.amount} from {data.attributes.sender} into  {data.attributes.receipient};  
