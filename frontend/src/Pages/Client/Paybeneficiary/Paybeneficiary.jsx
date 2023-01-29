@@ -74,8 +74,6 @@ function PayBeneficiary(){
         }
     }
 
-    console.log(getId, getuserAccount[0].id);
-
     async function onSubmit(data, event) {
         event.preventDefault();
         let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(data.amount));
@@ -99,8 +97,8 @@ function PayBeneficiary(){
                     amount: data.amount,
                     balance: decreae,
                     type_Transaction:"Payment",
-                    clients: [getId, getuserAccount[0].id],
-                    sender: data.sender,
+                    clients: getId,
+                    sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
                     receipient: state.params.attributes.Name,
                 }
             }
@@ -110,6 +108,7 @@ function PayBeneficiary(){
             AccountData.Nortification(Nortification);
         })
 
+        //Increase To account
         await AccountData.updateStatus(auth_token, getuserAccount[0].attributes.acc_id.data[0].id, {data:{balance: increase}}).then((response) => {
             let transHistory = {
                 data: {
@@ -121,9 +120,19 @@ function PayBeneficiary(){
                     type_Transaction: "Transfer"
                 }
             }
-    
+            let Nortification = {
+                data: {
+                    amount: data.amount,
+                    balance: increase,
+                    type_Transaction:"Payment",
+                    clients: getuserAccount[0].id,
+                    sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
+                    receipient: state.params.attributes.Name,
+                }
+            }
+
             AccountData.UpdateBeneficiary(state.params.id,{data: {amount:data.amount}})
-            
+            AccountData.Nortification(Nortification);
             AccountData.TransactionHistory(auth_token, transHistory).then((response) => {
                 Success("Payment was successful");
                 navigate('/client/');
