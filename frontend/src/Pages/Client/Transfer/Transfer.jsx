@@ -157,7 +157,7 @@ function Transfer(){
                     <>
                         <ToastContainer />
                         {/* HEADER */}
-                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Box display="flex" mt="20px" justifyContent="space-between" alignItems="center">
                             <Box className="heading">
                                 <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Transfer</Typography>
                             </Box>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { ProfileView } from '../../../Models/ClientProfile';
 import Sidebar from '../Navigations/SIdeNavBar';
 import User from '../../../Service/Client/client.service';
+import TopNav from "../Navigations/TopNav";
 
 function Client() {
     const data = {
@@ -45,9 +46,9 @@ function Client() {
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
             <div className="drawer-content ">
                 {/* <!-- Navbar--> */}
-               
+                <TopNav />
                 {/* <!-- Page content here --> */}
-                <div className="container w-full lg:xl:pl-10 lg:xl:pr-10">
+                <div className="container w-full mobile lg:xl:pl-10 lg:xl:pr-10">
                     {/* <!-- Page content here --> */}
                     <Outlet />
                     
@@ -68,7 +69,7 @@ function Client() {
 
             <div className="drawer-side " >
                 <label htmlFor="my-drawer-3" className="drawer-overlay"></label> 
-                <ul  className="menu p-4 overflow-y-auto w-60"> 
+                <ul className="menu p-4 overflow-y-auto w-60"> 
                     <Sidebar />           
                 </ul>    
             </div>
