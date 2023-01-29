@@ -1,16 +1,16 @@
 import { Box, Typography} from "@mui/material";
 import { MdAddCircleOutline } from "react-icons/md";
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from "react";
 import { Error, Success } from "../../../Helpers/toasters";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 import * as Yup from 'yup';
 import User from '../../../Service/Client/client.service';
 import Tab from "../Navigations/TabNavbar";
-import { useEffect } from "react";
-import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 
 function ViewAccount(){
     //Inititialize state with dummy data
@@ -27,7 +27,6 @@ function ViewAccount(){
     const [getId, setId] = useState(userData);
     const [getAccounts, setAccount] = useState(userData);
     const setNewID = [];
-    const navigate = useNavigate();
 
     let randomDigits = 0;
     
@@ -37,7 +36,7 @@ function ViewAccount(){
     })
 
     const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, reset, formState } = useForm(formOptions)
+    const { register, handleSubmit, formState } = useForm(formOptions)
     const { errors } = formState;
 
     //create account number of 8 numbers 

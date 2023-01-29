@@ -1,6 +1,8 @@
 
 import { Box, Typography} from "@mui/material";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Tab from "../Navigations/billsNav";
 import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 
 function PayBills(){
@@ -15,6 +17,12 @@ function PayBills(){
                             <Box className="heading">
                                 <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Pay Bills</Typography>
                             </Box>
+                        </Box>
+
+                        {/* CONTENT */}
+                        <Box className="card-request mt-10 lg:xl:mt-10">
+                            <Tab />
+                            <Outlet />
                         </Box>
                     </>
                 )

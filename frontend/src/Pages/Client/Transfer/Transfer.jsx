@@ -1,5 +1,5 @@
 
-import { Box, Input, Typography} from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState, useEffect } from "react";
 import { getToken } from "../../../Helpers/helpers";
@@ -97,7 +97,6 @@ function Transfer(){
 
         //Decrease From  account
         await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
-            console.log(response.data.data);
             let transHistory = {
                 data: {
                     accountno: selectedAccount.attributes.accountno,
