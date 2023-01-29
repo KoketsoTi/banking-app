@@ -103,8 +103,9 @@ function Pay(){
                 (
                     <>
                         <ToastContainer />
+                        
                         {/* HEADER */}
-                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Box display="flex" mt="20px" justifyContent="space-between" alignItems="center">
                             <Box className="heading">
                                 <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Pay beneficiary</Typography>
                             </Box>
@@ -120,7 +121,7 @@ function Pay(){
                             </div>
                             
                             {/*  View added beneficiaries */}  
-                            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-2 lg:xl:gap-4">  
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  gap-2 lg:xl:gap-4">  
                             {useBeneficiary.map((benefit) => {    
                                 return (          
                                     <div className="card bg-base-100 shadow-xl cursor-pointer" key={benefit.id} onClick={() => payUser(benefit)} >

@@ -47,13 +47,8 @@ function Home(){
                 (
                     <>
                         {/* HEADER */}
-                        <Box display="flex" justifyContent="space-between" alignItems="center">
-                            <Box className="heading">
-                                <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} ></Typography>
-                            </Box>
-                        </Box>
-
-                        <Box className="card-request mt-10 lg:xl:mt-5">
+                   
+                        <Box className="card-request lg:xl:mt-5">
                             <div className="card p-4 lg:xl:p-0" >
                                 <Box className="text-start mb-5">
                                     <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >My Accounts</Typography>

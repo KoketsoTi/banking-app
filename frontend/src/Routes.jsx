@@ -6,7 +6,6 @@ import VerifyApplications from './Pages/Admin/Customers/VerifyNewApplications';
 import UserProfile from './Pages/Admin/UserProfile/UserProfile';
 import ShortTerm from './Pages/Admin/Loans/Short-term';
 import LongTerm from './Pages/Admin/Loans/Long-term';
-import ApproveLoan from './Pages/Admin/ApproveLoan/Approveloan';
 import Verify from './Pages/Admin/Card/Verify';
 import Cards from './Pages/Admin/Card/Cards';
 import Profile from './Pages/Admin/Profile/Profile';
@@ -61,7 +60,6 @@ const Navigation = () => {
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />
                 <Route path="addnewadmin" element={<RegisterAdmin />} />
-                <Route path="approveLoans" element={<ApproveLoan /> } />
                 <Route path="loan-application" element={<LoanApplications />} />
             
             </Route>

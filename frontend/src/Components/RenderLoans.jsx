@@ -38,63 +38,67 @@ export const AccountDetails = ({ accnumber, acctype, accstatus, virtualcard, sub
 
 
 //User Information
-export const GeneraInfo  = ({ firstname, lastname, email, age, phone, address, surbub, city, zip, subtitle, icon  }) => {
+export const GeneraInfo  = ({ firstname, lastname, email, birth_date, phone, address, surbub, city, zip, country, subtitle, icon  }) => {
     return (
-        <Box width="100%" p="20px 30px">
-            <Box display="flex" justifyContent="space-between" >
-                <Typography variant="h5" style={{ color: "#4cceac" }}>{subtitle} </Typography>
-                <Typography variant="h5" style={{ color: "#4cceac" }}> {icon} </Typography>
-            </Box>
+        <div className="-mt-3">
+            <div className="flex justify-between" >
+                <h5>{subtitle} </h5>
+                <h5> {icon} </h5>
+            </div>
 
-            <Box style={{ color: "#4cceac" }} className="divider"></Box>
+            <hr className="divider"></hr>
             
-            <Box justifyContent="space-between" mt="-5px" >
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>First Name</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {firstname} </Typography>
-                </Box>
+            <div className="justify-between -mt-2" >
+                <div className="flex justify-between mb-2" >
+                    <h5 >First Name</h5>
+                    <h5 > {firstname} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Last Name</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {lastname} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Last Name</h5>
+                    <h5 > {lastname} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Email</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {email} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5>Email</h5>
+                    <h5 > {email} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Age</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {age} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2">
+                    <h5 >Date of birth</h5>
+                    <h5 > {birth_date} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Phone</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {phone} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Phone</h5>
+                    <h5 > {phone} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Address</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {address} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Address</h5>
+                    <h5 > {address} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Surbub</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {surbub} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >Surbub</h5>
+                    <h5 > {surbub} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" mb="10px" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>City</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {city} </Typography>
-                </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5 >City</h5>
+                    <h5> {city} </h5>
+                </div>
 
-                <Box display="flex" justifyContent="space-between" >
-                    <Typography variant="h5" style={{ color: "#4cceac" }}>Zip Code</Typography>
-                    <Typography variant="h5" style={{ color: "#4cceac" }}> {zip} </Typography>
-                </Box>
-            </Box>
-        </Box>
+                <div className="flex justify-between mb-2" >
+                    <h5>Zip Code</h5>
+                    <h5> {zip} </h5>
+                </div>
+                <div className="flex justify-between mb-2" >
+                    <h5>Nationality</h5>
+                    <h5> {country} </h5>
+                </div>
+            </div>
+        </div>
     );
 };
 

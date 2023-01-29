@@ -35,7 +35,7 @@ function In(){
     return (
         <Box className="Box" >
             <Box className="card-request mt-2 lg:xl:mt-2">
-                <div className="card lg:xl:p-0" >
+                <div className="card p-4 lg:xl:p-0" >
                     {/*  View All Transctions */}  
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">  
                         {credit.map((results) =>               

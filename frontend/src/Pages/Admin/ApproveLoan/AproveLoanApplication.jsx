@@ -35,7 +35,6 @@ function LoanApp(){
         setLoading(true);
         UserService.getPending().then((response) => {
             setUser(response.data.data);
-            console.log(response.data.data);
             setLoading(false);
         }).catch((error) => {
             console.log(error);
@@ -82,6 +81,8 @@ function LoanApp(){
         })
     }
 
+    console.log(users);
+
     return (
         <Box m="20px" >
             {loading ? <LoadingSpinner /> :
@@ -118,7 +119,7 @@ function LoanApp(){
                                                 <div className="avatar placeholder">
                                                     <div className="bg-neutral-focus text-neutral-content rounded-full w-10">
                                                         <span className="text-2xl">
-                                                        {user?.attributes.client.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                                                            {user?.attributes.client.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                                                         </span>
                                                     </div>
                                                 </div>

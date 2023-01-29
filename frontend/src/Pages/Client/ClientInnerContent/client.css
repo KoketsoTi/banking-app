@@ -45,3 +45,13 @@
 .hed{
     align-self: flex-end;
 }
+
+@media screen and (max-width: 1023px) {
+    .mobile{
+       margin-top: 13vh;
+    }
+    
+    .drawer-side .menu{
+        background-color: whitesmoke;
+    }
+}
