@@ -29,6 +29,9 @@
       "relation": "manyToOne",
       "target": "api::account.account",
       "inversedBy": "trans_id"
+    },
+    "type_Transaction": {
+      "type": "string"
     }
   }
 }
