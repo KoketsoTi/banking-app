@@ -186,11 +186,12 @@ function LoanApplication() {
                     <Typography variant="h5" fontWeight="bold" style={{ color: "#141b2d" }} >Loans</Typography>
                   </Box>
                   {loans.length !== 0 ?
-                    <button onClick={changeLength} className="rounded-none bg-base-100 shadow-xl add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
-                      <GiReceiveMoney style={{ color: "#009DE0", marginTop: "1px" }} className="mr-2.5 text-2xl" />
-                      <h1 className="text-xl" >Apply For loan</h1>
-                    </button>
-                    : <></>
+                      <button onClick={changeLength} className="rounded-none bg-base-100 shadow-xl add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
+                        <GiReceiveMoney style={{ color: "#009DE0", marginTop: "1px" }} className="mr-2.5 text-2xl" />
+                        <h1 className="text-xl" >Apply For loan</h1>
+                      </button>
+                    :
+                      <></>
                   }
                 </div>
               </div>
