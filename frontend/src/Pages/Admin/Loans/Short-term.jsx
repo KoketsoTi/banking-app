@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography} from "@mui/material";
-import { useNavigate } from 'react-router-dom';
 import { getToken } from '../../../Helpers/helpers';
 import { Error, Success } from '../../../Helpers/toasters';
 import { ToastContainer } from 'react-toastify';
+import { GiReceiveMoney } from 'react-icons/gi';
 import UserService from "../../../Service/clients.service";
 import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
 
 function ShortTerm(){
-  const navigate = useNavigate();
+  const loan = {
+    amount: 30000,
+    interest: 10.5,
+    loan_status: "Active",
+    loan_type: "Long-term",
+    monthly_pay: 1124.36,
+    term: 36,
+    total_repay: 40476.98,
+    unpaid_interest: 10476.97
+  }
+
+  const [getLoansDetails, setLoanDetails] = useState(loan);
   const [longShort, setShortTerm] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +79,7 @@ function ShortTerm(){
 
 
   const edit = (params) =>{
-    navigate(`/admin/approveLoans`, {state:{params}})
+    setLoanDetails(params.attributes)
   }  
 
   return (
@@ -123,7 +134,7 @@ function ShortTerm(){
                         <td>{long?.attributes.term} Months</td>
                         <td>{long?.attributes.loan_status}</td>
                         <td>
-                          <button onClick={() => edit(long)} className="rounded-none relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
+                          <label onClick={() => edit(long)} htmlFor="my-modal-4" className="rounded-none cursor-pointer relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</label>
                         </td>
                         
                         <td>
@@ -139,6 +150,65 @@ function ShortTerm(){
                   })} 
                 </tbody>
               </table>
+
+              <Box>
+                <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+                <label htmlFor="my-modal-4" className="modal cursor-pointer">
+                  <label className="modal-box relative" htmlFor="">
+                    <label htmlFor="my-modal-4" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
+                    <div className="flex justify-between mt-10 ml-8 mr-8" >
+                      <h1 className="text-xl text-center font-bold">Loan Details</h1>
+                      <div><GiReceiveMoney style={{fontSize: "20px" }}/></div>
+                    </div>
+                    
+                    <hr className="divider"></hr>
+                    
+                    <Box width="100%" p="20px 30px">
+                      <div className="justify-between -mt-2" >
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Loan Type</h5>
+                          <h5 className='text-lg'>{getLoansDetails.loan_type}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Loan Status</h5>
+                          <h5 className='text-lg'>{getLoansDetails.loan_status}</h5>
+                        </div>
+                        
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Amount</h5>
+                          <h5 className='text-lg'>R {getLoansDetails.amount}</h5>
+                        </div>
+
+                       <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Term</h5>
+                          <h5 className='text-lg'>{getLoansDetails.term} p/m</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Interest Rate</h5>
+                          <h5 className='text-lg'>{getLoansDetails.interest}% p/a</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Interest Repayment</h5>
+                          <h5 className='text-lg'>R {getLoansDetails.unpaid_interest}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Monthly Repayment</h5>
+                          <h5 className='text-lg'>R {getLoansDetails.monthly_pay}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Total Repay</h5>
+                          <h5 className='text-lg'>R {getLoansDetails.total_repay}</h5>
+                        </div>
+                      </div>
+                    </Box>
+                  </label>
+                </label>
+              </Box>
             </Box> 
           </>
         )

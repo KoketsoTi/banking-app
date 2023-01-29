@@ -82,6 +82,8 @@ function LoanApp(){
         })
     }
 
+    console.log(users);
+
     return (
         <Box m="20px" >
             {loading ? <LoadingSpinner /> :
@@ -112,22 +114,22 @@ function LoanApp(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map((user) => 
+                                    {/* {users.map((user) => 
                                         <tr key={user.id}>
                                             <td>
                                                 <div className="avatar placeholder">
                                                     <div className="bg-neutral-focus text-neutral-content rounded-full w-10">
                                                         <span className="text-2xl">
-                                                        {user?.attributes.client.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                                                        {user?.attributes.clients.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                {user?.attributes.client.data.attributes.firstname}
+                                                {user?.attributes.clients.data.attributes.firstname}
                                             </td>
                                             <td>
-                                                {user?.attributes.client.data.attributes.email}
+                                                {user?.attributes.clients.data.attributes.email}
                                             </td>
                                             <td>
                                                 {user?.attributes.amount.toLocaleString()}
@@ -155,7 +157,7 @@ function LoanApp(){
                                                 
                                             </td>
                                         </tr>
-                                    )} 
+                                    )}  */}
                                 </tbody>
                             </table>
                         </Box>
