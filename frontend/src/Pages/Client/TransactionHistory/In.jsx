@@ -1,18 +1,29 @@
-import { Box, Typography} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box} from "@mui/material";
+import { useEffect, useState } from "react";
+import { getId } from "../../../Helpers/helpers";
+import Account from '../../../Service/clients.service';
 
 function In(){
+    const [statement, setStatement] = useState([]);
+    const id  = getId();
 
-    const navigate = useNavigate()
-
-    const viewAccount  = (params) => {
-        navigate('/client/viewAccount', {state:{params} })
+    function getTransactions(){
+        Account.getTransaction(id).then((response) => {
+            setStatement(response.data.data.attributes.trans_id.data)
+        }).catch((error) => {
+            console.log("Unable to fetch transaction history");
+        })
     }
+
+    useEffect( () =>{
+        getTransactions();
+    }, [])
+
+    console.log(statement);
 
     return (
         <Box className="Box" >
             <Box className="card-request mt-2 lg:xl:mt-2">
-            in
                 <div className="card lg:xl:p-0" >
                     {/*  View All Transctions */}  
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">                

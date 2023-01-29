@@ -14,7 +14,8 @@ function Home(){
 
     const viewAccount  = (params) => {
         localStorage.setItem("id", params.id)
-        navigate('/client/viewAccount/all',)
+        const id = params.id
+        navigate('/client/viewAccount/all', {state:{id}})
     }
 
     function getUserAccounts(){

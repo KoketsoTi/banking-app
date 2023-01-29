@@ -8,8 +8,8 @@ import { getToken } from "../../../Helpers/helpers";
 import { Error, Success } from "../../../Helpers/toasters";
 import { ToastContainer } from "react-toastify";
 import User from '../../../Service/Client/client.service';
-import * as Yup from 'yup';
 import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
+import * as Yup from 'yup';
 
 function Pay(){
     const navigate = useNavigate()

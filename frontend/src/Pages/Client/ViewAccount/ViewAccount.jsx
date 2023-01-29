@@ -99,9 +99,7 @@ function ViewAccount(){
             User.updateClientWithNewSavings(getId, id).then((response) => {
                 setLoading(true);
                 Success(`${data.beneficiary} Savings plan Successfully Added`)
-            
             })
-
         }).catch((error) => {
             Error('Unable to add new savings plan')
         })

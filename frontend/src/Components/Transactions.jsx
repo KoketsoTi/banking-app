@@ -1,16 +1,18 @@
-const TransferMoney = (totalAmount, transferAmount) =>{
-    
-    if(transferAmount > totalAmount){
-        return "Transfer Cannot exceed available balance"; 
-    }else if(transferAmount < totalAmount){
-        const balance = totalAmount - transferAmount;
-        return balance; 
-    }
-   
+const TransferMoney = (current, transferAmount) => {
+    console.log(current || transferAmount);
+    const balance = current - transferAmount;
+    return balance; 
+}
+
+const ReceiveMoney = (current, receivedMoney) => {
+    console.log(current || receivedMoney);
+     current = current + receivedMoney;
+    return current; 
 }
 
 const Transfers = {
-    TransferMoney
+    TransferMoney,
+    ReceiveMoney,
 }
 
 export default Transfers;

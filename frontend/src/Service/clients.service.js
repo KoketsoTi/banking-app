@@ -59,6 +59,30 @@ const RejectLoan = (token, id, value) => {
     return axios.delete(`${API}loans/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const TransactionHistory = (token, value) => {
+    return axios.post(`${API}transactions`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const getTransaction = (id) => {
+    const token = getToken();
+    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
+const getCreditTrans = (id) => {
+    const token = getToken();
+    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
+const getdebitTrans = (id) => {
+    const token = getToken();
+    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
+const Nortification = (value) => {
+    const token = getToken();
+    return axios.post(`${API}nortifications`, value, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 const functions = {
     getAllUsers,
     updateStatus,
@@ -72,7 +96,12 @@ const functions = {
     getUser,
     getPending,
     RejectLoan,
-    getLoanApplication
+    getLoanApplication,
+    TransactionHistory,
+    getTransaction,
+    getCreditTrans,
+    getdebitTrans,
+    Nortification
 }
 
 export default functions;

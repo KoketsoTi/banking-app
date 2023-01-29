@@ -60,6 +60,12 @@
     },
     "Occupation": {
       "type": "string"
+    },
+    "nortifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::nortification.nortification",
+      "mappedBy": "client"
     }
   }
 }
