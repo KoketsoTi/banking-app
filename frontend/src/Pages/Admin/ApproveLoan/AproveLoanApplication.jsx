@@ -35,7 +35,6 @@ function LoanApp(){
         setLoading(true);
         UserService.getPending().then((response) => {
             setUser(response.data.data);
-            console.log(response.data.data);
             setLoading(false);
         }).catch((error) => {
             console.log(error);
@@ -114,22 +113,22 @@ function LoanApp(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {/* {users.map((user) => 
+                                    {users.map((user) => 
                                         <tr key={user.id}>
                                             <td>
                                                 <div className="avatar placeholder">
                                                     <div className="bg-neutral-focus text-neutral-content rounded-full w-10">
                                                         <span className="text-2xl">
-                                                        {user?.attributes.clients.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
+                                                            {user?.attributes.client.data.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                {user?.attributes.clients.data.attributes.firstname}
+                                                {user?.attributes.client.data.attributes.firstname}
                                             </td>
                                             <td>
-                                                {user?.attributes.clients.data.attributes.email}
+                                                {user?.attributes.client.data.attributes.email}
                                             </td>
                                             <td>
                                                 {user?.attributes.amount.toLocaleString()}
@@ -157,7 +156,7 @@ function LoanApp(){
                                                 
                                             </td>
                                         </tr>
-                                    )}  */}
+                                    )} 
                                 </tbody>
                             </table>
                         </Box>

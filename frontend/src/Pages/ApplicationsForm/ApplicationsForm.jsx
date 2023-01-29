@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React from 'react';
 import { Box } from "@mui/material";
 import { HiOutlineDocument} from 'react-icons/hi';
 import { AiOutlineRollback } from 'react-icons/ai';
@@ -26,8 +26,7 @@ function Apply() {
         lastname: Yup.string().required('Last name is mendatory'),
         email: Yup.string().required('Email is mendatory')
             .email('invalid Email'),
-        age: Yup.string().required('Age is mendatory')
-            .min(2, 'Age must be at least 2 char long'),
+        birth_date: Yup.string().required('Date of birth is mendatory'),
         phone: Yup.string().required('Phone is mendatory'),
         address: Yup.string().required('address is mendatory'),
         surbub: Yup.string().required('surbub is mendatory'),
@@ -35,50 +34,62 @@ function Apply() {
         zip: Yup.string().required('zip is mendatory')
             .min(3, 'zip must be at least 3 char long')
             .max(4, 'zip must not be longer than 4 characters'),
+        country: Yup.string().required('Nationality is mendatory'),
+        Occupation: Yup.string().required('Occupation is mendatory'),
+        accName: Yup.string().required('Account name is mendatory')
     })
 
     const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, reset, formState } = useForm(formOptions)
+    const { register, handleSubmit, formState } = useForm(formOptions)
     const { errors } = formState
-
-    console.log(randomDigits);
     
     function onSubmit(data, event) {
         event.preventDefault();
-        console.log(JSON.stringify(data, null, 4))
         let userData = {
             data:{
                 firstname: data.firstname,
                 lastname : data.lastname,
                 email: data.email,
                 usertype: "Client",
-                age : data.age,
+                birth_date: data.birth_date,
                 phone: data.phone,
-                address : data.address,
+                street_address : data.address,
                 surbub: data.surbub,
                 city : data.city,
-                zip : data.zip,
-                account_type: "Savings",
+                zipcode : data.zip,
+                country: data.country,
+                Occupation: data.Occupation,
+
+                //BANK ACCOUNT
+                accountno: "14" + randomDigits,
+                account_name: data.accName + " Account",
+                balance: 0,
+                account_type: data.accName,
                 account_status: "Pending",
-                account: "14" + randomDigits,
-                balance: 0
+                
+                //LOGIN DETAILS
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                role: 1,
             }
         }
 
+        console.log(userData);
+
         NewUser.ApplicationForm(userData).then((response) => { 
-            Success("Application was successful, wait for email with an application status ");
+            Success("Application was successful");
         })
         .catch((error) => {  
             console.log('An error occurred:', error.response);
             Warning('Unable to apply ')
         });
        
-        console.log(userData)
         return false
     }
 
     const goBack = () => {
-		navigate("/admin/Login");
+		navigate("/auth/login");
 	}
     
     return (
@@ -119,15 +130,9 @@ function Apply() {
 
                                 <div className="form-group col mb-2">
                                     <label className="label"><span className="label-text">Email</span></label>
-                                    <input type="text" name="email" placeholder="Email" {...register('email')}
+                                    <input type="email" name="email" placeholder="Email" {...register('email')}
                                             className="input input-bordered w-full max-w-s email "/>
                                     <div className="invalid-feedback text-rose-600">{errors.email?.message}</div>
-                                </div>
-
-                                <div className="form-group col mb-2">
-                                    <label className="label"><span className="label-text">Usertype</span></label>
-                                    <input type="text" name="usertype" disabled value="Client" placeholder="Usertype" {...register('usertype')}
-                                            className="input input-bordered w-full max-w-s email "/>
                                 </div>
 
                                 <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-2'>
@@ -139,10 +144,10 @@ function Apply() {
                                     </div>
 
                                     <div className="form-group col mb-2">
-                                        <label className="label"><span className="label-text">Age</span></label>
-                                        <input type="number" name="age" placeholder="Age" {...register('age')}
+                                        <label className="label"><span className="label-text">Date of birth</span></label>
+                                        <input type="date" name="birth_date" placeholder="date of birth" {...register('birth_date')}
                                             className="input input-bordered w-full max-w-s email "/>
-                                        <div className="invalid-feedback text-rose-600">{errors.age?.message}</div>
+                                        <div className="invalid-feedback text-rose-600">{errors.birth_date?.message}</div>
                                     </div>
                                 </div>
                                 <div className="form-group col mb-2">
@@ -157,7 +162,8 @@ function Apply() {
                                             className="input input-bordered w-full max-w-s email "/>
                                     <div className="invalid-feedback text-rose-600">{errors.surbub?.message}</div>
                                 </div>
-                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-8'>
+
+                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 '>
                                     <div className="form-group col mb-2">
                                         <label className="label"><span className="label-text">City</span></label>
                                         <input type="text" name="city" placeholder="City" {...register('city')}
@@ -173,6 +179,48 @@ function Apply() {
                                     </div>
                                 </div>
 
+                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-8'>
+                                    <div className="form-group col mb-2">
+                                        <label className="label"><span className="label-text">Country</span></label>
+                                        <input type="text" name="country" placeholder="Country" {...register('country')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.country?.message}</div>
+                                    </div>
+
+                                    <div className="form-group col">
+                                        <label className="label"><span className="label-text">Occupation</span></label>
+                                        <input type="text" name="Occupation" placeholder="Occupation" {...register('Occupation')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.Occupation?.message}</div>
+                                    </div>
+                                </div>
+                                   
+                                <div className="form-group col">
+                                    <label className="label"><span className="label-text">Account Name</span></label>
+                                    <select type="text" name="accName" placeholder="Select account you wish to open" {...register('accName')}
+                                        className="input input-bordered w-full max-w-s email ">
+                                            <option>Select Account Name</option>
+                                            <option value={"Cheque"}>Cheque Account</option>
+                                            <option value={"Savings"}>Saving Account</option>
+                                    </select>
+                                    <div className="invalid-feedback text-rose-600">{errors.accName?.message}</div>
+                                </div>
+
+                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-8'>
+                                    <div className="form-group col mb-2">
+                                        <label className="label"><span className="label-text">Username</span></label>
+                                        <input type="text" name="username" placeholder="Country" {...register('username')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.username?.message}</div>
+                                    </div>
+
+                                    <div className="form-group col">
+                                        <label className="label"><span className="label-text">Password</span></label>
+                                        <input type="password" name="password" placeholder="Password" {...register('password')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
+                                    </div>
+                                </div>
 
                                 <div className='grid grid-cols-2 gap-8 '>
                                     <div className="form-group col mb-4 hidden lg:contents">

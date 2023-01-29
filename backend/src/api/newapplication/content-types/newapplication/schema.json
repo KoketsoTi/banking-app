@@ -24,13 +24,10 @@
     "usertype": {
       "type": "string"
     },
-    "age": {
-      "type": "integer"
-    },
     "phone": {
       "type": "string"
     },
-    "address": {
+    "street_address": {
       "type": "string"
     },
     "surbub": {
@@ -39,10 +36,10 @@
     "city": {
       "type": "string"
     },
-    "zip": {
+    "zipcode": {
       "type": "string"
     },
-    "account": {
+    "accountno": {
       "type": "biginteger"
     },
     "account_type": {
@@ -53,6 +50,27 @@
     },
     "balance": {
       "type": "float"
+    },
+    "Occupation": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "account_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "integer"
+    },
+    "password": {
+      "type": "password"
+    },
+    "username": {
+      "type": "string"
+    },
+    "birth_date": {
+      "type": "date"
     }
   }
 }
