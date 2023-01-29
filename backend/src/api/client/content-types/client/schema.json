@@ -63,9 +63,9 @@
     },
     "nortifications": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::nortification.nortification",
-      "mappedBy": "client"
+      "mappedBy": "clients"
     }
   }
 }

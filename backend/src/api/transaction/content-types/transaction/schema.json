@@ -24,14 +24,14 @@
     "debit_credit": {
       "type": "string"
     },
+    "type_Transaction": {
+      "type": "string"
+    },
     "acc_id": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::account.account",
-      "inversedBy": "trans_id"
-    },
-    "type_Transaction": {
-      "type": "string"
+      "inversedBy": "trans_ids"
     }
   }
 }

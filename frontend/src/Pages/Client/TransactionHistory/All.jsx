@@ -19,7 +19,7 @@ function All(){
 
     function getTransactions(){
         Account.getTransaction(id).then((response) => {
-            setStatement(response.data.data.attributes.trans_id.data)
+            setStatement(response.data.data.attributes.trans_ids.data)
         }).catch((error) => {
             console.log("Unable to fetch transaction history");
         })
@@ -30,17 +30,14 @@ function All(){
         getTransactions();
     }, [])
 
-    console.log(statement);
-
     return (
         <Box className="Box" >
-           
             <Box className="card-request mt-2 lg:xl:mt-2">
                 <div className="card lg:xl:p-0" >
                     {/*  View All Transctions */}  
                     <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">  
                         {statement.map((data) =>               
-                            <div className="card bg-base-100 shadow-xl" >
+                            <div className="card bg-base-100 shadow-xl" key={data.id}>
                                 <div className="card-body" >
                                     <div className="flex justify-between">
                                         <div>

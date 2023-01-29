@@ -33,7 +33,7 @@
     "account_name": {
       "type": "string"
     },
-    "trans_id": {
+    "trans_ids": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::transaction.transaction",

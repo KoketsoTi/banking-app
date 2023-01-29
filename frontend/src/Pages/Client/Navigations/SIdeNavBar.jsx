@@ -80,15 +80,6 @@ function Sidebar() {
                 />
             </li>
             <li ></li>
-            {/* QR Code */}
-            <li>
-                <Item
-                    title="QR Code"
-                    to="/client/qrcode"
-                   icon={<AiOutlineQrcode style={{fontSize: "25px",  color:"#009DE0"}} />}
-                />
-            </li>
-            <li ></li>
             {/* Push Notifications */}
             <li>
                 <Item
@@ -99,7 +90,7 @@ function Sidebar() {
             </li>
 
             {/* User Profile*/}
-            <div className="dropdown dropdown-top absolute lg:bottom-59 ">
+            <div className="dropdown dropdown-top absolute lg:bottom-10  ">
                 <div tabIndex={0} className="flex cursor-pointer">
                     <label className="btn btn-ghost btn-circle avatar">
                         <div className="avatar placeholder">
