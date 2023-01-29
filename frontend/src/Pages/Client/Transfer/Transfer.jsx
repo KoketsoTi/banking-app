@@ -1,13 +1,18 @@
 
-import { Box, Typography} from "@mui/material";
+import { Box, Input, Typography} from "@mui/material";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState, useEffect } from "react";
 import { getToken } from "../../../Helpers/helpers";
 import { useForm } from "react-hook-form";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import * as Yup from 'yup';
+import { AiOutlineArrowDown } from "react-icons/ai";
+import { Error, Success } from "../../../Helpers/toasters";
+import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import User from '../../../Service/Client/client.service';
+import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
+import Account from "../../../Service/clients.service";
 import Calculations from '../../../Components/Transactions';
+import * as Yup from 'yup';
 
 
 function Transfer(){
@@ -26,21 +31,11 @@ function Transfer(){
 
     const [getId, setId] = useState([]);
     const [useAccount, setAccount] = useState([account]);
+    const [selectedAccount, setSelectedAccount] = useState({attributes:{balance:0}});
+    const [receipientAccount, setReceipientAcc] = useState({attributes:{balance:0}});
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const auth_token = getToken();
-    const [amount, setAmt] = useState();
-    const [fromData, setFromData] = useState();
-    const [toData, setToData] = useState();
-
-    function ToAccount(params){
-        setFromData(params);
-    } 
-
-    function FromAccount(params){
-        setToData(params);
-    } 
-
-    console.log(fromData);
-    console.log(toData);
 
     // form validation rules 
     const formSchema = Yup.object().shape({
@@ -51,28 +46,33 @@ function Transfer(){
     const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState } = useForm(formOptions)
     const { errors } = formState;
-
-    function onSubmit(data, event) {
-        event.preventDefault();
-        setAmt(useAccount[1].attributes.balance)
-        let value = Calculations.TransferMoney(amount, data.amount);
-        let userData = {
-            data:{
-                beneficiary: data.amount,
-                ownref : data.ownref,
-                amount:value
+    
+    const displayBalance = (e) => {
+        const selectedNumber = e.target.value;
+        for(const user of useAccount) {
+            if(user.attributes.accountno  === selectedNumber) {
+                setSelectedAccount(user);
+                break;
             }
         }
-
-        console.log(userData);      
-        return false
     }
 
+    const disReceipientBalance = (e) => {
+        const selectedNumber = e.target.value;
+        for(const user of useAccount) {
+            if(user.attributes.accountno  === selectedNumber) {
+                setReceipientAcc(user);
+                break;
+            }
+        }
+    }
+    
     function getUserAccounts(){
         //Fetch client id
+        
         User.getClientUser().then((response) => {
             setId(response.data.client_id.id)
-
+            console.log(response.data.client_id.id);
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setAccount(response.data.data.attributes.acc_id.data);
@@ -89,73 +89,164 @@ function Transfer(){
         }
     },[])
 
+
+    async function onSubmit(data, event) {
+        setLoading(true);
+        event.preventDefault();
+        let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(data.amount));
+        let increase = Calculations.ReceiveMoney(parseFloat(receipientAccount.attributes.balance), parseFloat(data.amount))
+            
+        //return Success("Transfer Cannot exceed available balance"); 
+        let userData = {
+            data:{
+                baalnce: data.amount,
+                ownref : data.ownref,
+                amount: decreae
+            }
+        }
+
+        //Decrease From  account
+        await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
+            console.log(response.data.data);
+            let transHistory = {
+                data: {
+                    accountno: selectedAccount.attributes.accountno,
+                    name: data.ownref,
+                    amount: data.amount,
+                    acc_id: selectedAccount.id,
+                    debit_credit: "Dr",
+                    type_Transaction: "Transfer"
+                }
+            }
+            
+            let Nortification = {
+                data: {
+                    amount: data.amount,
+                    balance: decreae,
+                    type_Transaction:"Transfer",
+                    client: getId,
+                    sender: selectedAccount.attributes.account_name,
+                    receipient: receipientAccount.attributes.account_name,
+                }
+            }
+
+            Account.TransactionHistory(auth_token, transHistory);
+            Account.Nortification(Nortification);
+        })
+
+        //Increae TO  account
+        await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
+            console.log(response.data.data);
+            let transHistory = {
+                data: {
+                    accountno: receipientAccount.attributes.accountno,
+                    name: data.ownref,
+                    amount: data.amount,
+                    acc_id: receipientAccount.id,
+                    debit_credit: "Cr",
+                    type_Transaction: "Transfer"
+                }
+            }
+
+            Account.TransactionHistory(auth_token, transHistory).then((response) => {
+                Success("Transer was successful");
+                navigate('/client/')
+            })
+        }).catch((error) => {
+            console.log(error)
+            Error("Transfer was unsuccessfull")
+        }).finally(()=>{
+            setLoading(false);
+        })
+             
+        return false
+    }
+
     return (
         <Box className="Box" >
-            {/* HEADER */}
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Box className="heading">
-                    <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Transfer</Typography>
-                </Box>
-            </Box>
+            {loading ? <LoadingSpinner /> :
+                (
+                    <>
+                        <ToastContainer />
+                        {/* HEADER */}
+                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                            <Box className="heading">
+                                <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Transfer</Typography>
+                            </Box>
+                        </Box>
 
-            {/* CONTENT */}
-            <Box>
-                <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
-                    <div className="card-body">
-                        <div className='grid grid-cols-1 gap-2'>
-                            <div>
-                                <label className="label"><span className="label-text">FROM:</span></label> 
-                                <select  className="input input-bordered w-full max-w-s email" name="numYears" >
-                                    {useAccount.map((index) => {
-                                        return(
-                                            <option key={index.id} value={index.attributes.account_name} onClick={() =>FromAccount(index)}>
-                                                {index.attributes.account_name}
-                                            </option>
-                                        );
-                                    })}
-                                </select>   
-                            </div>
-                            <div>
-                                <label className="label"><span className="label-text">TO:</span></label>
-                                <select className="input input-bordered w-full max-w-s email" name="numYears" >
-                                    {useAccount.map((index) => {
-                                        return(
-                                            <option key={index.id} value={index.attributes.account_name} onClick={()=>ToAccount(index)}>
-                                                {index.attributes.account_name}
-                                            </option>
-                                        );
-                                    })}                  
-                                </select>    
-                            </div>
-                        </div>
+                        {/* CONTENT */}
+                        <Box>
+                            <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
+                                <div className="card-body">
+                                    <div className='grid grid-cols-1 gap-2'>
+                                        <div>
+                                            <div className="text-start">Transfer money from one account to another.</div>
+                                            <label className="label"><span className="label-text">FROM:(SENDER)</span></label> 
+                                            <select  className="input input-bordered w-full max-w-s email" name="currentAccount" onChange={displayBalance} >
+                                                <option value="0">Select Account</option>
+                                                {useAccount.map((index) =>
+                                                    <option key={index.id} value={index.attributes.accountno} >
+                                                        {index.attributes.account_name} # {index.attributes.accountno}
+                                                    </option>       
+                                                )}
+                                            </select>   
+                                        </div>
 
-                        <div className="hozitontal-line -mb-4">
-                            <div className="divider"></div> 
-                        </div>
+                                        <div className="mb-5">
+                                            <label className="label"><span className="label-text">CURRENT BALANCE</span></label> 
+                                            <input disabled value={"R" + selectedAccount?.attributes.balance.toLocaleString()} className="input text-end input-bordered w-full max-w-s email" name="numYears" />
+                                        </div>
+                                        
+                                        <div className="text-2xl"><AiOutlineArrowDown /></div>
 
-                        <form >
-                            <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
-                                <div className="form-group col ">
-                                    <label className="label"><span className="label-text">Amount:</span></label>
-                                    <input type="number" name="amount" {...register('amount')}
-                                        className="input input-bordered w-full max-w-s email "/>
-                                    <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
+                                        <div>
+                                            <label className="label"><span className="label-text">TO:(RECEIVER)</span></label>
+                                            <select className="input input-bordered w-full max-w-s email" name="numYears"  onChange={disReceipientBalance}>
+                                                <option value="0">Select Account</option>
+                                                {useAccount.map((index) =>
+                                                    <option key={index.id} value={index.attributes.accountno}>
+                                                        {index.attributes.account_name} # {index.attributes.accountno}
+                                                    </option>
+                                                )}                  
+                                            </select>    
+                                        </div>
+                                        <div className="mb-5">
+                                            <label className="label"><span className="label-text">CURRENT BALANCE</span></label> 
+                                            <input disabled  value={"R" + receipientAccount?.attributes.balance.toLocaleString()} className="input text-end input-bordered w-full max-w-s email" name="numYears" />
+                                        </div>
+                                    </div>
+
+                                    <div className="hozitontal-line -mb-4">
+                                        <div className="divider"></div> 
+                                    </div>
+
+                                    <form >
+                                        <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
+                                            <div className="form-group col ">
+                                                <label className="label"><span className="label-text">Amount:</span></label>
+                                                <input type="number" name="amount" {...register('amount')}
+                                                    className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
+                                            </div>
+
+                                            <div className="form-group col ">
+                                                <label className="label"><span className="label-text">Own Ref:</span></label>
+                                                <input type="text" name="ownref" {...register('ownref')}
+                                                    className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-start text-rose-600">{errors.ownref?.message}</div>
+                                            </div>
+                                        </div>
+                                        <div className="form-group text-start pay-button col mt-10">
+                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Transfer</button>
+                                        </div>           
+                                    </form>
                                 </div>
-
-                                <div className="form-group col ">
-                                    <label className="label"><span className="label-text">Own Ref:</span></label>
-                                    <input type="text" name="ownref" {...register('ownref')}
-                                        className="input input-bordered w-full max-w-s email "/>
-                                    <div className="invalid-feedback text-start text-rose-600">{errors.ownref?.message}</div>
-                                </div>
                             </div>
-                            <div className="form-group text-start pay-button col mt-10">
-                                <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Transfer</button>
-                            </div>           
-                        </form>
-                    </div>
-                </div>
-            </Box>
+                        </Box>
+                    </>
+                )
+            }
         </Box>
     );
 }

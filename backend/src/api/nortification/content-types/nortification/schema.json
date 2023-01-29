@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nortifications",
+  "info": {
+    "singularName": "nortification",
+    "pluralName": "nortifications",
+    "displayName": "Nortification",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "amount": {
+      "type": "float"
+    },
+    "balance": {
+      "type": "float"
+    },
+    "type_Transaction": {
+      "type": "string"
+    },
+    "sender": {
+      "type": "string"
+    },
+    "receipient": {
+      "type": "string"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "nortifications"
+    }
+  }
+}
