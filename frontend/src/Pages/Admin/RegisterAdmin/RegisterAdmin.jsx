@@ -20,8 +20,8 @@ function RegisterAdmin() {
         email: Yup.string().required('Email is mendatory')
             .email('invalid Email'),
 
-        age: Yup.string().required('Age is mendatory')
-            .min(2, 'Age must be at least 2 char long'),
+        // age: Yup.string().required('Age is mendatory')
+        //     .min(2, 'Age must be at least 2 char long'),
 
         phone: Yup.string().required('Phone is mendatory'),
     })

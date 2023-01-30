@@ -236,23 +236,23 @@ function ApplyLoan() {
                                                             ?
                                                                 [loanMonths === "3" 
                                                                 ?
-                                                                    <select key={1} className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
+                                                                    <select key={1} className="input input-bordered w-full mt-5 lg:xl:-mt-0 max-w-s email" name="interest" onChange={handleChangePer}>
                                                                         <option value={10}>10%</option>
                                                                     </select>
                                                                 :
                                                                     [loanMonths === "6" 
                                                                     ?
-                                                                        <select key={1} className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
+                                                                        <select key={1} className="input input-bordered w-full mt-5 lg:xl:-mt-0 max-w-s email" name="interest" onChange={handleChangePer}>
                                                                             <option value={15}>15%</option>
                                                                         </select>
                                                                     :
-                                                                        <select className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
+                                                                        <select className="input input-bordered w-full max-w-s email mt-5 lg:xl:-mt-0" name="interest" onChange={handleChangePer}>
                                                                             <option value={20}>20%</option>
                                                                         </select>
                                                                     ]
                                                                 ]  
                                                             :
-                                                                <select selected className="input input-bordered w-full max-w-s email" name="interest" onChange={handleChangePer}>
+                                                                <select selected className="input input-bordered w-full max-w-s email mt-5 lg:xl:-mt-0" name="interest" onChange={handleChangePer}>
                                                                     <option value={10.5}>10.5%</option>
                                                                 </select>
                                                             }

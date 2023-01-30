@@ -87,7 +87,7 @@ function Login() {
             <div className="card cards lg:xl:mt-10 mt-16 lg:xl:w-2/5 w-96 rounded-none shadow-xl ">
                 <div className="card-body">
                     <div className="body-header mb-4">
-                        <div className="text-dark text-left mt-2 text-xl">BANK</div>
+                        <div className="text-dark text-left mt-2 text-xl">SKY BANK</div>
                     </div>
                     
                     <div className="body-header -mb-4">

@@ -77,7 +77,6 @@ function UserProfile() {
     getAllUsers();
   },[])
 
-  console.log(getUserLoan);
   return (
     <Box m="20px">
       {loading ? <LoadingSpinner /> :

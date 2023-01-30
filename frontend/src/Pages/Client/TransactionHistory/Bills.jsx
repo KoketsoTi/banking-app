@@ -91,7 +91,6 @@ function Bills(){
             setClient(response.data.client_id)
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
-                console.log(response.data.data.attributes);
                 setAccount(response.data.data.attributes.acc_id.data);
                 setLoading(false);
             }).catch((error) => {

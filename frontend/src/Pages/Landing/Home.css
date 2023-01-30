@@ -1,0 +1,21 @@
+
+
+.hero{
+    height: 500px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: white;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.7)),
+  url(
+"https://lh3.googleusercontent.com/r7Y51X6vqUQXcf7ZtwKW3-bJ6PwBZ1c1W0BJnDLQiFLfirdqEYwmeNAYLtLSxA4E9vRDCtH__7ah_D1rI6AJEwcgAbXf6td5ow=s700");
+}
+.red{
+    background-color: transparent;
+}
+
+.navbar{
+  background: linear-gradient(rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.568));
+  
+}

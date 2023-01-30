@@ -29,7 +29,6 @@ function ShortTerm(){
     setLoading(true);
     UserService.getShortLoans(token).then((response) => {
       setShortTerm(response.data.data);
-      console.log(response.data)
       setLoading(false);
     }).catch((error) => {
       console.log("An error occurred:", error.response);

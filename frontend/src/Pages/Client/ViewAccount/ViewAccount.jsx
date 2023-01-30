@@ -55,7 +55,6 @@ function ViewAccount(){
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setAccount(response.data.data.attributes.acc_id.data);
-                console.log(response.data.data.attributes.acc_id.data);
                 setLoading(false);
             }).catch((error) => {
                 console.log(error);
