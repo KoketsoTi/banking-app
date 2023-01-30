@@ -51,6 +51,8 @@ function VerifyAccount() {
             Warning("Password was not successfull")
             console.log("An error occurred:", error.response);
         });
+
+        reset();
         return false
     }
 
