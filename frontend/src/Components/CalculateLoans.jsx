@@ -26,8 +26,7 @@ const Calculations = {
     calcShortTerm,
     calcLongTerm,
     interestpaid,
-    monthly,
-    calcLongTerm
+    monthly
 }
 
 export default Calculations;

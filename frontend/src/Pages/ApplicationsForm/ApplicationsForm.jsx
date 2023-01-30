@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from "@mui/material";
-import { HiOutlineDocument} from 'react-icons/hi';
-import { AiOutlineRollback } from 'react-icons/ai';
-import { BiArrowBack } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Success, Warning } from '../../Helpers/toasters';
 import { ToastContainer } from 'react-toastify';
 import NewUser from '../../Service/clients.service';
 import * as Yup from 'yup';
-import { useState } from 'react';
 
 function Apply() {
     let navigate = useNavigate();

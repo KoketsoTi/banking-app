@@ -65,10 +65,6 @@ function ShortTerm(){
     })
   }
 
-  const deleteAUser= (id) => {
-
-  }
-
   //Get Long Term Loans
   useEffect( () => {
     if(token){
