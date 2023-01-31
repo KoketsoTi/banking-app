@@ -52,6 +52,8 @@ const createAccout = (data) => {
     return axios.post(`${API}accounts`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+
+
 const functions = {
     applyForLoan,
     getClientUser,

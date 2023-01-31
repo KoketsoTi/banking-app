@@ -9,9 +9,7 @@ function Messages(){
 
     function getUserAccounts(){
         //Fetch client id
-        
         User.getClientUser().then((response) => {
-
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setNortifications(response.data.data.attributes.nortifications.data);

@@ -26,6 +26,8 @@ function Bills(){
     const [client, setClient] = useState({firstname:"hello", lastname:"good"});
     const [reference, setReference]= useState("");
     const [amount, setAmount]=useState("");
+    const [getError, setErrors] = useState(false); 
+    const [message, setMessage] = useState("")
     const [selectedAccount, setSelectedAccount] = useState({attributes:{balance:0}});
     const [useAccount, setAccount] = useState([account]);
     const [loading, setLoading] = useState(false);
@@ -48,39 +50,45 @@ function Bills(){
 
         let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(amount));
 
-        //Decrease From  account
-        await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
-            let transHistory = {
-                data: {
-                    accountno: selectedAccount.attributes.accountno,
-                    name: reference +"@"+getBillOwner,
-                    amount: amount,
-                    acc_id: selectedAccount.id,
-                    debit_credit: "Dr",
-                    type_Transaction: "Bill Payment"
-                }
-            }
-
-            let Nortification = {
-                data: {
-                    amount: amount,
-                    balance: decreae,
-                    type_Transaction: "Bill Payment",
-                    clients: getId,
-                    sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
-                    receipient: reference +"@"+getBillOwner,
-                }
-            }
-             
-            Account.TransactionHistory(auth_token, transHistory);
-            Account.Nortification(Nortification);
-            Success("Bill Payment was successful");
-        }).catch((error) => {
-            console.log(error);
-            Error("Unable to pay bill, Try again later")
-        }).finally(() => {
+        if(parseFloat(amount) > selectedAccount.attributes.balance){
+            setErrors(getError  => !getError);
             setLoading(false);
-        })      
+            setMessage("Transfer cannot exceed available balance");
+        }else{
+            //Decrease From  account
+            await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
+                let transHistory = {
+                    data: {
+                        accountno: selectedAccount.attributes.accountno,
+                        name: reference +"@"+getBillOwner,
+                        amount: amount,
+                        acc_id: selectedAccount.id,
+                        debit_credit: "Dr",
+                        type_Transaction: "Bill Payment"
+                    }
+                }
+
+                let Nortification = {
+                    data: {
+                        amount: amount,
+                        balance: decreae,
+                        type_Transaction: "Bill Payment",
+                        clients: getId,
+                        sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
+                        receipient: reference +"@"+getBillOwner,
+                    }
+                }
+                
+                Account.TransactionHistory(auth_token, transHistory);
+                Account.Nortification(Nortification);
+                Success("Bill Payment was successful");
+            }).catch((error) => {
+                console.log(error);
+                Error("Unable to pay bill, Try again later")
+            }).finally(() => {
+                setLoading(false);
+            })    
+        }  
     }
 
     function getUserAccounts(){
@@ -91,7 +99,6 @@ function Bills(){
             setClient(response.data.client_id)
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
-                console.log(response.data.data.attributes);
                 setAccount(response.data.data.attributes.acc_id.data);
                 setLoading(false);
             }).catch((error) => {
@@ -127,7 +134,7 @@ function Bills(){
                             {/*  View Bills */}  
                             <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  gap-2 lg:xl:gap-4">  
                                 {BillsData.map((element, id) => 
-                                    <label htmlFor="my-modal-4" >
+                                    <label htmlFor="my-modal-4" key={id} >
                                         <div onClick={() => billName(element)} className="card h-28 bg-base-100 shadow-xl cursor-pointer" key={id}>
                                             <div className="card-body">
                                                 <div className="text-center">{element} </div>
@@ -162,7 +169,11 @@ function Bills(){
                                             <label className="label"><span className="label-text">CURRENT BALANCE</span></label> 
                                             <input disabled value={"R" + selectedAccount?.attributes.balance.toLocaleString()} className="input text-end input-bordered w-full max-w-s email" name="numYears" />
                                         </div>
-                                
+                                        
+                                        <div className="mt-2 mb-2">
+                                            <div className="invalid-feedback text-start text-rose-600">{message}</div>
+                                        </div>
+
                                         <div>
                                             <label className="label"><span className="label-text">Please enter your Pay@  reference number</span></label>
                                             <input  type="text" value={reference} onChange={(e) => setReference(e.target.value)} placeholder="Reference number" className="input input-bordered w-full max-w-s email" />

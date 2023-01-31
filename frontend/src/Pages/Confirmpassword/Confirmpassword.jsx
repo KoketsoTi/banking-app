@@ -38,6 +38,7 @@ function Confirmpassword() {
       password: data.password,
       passwordConfirmation : data.confirmPwd,
     }
+    console.log(_data);
 
     //call confirm password here
     AuthorService.confirmPassword(_data).then((response) => { 

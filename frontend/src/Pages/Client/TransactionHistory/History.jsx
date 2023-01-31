@@ -24,7 +24,7 @@ function Bills(){
     }, [])
 
     let bills = statement.filter((res) => res.attributes.type_Transaction == 'Bill Payment');
-    console.log(bills);
+
     
     return (
         <Box className="Box" >

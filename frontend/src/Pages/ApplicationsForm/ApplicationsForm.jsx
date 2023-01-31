@@ -37,7 +37,6 @@ function Apply() {
 
         //Bank Account Infomation
         select: Yup.string().required('Account name is mendatory'),
-        balance: Yup.string().required('Choose to fund account  or deposit later'),
 
         //Create username and password
         username: Yup.string().required('Username is mendatory'),
@@ -81,7 +80,7 @@ function Apply() {
                 //BANK ACCOUNT
                 accountno: "14" + randomDigits,
                 account_name: data.select + " Account",
-                balance: data.balance,
+                balance: 0,
                 account_type: data.select,
                 account_status: "Pending",
                 
@@ -100,6 +99,7 @@ function Apply() {
             console.log('An error occurred:', error.response);
             Warning('Unable to apply ')
         });
+        navigate("/auth/login");
         reset();
         return false
     }
@@ -126,7 +126,7 @@ function Apply() {
     return (
         <Box className='login' >
             <ToastContainer />
-            <div className='mt-5'>
+            <div className='mt-10'>
                 <div className="flex justify-center ">
                     {/* <div className="form-group col mb-4 back lg:hidden" >
                         <Link to={goBack} ><BiArrowBack  className="rounded-none border-none absolute justify-center text-3xl border rounded-md " style={{marginTop: "3px", marginRight:"5px"}} /></Link>
@@ -241,8 +241,8 @@ function Apply() {
                                             <div className="form-group col">
                                                 <label className="label"><span className="label-text">Account Name</span></label>
                                                 <select type="text" placeholder="Select account you wish to open" {...register('select')}
-                                                    className="input input-bordered w-full max-w-s email "  onChange={(e) => doSomething(e.target.value)}>
-                                                        <option value="">Select Account Name</option>
+                                                    className="input input-bordered w-full max-w-s email" onChange={(e) => doSomething(e.target.value)}>
+                                                        <option >Select Account Name</option>
                                                         <option value={"Cheque"}>Cheque Account</option>
                                                         <option value={"Savings"}>Saving Account</option>
                                                 </select>
@@ -251,9 +251,8 @@ function Apply() {
 
                                             <div className="form-group col mb-2">
                                                 <label className="label"><span className="label-text">Balance</span></label>
-                                                <input type="number" min="0" max="10000" name="balance" placeholder="Balance" {...register('balance')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                <div className="invalid-feedback text-rose-600">{errors.balance?.message}</div>
+                                                <input type="number" min="0" max="10000" disabled value={0} name="balance"
+                                                    className="input input-bordered w-full max-w-s email" />
                                             </div>
                                         </div>
 

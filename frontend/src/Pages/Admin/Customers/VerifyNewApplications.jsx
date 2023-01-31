@@ -7,6 +7,7 @@ import { Warning, Success } from '../../../Helpers/toasters';
 import { getToken } from '../../../Helpers/helpers';
 import { ToastContainer } from 'react-toastify';
 import UserService from "../../../Service/clients.service";
+import Account from "../../../Service/Client/client.service";
 import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
 
 function Deactive(){
@@ -35,9 +36,21 @@ function Deactive(){
     id: 1
   }
 
+  const approve = {
+    contact: "079-551-6628",
+    email: "mashengetee@gmail.com",
+    firstname: "Virginia",
+    lastname: "Mashengete",
+    password: "123456",
+    username: "Virginia",
+    usertype: "Client"
+  }
+
   const [deactive, setDeactive] = useState([])
   const [userdata, setData]=useState(user);
   const [loading, setLoading] = useState(false);
+  const [getApproveData, setApproveData] = useState();
+  const [getId, setID ] = useState();
 
   const token = getToken() 
 
@@ -45,9 +58,10 @@ function Deactive(){
     setLoading(true);
     UserService.getNewUsers(token).then((response) => {
       setDeactive(response.data.data);
-      setLoading(false);
     }).catch((error) => {
         console.log("An error occurred:", error.response);
+    }).finally(() => {
+      setLoading(false);
     });
   }
 
@@ -72,27 +86,74 @@ function Deactive(){
     })
   }
 
-
-  function Activate(data){
+  function ApproveNewUser(event) {
+    event.preventDefault();
     setLoading(true);
-    let userData = {
-      email: data.attributes.email,
-      username: data.attributes.firstname,
-      firstname: data.attributes.firstname,
-      lastname: data.attributes.lastname,
-      usertype: data.attributes.usertype,
-      contact: data.attributes.phone,
-      password: "123456"
+
+    //Account Table
+    let account = {
+      data: {
+        accountno: getApproveData.accountno,
+        account_name: getApproveData.account_name,
+        balance: getApproveData.balance,
+        account_type: getApproveData.account_type,
+        account_status: "Active",
+      }
     }
     
-    UserService.register(token, userData).then((response) => {
-      Success('Applicant was Approved')
-      setLoading(false);
+    //Create new account
+    Account.createAccout(account).then((response) => {
+      //Client Table
+      let Client = {
+        data:{
+          firstname: getApproveData.firstname,
+          lastname: getApproveData.lastname,
+          email: getApproveData.email,
+          birth_date: getApproveData.birth_date,
+          phone: getApproveData.phone,
+          Occupation: getApproveData.Occupation,
+          street_address: getApproveData.street_address,
+          surbub: getApproveData.surbub,
+          city: getApproveData.city,
+          zipcode: getApproveData.zipcode,
+          country: getApproveData.country,
+          acc_id: response.data.data.id
+        }
+      }
+
+      //Create a new user
+      UserService.createUser(token, Client).then((response) => {
+        //User Table
+        let user = {
+          email: getApproveData.email,
+          username: getApproveData.firstname,
+          firstname: getApproveData.firstname,
+          lastname: getApproveData.lastname,
+          usertype: getApproveData.usertype,
+          contact: getApproveData.phone,
+          password: getApproveData.password,
+          client_id: response.data.data.id
+        }
+        //register User
+        UserService.register(token, user);
+        
+        Success('Applicant was Approved');
+      })
     }).catch((error) => {
       Warning('Unable to approve a new client')
       console.log("An error occurred:", error.response);
+    }).finally(() => {
+      setLoading(false);
+      UserService.deleteAUser(token, getId);
+      getAllApplicants();
     })
   }
+
+  function Activate(data){
+    setApproveData(data.attributes);
+    setID(data.id)
+  }
+
 
   const view = (params) =>{
     setData(params)
@@ -166,7 +227,7 @@ function Deactive(){
                         </td>
 
                         <td>
-                          <button onClick={()=> Activate(user)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#009DE0", color:"#F9F9F9"}} >Approve</button>  
+                          <label htmlFor="my-modal" onClick={()=> Activate(user)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#009DE0", color:"#F9F9F9"}} >Approve</label>  
                         </td>
 
                         <td>
@@ -179,6 +240,26 @@ function Deactive(){
                   </tbody>
               </table>
             </Box> 
+
+            <Box>
+              <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
+                  <h3 className="font-bold text-lg">Are you sure you want to approve this user </h3>
+                  <div className="modal-action">
+                    <div className="flex ">
+                      <div className="form-group col mb-2 mt-4  text-end">
+                        <label htmlFor="my-modal" className="rounded-none mr-5 relative flex w-24 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white suspend">Cancel</label>
+                      </div>
+                      <div className="form-group col mb-2 mt-4  text-end">
+                        <button onClick={ApproveNewUser}  className="rounded-none relative flex w-24 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#009DE0", color:"#F9F9F9"}}>Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Box>
 
             <Box>
               <input type="checkbox" id="my-modal-4" className="modal-toggle" />

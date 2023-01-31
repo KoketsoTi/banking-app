@@ -63,14 +63,14 @@
     "role": {
       "type": "integer"
     },
-    "password": {
-      "type": "password"
-    },
     "username": {
       "type": "string"
     },
     "birth_date": {
       "type": "date"
+    },
+    "password": {
+      "type": "string"
     }
   }
 }

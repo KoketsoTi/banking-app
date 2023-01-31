@@ -45,6 +45,8 @@ function PayBeneficiary(){
 
     const [selectedAccount, setSelectedAccount] = useState({attributes:{balance:0}});
     const [getId, setId] = useState([]);
+    const [getError, setErrors] = useState(false); 
+    const [message, setMessage] = useState("")
     const [client, setClient] = useState({firstname:"hello", lastname:"good"});
     const [useAccount, setAccount] = useState([account]);
     const [getuserAccount, setUserAccount] = useState([accData]);
@@ -78,75 +80,78 @@ function PayBeneficiary(){
         event.preventDefault();
         let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(data.amount));
         let increase = Calculations.ReceiveMoney(parseFloat(getuserAccount[0].attributes.acc_id.data[0].attributes.balance), parseFloat(data.amount)) 
-
-        //Decrease From  account
-        await AccountData.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
-            let transHistory = {
-                data: {
-                    accountno: selectedAccount.attributes.accountno,
-                    name: state.params.attributes.Name,
-                    amount: data.amount,
-                    acc_id: selectedAccount.id,
-                    debit_credit: "Dr",
-                    type_Transaction: "Payment"
-                }
-            }
-            
-            let Nortification = {
-                data: {
-                    amount: data.amount,
-                    balance: decreae,
-                    type_Transaction:"Payment",
-                    clients: getId,
-                    sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
-                    receipient: state.params.attributes.Name,
-                }
-            }
-
-
-            AccountData.TransactionHistory(auth_token, transHistory);
-            AccountData.Nortification(Nortification);
-        })
-
-        //Increase To account
-        await AccountData.updateStatus(auth_token, getuserAccount[0].attributes.acc_id.data[0].id, {data:{balance: increase}}).then((response) => {
-            let transHistory = {
-                data: {
-                    accountno: state.params.attributes.account_no,
-                    name: data.ownref,
-                    amount: data.amount,
-                    acc_id: getuserAccount[0].attributes.acc_id.data[0].id,
-                    debit_credit: "Cr",
-                    type_Transaction: "Transfer"
-                }
-            }
-            let Nortification = {
-                data: {
-                    amount: data.amount,
-                    balance: increase,
-                    type_Transaction:"Payment",
-                    clients: getuserAccount[0].id,
-                    sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
-                    receipient: state.params.attributes.Name,
-                }
-            }
-
-            AccountData.UpdateBeneficiary(state.params.id,{data: {amount:data.amount}})
-            AccountData.Nortification(Nortification);
-            AccountData.TransactionHistory(auth_token, transHistory).then((response) => {
-                Success("Payment was successful");
-                navigate('/client/');
-            })
-        }).catch((error) => {
-            console.log(error)
-            Error("Payment was unsuccessfull")
-        }).finally(()=>{
+        if(parseFloat(data.amount) > selectedAccount.attributes.balance){
+            setErrors(getError  => !getError);
             setLoading(false);
-        })
+            setMessage("Transfer cannot exceed available balance");
+        }else{
+            //Decrease From  account
+            await AccountData.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
+                let transHistory = {
+                    data: {
+                        accountno: selectedAccount.attributes.accountno,
+                        name: state.params.attributes.Name,
+                        amount: data.amount,
+                        acc_id: selectedAccount.id,
+                        debit_credit: "Dr",
+                        type_Transaction: "Payment"
+                    }
+                }
+                
+                let Nortification = {
+                    data: {
+                        amount: data.amount,
+                        balance: decreae,
+                        type_Transaction:"Payment",
+                        clients: getId,
+                        sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
+                        receipient: state.params.attributes.Name,
+                    }
+                }
 
 
+                AccountData.TransactionHistory(auth_token, transHistory);
+                AccountData.Nortification(Nortification);
+            })
+
+            //Increase To account
+            await AccountData.updateStatus(auth_token, getuserAccount[0].attributes.acc_id.data[0].id, {data:{balance: increase}}).then((response) => {
+                let transHistory = {
+                    data: {
+                        accountno: state.params.attributes.account_no,
+                        name: data.ownref,
+                        amount: data.amount,
+                        acc_id: getuserAccount[0].attributes.acc_id.data[0].id,
+                        debit_credit: "Cr",
+                        type_Transaction: "Transfer"
+                    }
+                }
+                let Nortification = {
+                    data: {
+                        amount: data.amount,
+                        balance: increase,
+                        type_Transaction:"Payment",
+                        clients: getuserAccount[0].id,
+                        sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
+                        receipient: state.params.attributes.Name,
+                    }
+                }
+
+                AccountData.UpdateBeneficiary(state.params.id,{data: {amount:data.amount}})
+                AccountData.Nortification(Nortification);
+                AccountData.TransactionHistory(auth_token, transHistory).then((response) => {
+                    Success("Payment was successful");
+                    navigate('/client/');
+                })
+            }).catch((error) => {
+                console.log(error)
+                Error("Payment was unsuccessfull")
+            }).finally(()=>{
+                setLoading(false);
+            })
+
+        }
         return false
-   
     }
 
     function getUserAccounts(){
@@ -236,6 +241,10 @@ function PayBeneficiary(){
                                         </div> */}
                                     </div>
                     
+                                    <div>
+                                        <div className="invalid-feedback text-start text-rose-600">{message}</div>
+                                    </div>
+                                    
                                     <div className="hozitontal-line -mb-4">
                                         <div className="divider"></div> 
                                     </div>

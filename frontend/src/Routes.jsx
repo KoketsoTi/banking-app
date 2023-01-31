@@ -19,7 +19,6 @@ import Login from './Pages/Login/Login'
 import Confirmpassword from './Pages/Confirmpassword/Confirmpassword';
 import Applications from './Pages/ApplicationsForm/ApplicationsForm';
 import Landing from "./Pages/Landing/Home";
-import VerifyAccount from "./Pages/VerifyAccount/VerifyAccount";
 
 /////////////////////////Client Imports /////////////////////////////////////////////////
 import Client from "./Pages/Client/ClientInnerContent/ClientInnerContent";
@@ -89,9 +88,7 @@ const Navigation = () => {
             </Route>
             
             <Route path="application" element={<Applications /> } />
-            <Route path="/auth/verifyAccount" element={<VerifyAccount />} />
             <Route path="/auth/Confirmpassword" element={<Confirmpassword /> } />
-            <Route path='/' element={<Navigate replace to="/auth/login" />} />
             <Route path="/auth/login" element={ <Login /> } />  
         </Routes> 
     );

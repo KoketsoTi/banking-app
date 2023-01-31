@@ -60,7 +60,7 @@ function Login() {
         .catch((error) => {  
             if(error.response.data.error.message === 'Your account email is not confirmed') {
                 // console.log('An error occurred:', error.response.data.error.message);
-                Warning('Your account email is not confirmed')
+                Warning('Your account email is not verified check your emails for a verification link')
             }else{
                 console.log('An error occurred:', error.response);
                 Warning('Incorrect Username/Email or password entered')
