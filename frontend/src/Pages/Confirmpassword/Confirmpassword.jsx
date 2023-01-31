@@ -56,7 +56,7 @@ function Confirmpassword() {
   }
 
   return (
-    <Box className='login' >
+    <Box className=' hero' >
       <ToastContainer />
       <div className="md:container md:mx-auto">
         <div className="flex justify-center">
