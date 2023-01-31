@@ -153,8 +153,7 @@ function Deactive(){
     setApproveData(data.attributes);
     setID(data.id)
   }
-
-
+  
   const view = (params) =>{
     setData(params)
   }

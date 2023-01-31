@@ -29,7 +29,6 @@ function LongTerm(){
     setLoading(true);
     UserService.getLongLoans(token).then((response) => {
       setLongTerm(response.data.data);
-      console.log(response.data.data);
       setLoading(false);
     }).catch((error) => {
       console.log("An error occurred:", error.response);

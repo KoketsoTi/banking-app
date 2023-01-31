@@ -81,8 +81,6 @@ function LoanApp(){
         })
     }
 
-    console.log(users);
-
     return (
         <Box m="20px" >
             {loading ? <LoadingSpinner /> :

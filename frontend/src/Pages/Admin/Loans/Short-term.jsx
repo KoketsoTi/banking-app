@@ -23,13 +23,12 @@ function ShortTerm(){
   const [longShort, setShortTerm] = useState([]);
   const [loading, setLoading] = useState(false);
 
-   const token = getToken(); 
+  const token = getToken(); 
  
   function getallLoans(){
     setLoading(true);
     UserService.getShortLoans(token).then((response) => {
       setShortTerm(response.data.data);
-      console.log(response.data)
       setLoading(false);
     }).catch((error) => {
       console.log("An error occurred:", error.response);

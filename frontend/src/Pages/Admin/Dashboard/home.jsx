@@ -22,7 +22,6 @@ function Home(){
     setLoading(true);
     UserService.getPending().then((response) => {
       setLoans(response.data.data);
-      console.log(response.data.data);
      
     }).catch((error) => {
       console.log("An error occurred:", error.response);
