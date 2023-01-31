@@ -99,7 +99,7 @@ function Apply() {
             console.log('An error occurred:', error.response);
             Warning('Unable to apply ')
         });
-        navigate("/auth/login");
+        
         reset();
         return false
     }
@@ -297,7 +297,7 @@ function Apply() {
                                         </div>
                                     :
                                         <div className="form-group col mb-2 mt-4  text-end">
-                                            <button onClick={handleSubmit(onSubmit)}  className="rounded-none ml-10 relative flex    justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> Submit Application </button>
+                                            <button onClick={handleSubmit(onSubmit)}  className="rounded-none activate ml-10 relative flex    justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> Submit Application </button>
                                         </div>
                                 }           
                             </div>                       
@@ -310,51 +310,3 @@ function Apply() {
 }
 
 export default Apply;
-
-
-                                   
-       /*      
-
-        
-       
-                                        
-
-                          
-                                   
-                                    
-                                
-
-                                <div className='grid grid-cols-1 lg:xl:grid-cols-2 lg:xl:gap-8 mb-8'>
-                                    <div className="form-group col mb-2">
-                                        <label className="label"><span className="label-text">Username</span></label>
-                                        <input type="text" name="username" placeholder="Country" {...register('username')}
-                                            className="input input-bordered w-full max-w-s email "/>
-                                        <div className="invalid-feedback text-rose-600">{errors.username?.message}</div>
-                                    </div>
-
-                                    <div className="form-group col">
-                                        <label className="label"><span className="label-text">Password</span></label>
-                                        <input type="password" name="password" placeholder="Password" {...register('password')}
-                                            className="input input-bordered w-full max-w-s email "/>
-                                        <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
-                                    </div>
-                                </div>
-
-                                <div className='grid grid-cols-2 gap-8 '>
-                                    <div className="form-group col mb-4 hidden lg:contents">
-                                        <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{marginTop: "3px", marginRight:"5px"}}/>Submit Application </button>
-                                    </div>
-
-                                    <div className="form-group col mb-4 hidden lg:contents ">
-                                        <button onClick={goBack} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><AiOutlineRollback style={{marginTop: "3px", marginRight:"5px"}}/>Back </button>
-                                    </div>
-                                </div>
-                                <div className="form-group col mb-4 lg:hidden">
-                                     <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{marginTop: "3px", marginRight:"5px"}}/>Submit Application </button>
-                                </div>
-                            </form>
-
-  <div className="form-group col mb-4 lg:hidden">
-                                     <button onClick={handleSubmit(onSubmit)}  className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><HiOutlineDocument style={{marginTop: "3px", marginRight:"5px"}}/>Submit Application </button>
-                                </div>
-                            */

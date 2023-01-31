@@ -10,7 +10,6 @@ import Verify from './Pages/Admin/Card/Verify';
 import Cards from './Pages/Admin/Card/Cards';
 import Profile from './Pages/Admin/Profile/Profile';
 import ChangePassword from "./Pages/Admin/ChangePassword/Changepassword";
-import RegisterAdmin from './Pages/Admin/RegisterAdmin/RegisterAdmin';
 import LoanApplications from './Pages/Admin/ApproveLoan/AproveLoanApplication';
 
 
@@ -58,7 +57,6 @@ const Navigation = () => {
                 <Route path="changePassword" element={<ChangePassword /> } />
                 <Route path="short-term" element={<ShortTerm /> } />
                 <Route path="long-term" element={<LongTerm /> } />
-                <Route path="addnewadmin" element={<RegisterAdmin />} />
                 <Route path="loan-application" element={<LoanApplications />} />
             
             </Route>

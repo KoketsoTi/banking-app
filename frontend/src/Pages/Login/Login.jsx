@@ -81,7 +81,7 @@ function Login() {
     }
 
     return (
-        <Box className='login' >
+        <Box className=' hero min-h-screen' >
             <ToastContainer />
             <div className="card cards lg:xl:mt-10 mt-16 lg:xl:w-2/5 w-96 rounded-none shadow-xl ">
                 <div className="card-body">
@@ -113,7 +113,7 @@ function Login() {
                         </div>
                                 
                         <div className="form-group col text-left mb-4">
-                            <button onClick={handleSubmit} className="btn normal-case text-xl  w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{backgroundColor:"#009DE0"}}><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
+                            <button onClick={handleSubmit} className="btn normal-case text-xl w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{backgroundColor:"#009DE0"}}><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
                         </div>
                     </form>
                     <div className="form-group col text-left">

@@ -4,6 +4,7 @@ import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 
 function CardRequest(){
     const [loading, setLoading] = useState(false);
+    
     return (
         <Box className="Box" >
             {loading ? <LoadingSpinner /> :

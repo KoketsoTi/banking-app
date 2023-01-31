@@ -3,11 +3,7 @@ import Navbar from '../../Components/Navbar';
 import'./home.css';
 import { useNavigate } from 'react-router-dom';
 import { SiVerizon} from 'react-icons/si';
-import image from '..//../Assets//image//internet-banking.jpeg';
-import images from '..//..//Assets//images//bankcard-removebg-preview.png';
-import { color } from "@mui/system";
-
-
+import images from '../../Assets/images/bankcard-removebg-preview.png';
 
 function Landing(){
     const navigate = useNavigate();
@@ -16,6 +12,7 @@ function Landing(){
     }
     return(
         <Box>
+            <Navbar />
             <div className="hero min-h-screen  " style={{ backgroundImage: `url("https://images-ext-2.discordapp.net/external/eA0q49aHlz_8QUljjkS6HxMVZ5stUeszZHdYtKrtXxo/https/lh3.googleusercontent.com/r7Y51X6vqUQXcf7ZtwKW3-bJ6PwBZ1c1W0BJnDLQiFLfirdqEYwmeNAYLtLSxA4E9vRDCtH__7ah_D1rI6AJEwcgAbXf6td5ow%3Ds700")` }}>
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
@@ -23,7 +20,6 @@ function Landing(){
                         <h1 className="mb-5 text-5xl font-bold">The bank that builds better relationships</h1>
                         <p className="mb-5"> Make all the right money moves.
                             Control your entire financial life - in one place!.</p>
-                       
                     </div>
                 </div>
             </div>
