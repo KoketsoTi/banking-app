@@ -50,6 +50,7 @@ function Confirmpassword() {
           console.log("An error occurred:", error.response);
       });
 
+    reset();
     return false
   }
 

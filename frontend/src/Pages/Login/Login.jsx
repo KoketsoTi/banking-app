@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { FaSignInAlt} from 'react-icons/fa';
@@ -56,7 +56,6 @@ function Login() {
                 //redirect to correct page
                 window.location.href = "/client/";  
             }
-           
         })
         .catch((error) => {  
             if(error.response.data.error.message === 'Your account email is not confirmed') {

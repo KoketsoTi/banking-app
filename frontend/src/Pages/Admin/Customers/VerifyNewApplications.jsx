@@ -1,11 +1,10 @@
 import './customerData.css';
 import React, { useEffect, useState } from 'react';
 import { Box, Typography } from "@mui/material";
-import { BsPencilSquare } from 'react-icons/bs';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { AiOutlineBank } from 'react-icons/ai';
 import { Warning, Success } from '../../../Helpers/toasters';
 import { getToken } from '../../../Helpers/helpers';
-import { MdOutlineVerifiedUser } from 'react-icons/md';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ToastContainer } from 'react-toastify';
 import UserService from "../../../Service/clients.service";
 import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
@@ -13,20 +12,25 @@ import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
 function Deactive(){
   const user = {
     attributes: {
-      firstname: "Brandon",
-      lastname : "Mnguni",
-      email: "mashengetee@gmail.com",
-      usertype: "Client",
-      age : 22,
-      phone: "079-222-8821",
-      address : "12 Orlando Street",
-      surbub: "Soweto",
-      city : "Johannesburg",
-      zip : "0021",
-      account_type: "Savings",
-      account_status: "Inactive",
-      account: "14",
-      balance: 0
+      Occupation: "Business-Analyst",
+      account_name: "Cheque Account",
+      account_status: "Pending", 
+      account_type: "Cheque", 
+      accountno: "1420219508", 
+      balance: 0, 
+      birth_date: "2004-06-30", 
+      city: "Pretoria", 
+      country: "South Africa",
+      email: "mashengetee@gmail.com", 
+      firstname: "Virginia", 
+      lastname: "Mashengete", 
+      phone: "079-551-6628", 
+      role: 1, 
+      street_address: "22 Struben Street", 
+      surbub: "Pretoria CBD",
+      username: "Virgy", 
+      usertype: "Client", 
+      zipcode: "0001"
     },
     id: 1
   }
@@ -64,6 +68,7 @@ function Deactive(){
       console.log("An error occurred:", error.response);
     }).finally( () => {
       getAllApplicants();
+      setLoading(false); 
     })
   }
 
@@ -79,8 +84,6 @@ function Deactive(){
       contact: data.attributes.phone,
       password: "123456"
     }
-
-    console.log(userData);
     
     UserService.register(token, userData).then((response) => {
       Success('Applicant was Approved')
@@ -89,6 +92,10 @@ function Deactive(){
       Warning('Unable to approve a new client')
       console.log("An error occurred:", error.response);
     })
+  }
+
+  const view = (params) =>{
+    setData(params)
   }
 
   return (
@@ -114,12 +121,11 @@ function Deactive(){
                     <th>Full Name</th>
                     <th>Email </th>
                     <th>Phone</th>
-                    <th>Age</th>
+                    <th>Date of Birth</th>
                     <th>Status</th>
                     <th>View</th>
                     <th>Verify</th>
-                    <th>Reject Account</th>
-
+                    <th>Decline</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,8 +134,8 @@ function Deactive(){
                       <tr key={user.id}>
                         <td>
                           <div className="avatar placeholder">
-                            <div className="bg-neutral-focus text-neutral-content rounded-full w-14">
-                              <span className="text-3xl">
+                            <div className="bg-neutral-focus text-neutral-content rounded-full w-10">
+                              <span className="text-2xl">
                               {user?.attributes.firstname?.slice(0, 1)?.toUpperCase()}
                               </span>
                             </div>
@@ -148,7 +154,7 @@ function Deactive(){
                         </td>
                       
                         <td>
-                          {user?.attributes.age}
+                          {user?.attributes.birth_date}
                         </td>
 
                         <td>
@@ -156,15 +162,15 @@ function Deactive(){
                         </td>
 
                         <td>
-                          <label htmlFor="my-modal-4" onClick={()=>Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#F9F9F9"}} ><MdOutlineVerifiedUser style={{marginTop: "3px", marginRight:"5px"}}/>Verify</label>  
+                          <label htmlFor="my-modal-4" onClick={()=>view(user)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#F9F9F9"}} >Verify</label>  
                         </td>
 
                         <td>
-                          <button onClick={()=> Activate(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#009DE0", color:"#F9F9F9"}} ><BsPencilSquare style={{marginTop: "3px", marginRight:"5px"}}/>Approve</button>  
+                          <button onClick={()=> Activate(user)} className="rounded-none relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#009DE0", color:"#F9F9F9"}} >Approve</button>  
                         </td>
 
                         <td>
-                          <button onClick={()=> decline(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#FF5823", color:"#F9F9F9"}} ><AiOutlineCloseCircle style={{marginTop: "3px", marginRight:"5px"}}/>Decline</button>  
+                          <button onClick={()=> decline(user)} className="rounded-none suspend relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ">Decline</button>  
                         </td>
                       </tr>
 
@@ -174,78 +180,110 @@ function Deactive(){
               </table>
             </Box> 
 
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label htmlFor="my-modal-4" className="modal cursor-pointer">
-              <label className="modal-box relative  w-full" htmlFor="">
-                <h3 className="text-lg text-center font-bold">Verify user Details</h3>
-                <Box width="100%" p="20px 30px">
-                  <Box justifyContent="space-between" mt="-5px" >
-                    <Typography variant="h4">Personal Infomation</Typography>
-                    <div className='grid grid-cols-2 gap-4 mt-4'>
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Full Name</Typography>
-                        <Typography variant="h5" >{userdata.attributes.firstname} {userdata.attributes.lastname} </Typography>
-                      </Box>
-
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Email</Typography>
-                        <Typography variant="h5" >{userdata.attributes.email} </Typography>
-                      </Box>
-
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Age</Typography>
-                        <Typography variant="h5" >{userdata.attributes.age} </Typography>
-                      </Box>
-
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Phone Number</Typography>
-                        <Typography variant="h5" >{userdata.attributes.phone} </Typography>
-                      </Box>
-
+            <Box>
+              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+              <label htmlFor="my-modal-4" className="modal w-full cursor-pointer">
+                <label className="modal-box relative" htmlFor="">
+                  <label htmlFor="my-modal-4" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
+                    <div className="flex justify-between mt-10 ml-1 mr-1" >
+                      <h1 className="text-xl text-center font-bold">Client Details</h1>
+                      <div><FaRegUserCircle style={{fontSize: "20px" }}/></div>
+                    </div>
                     
+                    <hr className="divider"></hr>
+                    
+                    <Box >
+                      <div className="justify-between -mt-2" >
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>First Name</h5>
+                          <h5 className='text-lg' >{userdata.attributes.firstname}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Address</Typography>
-                        <Typography variant="h5" >{userdata.attributes.address} </Typography>
-                      </Box>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Last Name</h5>
+                          <h5 className='text-lg'>{userdata.attributes.lastname}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Surburb</Typography>
-                        <Typography variant="h5" >{userdata.attributes.surbub} </Typography>
-                      </Box>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Email</h5>
+                          <h5 className='text-lg'>{userdata.attributes.email}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">City</Typography>
-                        <Typography variant="h5" >{userdata.attributes.city} </Typography>
-                      </Box>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Date of birth</h5>
+                          <h5 className='text-lg'>{userdata.attributes.birth_date}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Zip</Typography>
-                        <Typography variant="h5" >{userdata.attributes.zip} </Typography>
-                      </Box>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Phone</h5>
+                          <h5 className='text-lg'>{userdata.attributes.phone}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Occupation</h5>
+                          <h5 className='text-lg'>{userdata.attributes.Occupation}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Street Address</h5>
+                          <h5 className='text-lg'>{userdata.attributes.street_address}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>City</h5>
+                          <h5 className='text-lg'>{userdata.attributes.city}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Surburb</h5>
+                          <h5 className='text-lg'>{userdata.attributes.surbub}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Nationality</h5>
+                          <h5 className='text-lg'>{userdata.attributes.country}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Zip Code</h5>
+                          <h5 className='text-lg'>{userdata.attributes.zipcode}</h5>
+                        </div>
+                      </div>
+                    </Box>
+
+                    <div className="flex justify-between mt-10 ml-1 mr-1" >
+                      <h1 className="text-xl text-center font-bold">Account Details</h1>
+                      <div><AiOutlineBank style={{fontSize: "20px" }}/></div>
                     </div>
+                    
+                    <hr className="divider"></hr>
 
-                    <Typography variant="h4" mt="30px">Account Infomation</Typography>
-                    <div className='grid grid-cols-2 gap-4 mt-4'>
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Account Type</Typography>
-                        <Typography variant="h5" >{userdata.attributes.account_type} </Typography>
-                      </Box>
+                    <Box>
+                      <div className="justify-between -mt-2" >
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Account Number</h5>
+                          <h5 className='text-lg' >{userdata.attributes.accountno}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Account Number</Typography>
-                        <Typography variant="h5" >{userdata.attributes.account} </Typography>
-                      </Box>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Account Name</h5>
+                          <h5 className='text-lg'>{userdata.attributes.account_name}</h5>
+                        </div>
 
-                      <Box justifyContent="space-between" mb="10px" >
-                        <Typography variant="h5">Account Status</Typography>
-                        <Typography variant="h5" >{userdata.attributes.account_status} </Typography>
-                      </Box>
-                    </div>
-                  </Box>         
-                </Box>
-              </label>
-            </label>
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Account type</h5>
+                          <h5 className='text-lg'>{userdata.attributes.account_type}</h5>
+                        </div>
+
+                        <div className="flex justify-between mb-2" >
+                          <h5 className='text-lg'>Balance</h5>
+                          <h5 className='text-lg'>R {userdata.attributes.balance}</h5>
+                        </div>
+                      </div>
+                    </Box>
+                  </label>
+                </label>
+              </Box>
           </>
         )
       }
