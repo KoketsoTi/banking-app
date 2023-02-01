@@ -32,6 +32,7 @@ function AllUsers(){
     const id = params.attributes.acc_id.data[0].id
     accStatus.current = params.attributes.acc_id.data[0].attributes.account_status;
     let value ="";
+    
     if(params.attributes.acc_id.data[0].attributes.account_status === 'Suspended'){
       value = "Active";
     }else if(params.attributes.acc_id.data[0].attributes.account_status === 'Active'){
@@ -43,7 +44,6 @@ function AllUsers(){
     }
   
     UserService.updateStatus(token, id, data).then((data) => {
-      
       if(value === "Suspended"){
         Success("Successfully Activated")
       }else {

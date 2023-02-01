@@ -69,7 +69,7 @@ const TransactionHistory = (token, value) => {
 
 const getTransaction = (id) => {
     const token = getToken();
-    return axios.get(`${API}accounts/${id}?populate=*&sort[0]%3Adesc`, {headers: {Authorization: `${BEARER} ${token}`}})
+    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
 
