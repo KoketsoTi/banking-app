@@ -80,6 +80,15 @@ function Sidebar() {
                 />
             </li>
             <li ></li>
+             {/* Withdraw */}
+             <li>
+                <Item
+                    title="Withdraw"
+                    to="/client/Withdraw"
+                    icon={<GiTakeMyMoney style={{fontSize: "25px",  color:"#009DE0"}} />}
+                />
+            </li>
+            <li ></li>
             {/* Push Notifications */}
             <li>
                 <Item
