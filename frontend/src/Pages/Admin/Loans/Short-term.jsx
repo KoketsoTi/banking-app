@@ -23,7 +23,7 @@ function ShortTerm(){
   const [longShort, setShortTerm] = useState([]);
   const [loading, setLoading] = useState(false);
 
-   const token = getToken(); 
+  const token = getToken(); 
  
   function getallLoans(){
     setLoading(true);
@@ -62,10 +62,6 @@ function ShortTerm(){
     }).finally( () => {
       getallLoans();
     })
-  }
-
-  const deleteAUser= (id) => {
-
   }
 
   //Get Long Term Loans

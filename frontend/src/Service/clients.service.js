@@ -55,6 +55,10 @@ const register = (token, data) => {
     return axios.post(`${API}auth/local/register`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
 }
 
+const createUser = (token, data) => {
+    return axios.post(`${API}clients`, data, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 const RejectLoan = (token, id, value) => {
     return axios.delete(`${API}loans/${id}`, value, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
@@ -65,18 +69,9 @@ const TransactionHistory = (token, value) => {
 
 const getTransaction = (id) => {
     const token = getToken();
-    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
+    return axios.get(`${API}accounts/${id}?populate=*&sort[0]%3Adesc`, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
-const getCreditTrans = (id) => {
-    const token = getToken();
-    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
-}
-
-const getdebitTrans = (id) => {
-    const token = getToken();
-    return axios.get(`${API}accounts/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}})
-}
 
 const Nortification = (value) => {
     const token = getToken();
@@ -93,6 +88,7 @@ const UpdateBeneficiary = (id, balance) => {
     return axios.put(`${API}beneficiaries/${id}`, balance, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+
 const functions = {
     getAllUsers,
     updateStatus,
@@ -104,13 +100,12 @@ const functions = {
     updateLoanStatus,
     register,
     getUser,
+    createUser,
     getPending,
     RejectLoan,
     getLoanApplication,
     TransactionHistory,
     getTransaction,
-    getCreditTrans,
-    getdebitTrans,
     Nortification,
     payBeneficiary,
     UpdateBeneficiary,

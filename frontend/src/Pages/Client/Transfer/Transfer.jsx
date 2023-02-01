@@ -31,6 +31,8 @@ function Transfer(){
 
     const [getId, setId] = useState([]);
     const [useAccount, setAccount] = useState([account]);
+    const [getError, setErrors] = useState(false); 
+    const [message, setMessage] = useState("")
     const [selectedAccount, setSelectedAccount] = useState({attributes:{balance:0}});
     const [receipientAccount, setReceipientAcc] = useState({attributes:{balance:0}});
     const [loading, setLoading] = useState(false);
@@ -44,7 +46,7 @@ function Transfer(){
     })
 
     const formOptions = { resolver: yupResolver(formSchema) }
-    const { register, handleSubmit, formState } = useForm(formOptions)
+    const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors } = formState;
     
     const displayBalance = (e) => {
@@ -88,64 +90,77 @@ function Transfer(){
         }
     },[])
 
-
     async function onSubmit(data, event) {
         setLoading(true);
         event.preventDefault();
         let decreae = Calculations.TransferMoney(parseFloat(selectedAccount.attributes.balance), parseFloat(data.amount));
         let increase = Calculations.ReceiveMoney(parseFloat(receipientAccount.attributes.balance), parseFloat(data.amount)) 
 
-        //Decrease From  account
-        await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
-            let transHistory = {
-                data: {
-                    accountno: selectedAccount.attributes.accountno,
-                    name: data.ownref,
-                    amount: data.amount,
-                    acc_id: selectedAccount.id,
-                    debit_credit: "Dr",
-                    type_Transaction: "Transfer"
-                }
-            }
-            
-            let Nortification = {
-                data: {
-                    amount: data.amount,
-                    balance: decreae,
-                    type_Transaction:"Transfer",
-                    client: getId,
-                    sender: selectedAccount.attributes.account_name,
-                    receipient: receipientAccount.attributes.account_name,
-                }
-            }
-
-            Account.TransactionHistory(auth_token, transHistory);
-            Account.Nortification(Nortification);
-        })
-
-        //Increase TO account
-        await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
-            let transHistory = {
-                data: {
-                    accountno: receipientAccount.attributes.accountno,
-                    name: data.ownref,
-                    amount: data.amount,
-                    acc_id: receipientAccount.id,
-                    debit_credit: "Cr",
-                    type_Transaction: "Transfer"
-                }
-            }
-
-            Account.TransactionHistory(auth_token, transHistory).then((response) => {
-                Success("Transer was successful");
-                navigate('/client/')
-            })
-        }).catch((error) => {
-            console.log(error)
-            Error("Transfer was unsuccessfull")
-        }).finally(()=>{
+        if(parseFloat(data.amount) > selectedAccount.attributes.balance){
+            setErrors(getError  => !getError);
             setLoading(false);
-        })
+            setMessage("Transfer cannot exceed available balance");
+        }else if(selectedAccount.attributes.balance == receipientAccount.attributes.balance){
+            setErrors(getError  => !getError);
+            setLoading(false);
+            setMessage("Cannot transfer money to the same account");
+        }else if(receipientAccount.attributes.balance == " " || receipientAccount.attributes.balance == "undefined"){
+            setErrors(getError  => !getError);
+            setLoading(false);
+            setMessage("Please select the account you wish to tranfer money to ");
+        }else{
+             //Decrease From  account
+            await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
+                let transHistory = {
+                    data: {
+                        accountno: selectedAccount.attributes.accountno,
+                        name: data.ownref,
+                        amount: data.amount,
+                        acc_id: selectedAccount.id,
+                        debit_credit: "Dr",
+                        type_Transaction: "Transfer"
+                    }
+                }
+                
+                let Nortification = {
+                    data: {
+                        amount: data.amount,
+                        balance: decreae,
+                        type_Transaction:"Transfer",
+                        client: getId,
+                        sender: selectedAccount.attributes.account_name,
+                        receipient: receipientAccount.attributes.account_name,
+                    }
+                }
+
+                Account.TransactionHistory(auth_token, transHistory);
+                Account.Nortification(Nortification);
+            })
+
+            //Increase TO account
+            await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
+                let transHistory = {
+                    data: {
+                        accountno: receipientAccount.attributes.accountno,
+                        name: data.ownref,
+                        amount: data.amount,
+                        acc_id: receipientAccount.id,
+                        debit_credit: "Cr",
+                        type_Transaction: "Transfer"
+                    }
+                }
+
+                Account.TransactionHistory(auth_token, transHistory).then((response) => {
+                    Success("Transer was successful");
+                    navigate('/client/')
+                })
+            }).catch((error) => {
+                console.log(error)
+                Error("Transfer was unsuccessfull")
+            }).finally(()=>{
+                setLoading(false);
+            })
+        }
              
         return false
     }
@@ -204,7 +219,10 @@ function Transfer(){
                                             <input disabled  value={"R" + receipientAccount?.attributes.balance.toLocaleString()} className="input text-end input-bordered w-full max-w-s email" name="numYears" />
                                         </div>
                                     </div>
-
+                                    
+                                    <div>
+                                        <div className="invalid-feedback text-start text-rose-600">{message}</div>
+                                    </div>
                                     <div className="hozitontal-line -mb-4">
                                         <div className="divider"></div> 
                                     </div>

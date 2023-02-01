@@ -38,6 +38,7 @@ function Confirmpassword() {
       password: data.password,
       passwordConfirmation : data.confirmPwd,
     }
+    console.log(_data);
 
     //call confirm password here
     AuthorService.confirmPassword(_data).then((response) => { 
@@ -50,11 +51,12 @@ function Confirmpassword() {
           console.log("An error occurred:", error.response);
       });
 
+    reset();
     return false
   }
 
   return (
-    <Box className='login' >
+    <Box className=' hero' >
       <ToastContainer />
       <div className="md:container md:mx-auto">
         <div className="flex justify-center">

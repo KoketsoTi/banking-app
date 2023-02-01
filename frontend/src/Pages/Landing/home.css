@@ -1,0 +1,15 @@
+.hero{
+  height: 100vh;
+}
+.activate{
+  color: white;
+  background-color: var(  --capitec-blue);
+}
+.color{
+
+  color: var(--capitec-blue);
+}
+.blur-backrop-filter{
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}

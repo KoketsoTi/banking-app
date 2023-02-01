@@ -147,14 +147,6 @@ const Sidenavbar  = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-
-              <Item
-                title="Add new Admin"
-                to="/admin/addnewadmin"
-                icon={<FiUserPlus style={{fontSize: "20px"}} />}
-                selected={selected}
-                setSelected={setSelected}
-              />
             </Box>
 
             <Box paddingLeft={isCollapsed ? undefined : "10%"} style={{color: "#F9F9F9",  marginTop: "10px"}}>

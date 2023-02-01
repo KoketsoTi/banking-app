@@ -89,12 +89,12 @@ function LoanApplication() {
 
     switch (loanType) {
       case "Long-term":
-        seTotal = Calculations.calcLongTerm(formData.loanAmt,loanPer, loanMonths);
+        seTotal = Calculations.calcLongTerm(formData.loanAmt, loanPer, loanMonths);
         setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
         setMonth = Calculations.monthly(seTotal, loanMonths);
         break;
       case "Short-term":
-        seTotal = Calculations.calcShortTerm(formData.loanAmt,loanPer, loanMonths);
+        seTotal = Calculations.calcShortTerm(formData.loanAmt, loanPer, loanMonths);
         setInterest = Calculations.interestpaid( formData.loanAmt, seTotal);
         setMonth = Calculations.monthly(seTotal, loanMonths);
           break;

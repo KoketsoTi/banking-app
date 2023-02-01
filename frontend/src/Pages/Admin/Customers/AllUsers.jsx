@@ -133,13 +133,13 @@ function AllUsers(){
                         <td >
                           <button  className={
                             user?.attributes.acc_id.data[0].attributes.account_status ==='Suspended'
-                            ? "rounded-none suspend relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white "
-                            : "rounded-none activate relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+                            ? "rounded-none suspend relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white "
+                            : "rounded-none activate relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white"
                           } onClick={() => activateUser(user)} >{user?.attributes.acc_id.data[0].attributes.account_status ==='Suspended' ? "Suspended": "Activate"}</button>
                         </td>
 
                         <td>
-                          <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
+                          <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
                         </td>
 
                       </tr>

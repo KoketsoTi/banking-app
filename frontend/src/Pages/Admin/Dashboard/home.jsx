@@ -22,6 +22,7 @@ function Home(){
     setLoading(true);
     UserService.getPending().then((response) => {
       setLoans(response.data.data);
+     
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     }).finally(() => {
@@ -153,7 +154,7 @@ function Home(){
             </Box>
             <Box gridColumn="span 3" style={{backgroundColor: "#141b2d"}} display="flex" alignItems="center" justifyContent="center" >
               <StatBox
-                title={pending.length}
+                title={0}
                 subtitle="Pending Card Request"
                 progress="0.50"
                 increase="+21%"
@@ -166,8 +167,8 @@ function Home(){
             <Box gridColumn="span 6" gridRow="span 2" style={{backgroundColor: "#141b2d"}} >
               <Box mt="25px" p="0 30px" display="flex " justifyContent="space-between" alignItems="center" >
                 <Box>
-                  <Typography variant="h5" fontWeight="600" style={{color: "#a3a3a3"}}>Revenue Generated</Typography>
-                  <Typography variant="h3" fontWeight="bold" style={{color: "#F9F9F9"}}> $59,342.32 </Typography>
+                  <Typography variant="h5" fontWeight="600" style={{color: "#a3a3a3"}}>Transaction Overall</Typography>
+                  <Typography variant="h3" fontWeight="bold" style={{color: "#F9F9F9"}}> R 1000 </Typography>
                 </Box>
 
                 <Box>

@@ -1,9 +1,10 @@
 export const BillsData = [
     "TELKOM",
     "CELL C",
-    "DSTV",
+    "MULTICHOICE(DSTV)",
     "MTN SERVICE PROVIDER",
+    "VODACOM SERVICE PROVIDER",
     "CITY OF TSHWANE METRO",
-    "MR PRICE",
     "CITY OF CAPE TOWN",
+    "CITY OF EKURHULENI METRO",
 ]
