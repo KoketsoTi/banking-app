@@ -28,10 +28,21 @@ function CardRequest(){
                                         <div className="flex justify-center">
                                             <div className="card w-96 bg-base-100 shadow-xl">
                                                 <div className="card-body">
-                                                    <p>We are using cookies for no reason.</p>
+                                                    <p>Add a free virtual card</p>
+                                                    <p>You can start transacting immediately with your SkyBank virtual card.</p>
                                                 </div>
                                             </div> 
-                                        </div>       
+                                        </div>  
+                                         
+                                         <div classname= "form-group text-start pay-button col mt-10" >
+
+                                         <button className="rounded-none flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Add Virtual Card</button>
+
+                                         </div>
+                                         {/* </div> */}
+                                       
+
+
                                     </div>
                                 </div> 
                                 

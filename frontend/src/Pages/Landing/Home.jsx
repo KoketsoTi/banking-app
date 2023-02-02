@@ -19,7 +19,7 @@ function Landing(){
                     <div className="max-w-md text-white">
                         <h1 className="mb-5 text-5xl font-bold">The bank that builds better relationships</h1>
                         <p className="mb-5"> Make all the right money moves.
-                            Control your entire financial life - in one place!.</p>
+                            Control your entire financial life - in one place!</p>
                     </div>
                 </div>
             </div>
