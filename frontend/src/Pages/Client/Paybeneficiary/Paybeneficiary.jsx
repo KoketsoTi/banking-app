@@ -93,7 +93,7 @@ function PayBeneficiary(){
                         name: state.params.attributes.Name,
                         amount: data.amount,
                         acc_id: selectedAccount.id,
-                        debit_credit: "Dr",
+                        debit_credit: "dr",
                         type_Transaction: "Payment"
                     }
                 }
@@ -122,7 +122,7 @@ function PayBeneficiary(){
                         name: data.ownref,
                         amount: data.amount,
                         acc_id: getuserAccount[0].attributes.acc_id.data[0].id,
-                        debit_credit: "Cr",
+                        debit_credit: "cr",
                         type_Transaction: "Transfer"
                     }
                 }

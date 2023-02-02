@@ -143,7 +143,11 @@ function All(){
             </Box>
                
                 
+<<<<<<< HEAD
                 <div id="divToPrint" className="card p-4 lg:xl:p-0 ">
+=======
+                <div className="card p-4 lg:xl:p-0">
+>>>>>>> 09050b75677904c44a2eeb5836459fa0a8639e03
                     <div className="card-body">
                         <div className="flex justify-between">
                             <div className="text-2xl text-start">{getUserAccount.account_name}</div>  

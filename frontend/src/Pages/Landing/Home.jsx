@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Navbar from '../../Components/Navbar';
-import'./home.css';
+import'./Home.css';
 import { useNavigate } from 'react-router-dom';
 import { SiVerizon} from 'react-icons/si';
 import images from '../../Assets/images/bankcard-removebg-preview.png';
