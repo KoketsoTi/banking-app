@@ -11,6 +11,7 @@ import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 import * as Yup from 'yup';
 import User from '../../../Service/Client/client.service';
 import Tab from "../Navigations/TabNavbar";
+import { CgPushDown } from "react-icons/cg";
 
 function ViewAccount(){
     //Inititialize state with dummy data
@@ -118,8 +119,8 @@ function ViewAccount(){
                             </Box>
                         </Box>
 
-                        <Box className="card-request mt-10 lg:xl:mt-10">
-                            <div className="card " >
+                        <Box className="card-request  lg:xl:mt-5">
+                            <div className="card p-4 lg:xl:p-0" >
                                 <div className="flex justify-between">
                                     <Box className="text-start mb-5 hed">
                                         <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >My Accounts</Typography>
@@ -146,7 +147,16 @@ function ViewAccount(){
                                 <Box className="text-start mb-2">
                                     <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Transactions</Typography>
                                 </Box>
-                                <Tab />
+                                <div className="flex justify-between">
+                                    <div><Tab /></div>
+                                    <label htmlFor="my-modal">
+                                        <div className="flex items-center cursor-pointer">
+                                        
+                                            <div ><CgPushDown/></div>
+                                            <div className="ml-2">Statement</div>
+                                        </div>
+                                    </label>
+                                </div>
                                 <Outlet  context={{ setData }}/>
                             </div>
                         </Box>
