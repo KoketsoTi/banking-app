@@ -31,6 +31,7 @@ function Deposit() {
     const [useAccount, setAccount] = useState([account]);
     const [getError, setErrors] = useState(false); 
     const [message, setMessage] = useState("")
+    const [client, setClient] = useState({firstname:"hello", lastname:"good"});
     const [receipientAccount, setReceipientAcc] = useState({attributes:{balance:0}});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ function Deposit() {
         //Fetch client id
         User.getClientUser().then((response) => {
             setId(response.data.client_id.id)
+            setClient(response.data.client_id)
             //fetch client accounts using the id returned by the request above
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setAccount(response.data.data.attributes.acc_id.data);
@@ -82,119 +84,117 @@ function Deposit() {
         setLoading(true);
         event.preventDefault();
         let increase = Calculations.ReceiveMoney(parseFloat(receipientAccount.attributes.balance), parseFloat(data.amount));
-
+        
         if(receipientAccount.attributes.balance == " " || receipientAccount.attributes.balance == "undefined"){
             setErrors(getError  => !getError);
             setLoading(false);
             setMessage("Please select the account you wish to tranfer money to");
-        }else{
-            
-             //Increase TO account
-           // await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
+        }else{ 
+            //Increase TO account
+            await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: increase}}).then((response) => {
                 let transHistory = {
                     data: {
                         accountno: receipientAccount.attributes.accountno,
-                        name: "Koketso",
+                        name: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname,
                         amount: data.amount,
+                        availableBalance: increase,
                         acc_id: receipientAccount.id,
-                        debit_credit: "Cr",
-                        type_Transaction: "Deposit"
+                        debit_credit: "cr",
+                        type_Transaction: "Cash Deposit"
                     }
                 }
 
-                // let Nortification = {
-                //     data: {
-                //         amount: data.amount,
-                //         balance: decreae,
-                //         type_Transaction:"Transfer",
-                //         client: getId,
-                //         sender: selectedAccount.attributes.account_name,
-                //         receipient: receipientAccount.attributes.account_name,
-                //     }
-                // }
+                let Nortification = {
+                    data: {
+                        amount: data.amount,
+                        balance: increase,
+                        type_Transaction:"Cash Deposit",
+                        clients: getId,
+                        sender: client.firstname.slice(0, 1).toUpperCase() +" "+ client.lastname + " Cash Deposit",
+                        receipient: receipientAccount.attributes.account_name,
+                    }
+                }
 
-
-                console.log(transHistory);
-                //console.log(Nortification);
-
-                //Account.Nortification(Nortification);
-                // Account.TransactionHistory(auth_token, transHistory).then((response) => {
-                //     Success("Transer was successful");
-                //     navigate('/client/')
-                // })
-            // }).catch((error) => {
-            //     console.log(error)
-            //     Error("Transfer was unsuccessfull")
-            // }).finally(()=>{
-            //     setLoading(false);
-            // })
+                Account.Nortification(Nortification);
+                Account.TransactionHistory(auth_token, transHistory).then((response) => {
+                    Success("Cash Deposit was successful");
+                    navigate('/client/')
+                })
+                
+            }).catch((error) => {
+                console.log(error)
+                Error("Transfer was unsuccessfull")
+            }).finally(()=>{
+                setLoading(false);
+            })
         }
        
         return false
     }
-  return (
-    <Box className="Box" >
-        {loading ? <LoadingSpinner /> :
-            (
-                <>
-                    <ToastContainer />
-                    {/* HEADER */}
-                    <Box display="flex" mt="20px" justifyContent="space-between" alignItems="center">
-                        <Box className="heading">
-                            <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Deposit</Typography>
+    
+    return (
+        <Box className="Box" >
+            {loading ? <LoadingSpinner /> :
+                (
+                    <>
+                        <ToastContainer />
+                        {/* HEADER */}
+                        <Box display="flex" mt="20px" justifyContent="space-between" alignItems="center">
+                            <Box className="heading">
+                                <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >Deposit</Typography>
+                            </Box>
                         </Box>
-                    </Box>
-        
-                    {/* CONTENT */}
-                    <Box>
-                        <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
-                            <div className="card-body">
-                                <div className='grid grid-cols-1 gap-2'>
+            
+                        {/* CONTENT */}
+                        <Box>
+                            <div className="card md:w-3/5 lg:xl:w-1/2 w-96 ">
+                                <div className="card-body">
+                                    <div className='grid grid-cols-1 gap-2'>
 
+                                        <div>
+                                            <label className="label"><span className="label-text">TO:(RECEIVER)</span></label>
+                                            <select className="input input-bordered w-full max-w-s email" name="numYears" onChange={displayBalance}>
+                                                <option value="0">Select Account</option>
+                                                {useAccount.map((index) =>
+                                                    <option key={index.id} value={index.attributes.accountno}>
+                                                        {index.attributes.account_name} # {index.attributes.accountno}
+                                                    </option>
+                                                )}                  
+                                            </select>    
+                                        </div>
+                                        <div className="mb-5">
+                                            <label className="label"><span className="label-text">CURRENT BALANCE</span></label> 
+                                            <input disabled value={receipientAccount.attributes.balance}  className="input text-end input-bordered w-full max-w-s email" name="numYears" />
+                                        </div>
+                                    </div>
+                                    
                                     <div>
-                                        <label className="label"><span className="label-text">TO:(RECEIVER)</span></label>
-                                        <select className="input input-bordered w-full max-w-s email" name="numYears" onChange={displayBalance}>
-                                            <option value="0">Select Account</option>
-                                            {useAccount.map((index) =>
-                                                <option key={index.id} value={index.attributes.accountno}>
-                                                    {index.attributes.account_name} # {index.attributes.accountno}
-                                                </option>
-                                            )}                  
-                                        </select>    
+                                        <div className="invalid-feedback text-start text-rose-600">{message}</div>
                                     </div>
-                                    <div className="mb-5">
-                                        <label className="label"><span className="label-text">CURRENT BALANCE</span></label> 
-                                        <input disabled value={receipientAccount.attributes.balance}  className="input text-end input-bordered w-full max-w-s email" name="numYears" />
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div className="invalid-feedback text-start text-rose-600">{message}</div>
-                                </div>
-                                <div className="hozitontal-line -mb-4">
-                                    <div className="divider"></div> 
-                                </div>
-
-                                <form >
-                                    <div className="form-group col ">
-                                        <label className="label"><span className="label-text">Amount:</span></label>
-                                        <input type="number" name="amount" {...register('amount')}
-                                            className="input input-bordered w-full max-w-s email "/>
-                                        <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
+                                    <div className="hozitontal-line -mb-4">
+                                        <div className="divider"></div> 
                                     </div>
 
-                                    <div className="form-group text-start pay-button col mt-10">
-                                        <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Deposit</button>
-                                    </div>           
-                                </form>
+                                    <form >
+                                        <div className="form-group col ">
+                                            <label className="label"><span className="label-text">Amount:</span></label>
+                                            <input type="number" name="amount" {...register('amount')}
+                                                className="input input-bordered w-full max-w-s email "/>
+                                            <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
+                                        </div>
+
+                                        <div className="form-group text-start pay-button col mt-10">
+                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Deposit</button>
+                                        </div>           
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </Box>
-                </>
-            )
-        }
-    </Box>
-  )
+                        </Box>
+                    </>
+                )
+            }
+        </Box>
+    )
 }
 
 export default Deposit

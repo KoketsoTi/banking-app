@@ -71,7 +71,7 @@ function All(){
                     </div>
                 </div>
                 
-                <div className="card p-4 lg:xl:p-0 hidden">
+                <div className="card p-4 lg:xl:p-0">
                     <div className="card-body">
                         <div className="flex justify-between">
                             <div className="text-2xl text-start">{getUserAccount.account_name}</div>  
