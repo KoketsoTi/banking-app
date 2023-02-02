@@ -19,7 +19,7 @@
       "type": "string"
     },
     "amount": {
-      "type": "biginteger"
+      "type": "float"
     },
     "debit_credit": {
       "type": "string"
@@ -32,6 +32,9 @@
       "relation": "manyToOne",
       "target": "api::account.account",
       "inversedBy": "trans_ids"
+    },
+    "availableBalance": {
+      "type": "float"
     }
   }
 }
