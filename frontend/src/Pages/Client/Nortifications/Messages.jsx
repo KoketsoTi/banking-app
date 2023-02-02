@@ -40,7 +40,7 @@ function Messages(){
                     <div className="card lg:xl:p-0" >
                         {/*  View All Transctions */}  
                         <div className="grid grid-cols-1 lg:xl:grid-cols-2 gap-2 lg:xl:gap-5 ">  
-                            {getNortifications.map((data) =>           
+                            {[...getNortifications].reverse().map((data) =>           
                                 <div className="card bg-base-100 shadow-xl" key={data.id}>
                                     <div className="card-body" >
                                         <p className="text-sm lg:xl:text-lg text-start">

@@ -80,6 +80,24 @@ function Sidebar() {
                 />
             </li>
             <li ></li>
+             {/* Withdraw */}
+             <li>
+                <Item
+                    title="Withdraw"
+                    to="/client/Withdraw"
+                    icon={<GiTakeMyMoney style={{fontSize: "25px",  color:"#009DE0"}} />}
+                />
+            </li>
+            <li ></li>
+             {/* Deposit */}
+             <li>
+                <Item
+                    title="Deposit"
+                    to="/client/Deposit"
+                    icon={<GiTakeMyMoney style={{fontSize: "25px",  color:"#009DE0"}} />}
+                />
+            </li>
+            <li ></li>
             {/* Push Notifications */}
             <li>
                 <Item
@@ -88,7 +106,6 @@ function Sidebar() {
                    icon={<AiOutlineMessage style={{fontSize: "25px",  color:"#009DE0"}} />}
                 />
             </li>
-
             {/* User Profile*/}
             <div className="dropdown dropdown-top absolute bottom-28 lg:bottom-10  ">
                 <div tabIndex={0} className="flex cursor-pointer">

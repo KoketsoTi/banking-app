@@ -29,7 +29,7 @@ function Out(){
         getTransactions();
     }, [])
 
-    let credit = statement.filter((res) => res.attributes.debit_credit == 'Dr');
+    let credit = statement.filter((res) => res.attributes.debit_credit == 'dr');
 
     return (
         <Box className="Box" >

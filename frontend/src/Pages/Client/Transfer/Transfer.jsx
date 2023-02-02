@@ -41,7 +41,7 @@ function Transfer(){
 
     // form validation rules 
     const formSchema = Yup.object().shape({
-        amount: Yup.string().required('Amount Name is mendatory'),
+        amount: Yup.string().required('Amount is mendatory'),
         ownref: Yup.string().required('Own Reference is mendatory'),
     })
 
