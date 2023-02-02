@@ -6,11 +6,12 @@
 .body-header .user-cicle{
     text-align: center;
 }
-.forgot,.reg{
-    color: var(--dark-orange);
-    cursor: pointer;
-}
+
 .apply{
     color: var(--capitec-blue);
     cursor: pointer; 
+}
+.reg{
+    color: var(--dark-orange);
+    cursor: pointer;  
 }

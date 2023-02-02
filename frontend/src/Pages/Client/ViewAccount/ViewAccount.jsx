@@ -149,9 +149,8 @@ function ViewAccount(){
                                 </Box>
                                 <div className="flex justify-between">
                                     <div><Tab /></div>
-                                    <label htmlFor="my-modal">
-                                        <div className="flex items-center cursor-pointer">
-                                        
+                                    <label htmlFor="my-modal" className="flex items-center ">
+                                        <div className="flex items-center cursor-pointer py-3 px-4 hover:bg-stone-200">
                                             <div ><CgPushDown/></div>
                                             <div className="ml-2">Statement</div>
                                         </div>

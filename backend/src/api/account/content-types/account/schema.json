@@ -38,6 +38,9 @@
       "relation": "oneToMany",
       "target": "api::transaction.transaction",
       "mappedBy": "acc_id"
+    },
+    "clossingBalance": {
+      "type": "float"
     }
   }
 }

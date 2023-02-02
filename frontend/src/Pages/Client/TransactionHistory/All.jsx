@@ -1,11 +1,14 @@
 import { Box} from "@mui/material";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import { useOutletContext } from "react-router-dom";
-import { getId } from "../../../Helpers/helpers"
+import { getId } from "../../../Helpers/helpers";
+import { CgPushDown } from "react-icons/cg";
+import jsPDF from 'jspdf';
+import pdfMake from 'pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import htmlToPdfmake from 'html-to-pdfmake';
 import User from '../../../Service/Client/client.service';
 import Account from '../../../Service/clients.service';
-
 
 function All(){
     const account = {
@@ -18,11 +21,26 @@ function All(){
         updatedAt :  "2023-01-26T17:28:21.352Z",
     }
 
+    const general ={
+        city: "Johannesburg",
+        country: "South Africa",
+        email: "fridah.dikobe@dadevs.co.za",
+        firstname: "Fridah",
+        lastname: "Dikobe",
+        phone: "079-222-1123",
+        street_address:  "14th street",
+        surbub: "Randburg",
+        zipcode: "0012"
+    }
 
     const { setData } = useOutletContext();
     const [ statement, setStatement] = useState([]);
     const [ getUserAccount , accountDetails ] = useState(account);
     const [ transaction, setMiniStatement] = useState([]);
+    const [ userInfo, setUserInfo ] = useState(general);
+    const [ getFrom, setFrom ] = useState();
+    const [ getTo, setTo ] = useState();
+    const [getToday, setToday ] = useState(); 
     const id  = getId();
 
     function getAccount() {
@@ -44,10 +62,28 @@ function All(){
     useEffect( () =>{
         getAccount();
         getTransactions();
+        const today = new Date();
+        setToday(today)
     }, [])
 
+    const handleDateFrom = (e) => {
+        setFrom(e.target.value);
+    }
 
-    console.log(statement);
+    const handleDateTo = (e) => {
+        setTo(e.target.value);
+    }
+    //Download 
+    function printDocument(){   
+        const doc = new jsPDF(); 
+        //get Data html
+        const pdfTable = document.getElementById('divToPrint');
+        //html to pdf format
+        var html = htmlToPdfmake(pdfTable.innerHTML);   
+        const documentDefinition = { content: html };
+        pdfMake.vfs = pdfFonts.pdfMake.vfs;
+        pdfMake.createPdf(documentDefinition).open();  
+    }
 
     return (
         <Box className="Box" >
@@ -70,8 +106,44 @@ function All(){
                         )}
                     </div>
                 </div>
+
+            <Box>
+                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box">
+                    <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                        <h3 className="font-bold text-lg"></h3>
+                        <div className="modal-body">
+                            <div className="flex justify-center mb-4 mt-4">
+                                <div className="flex">
+                                    <h5 className="flex items-center mr-5">From:</h5>
+                                    <input type="date" name="fromDate" onChange={handleDateFrom} className="input input-bordered w-full max-w-s email "  />
+                                </div>
+                            </div>
+                            <div className="flex justify-center mb-4">
+                                <div className="flex">
+                                    <h5 className="flex items-center mr-5">TO:</h5>
+                                    <input type="date" name="toDate"  onChange={handleDateTo} className="input input-bordered w-full max-w-s email " />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {getTo && getFrom
+                            ?
+                            <button onClick={printDocument} className="btn hover:activate activate normal-case text-xl w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" >
+                                Download Statement
+                            </button>
+                            :
+                            <button onClick={printDocument} disabled className="btn hover:activate activate normal-case text-xl w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" >
+                                Download Statement
+                            </button>
+                        }   
+                    </div>
+                </div>
+            </Box>
+               
                 
-                <div className="card p-4 lg:xl:p-0 hidden">
+                <div id="divToPrint" className="card p-4 lg:xl:p-0 ">
                     <div className="card-body">
                         <div className="flex justify-between">
                             <div className="text-2xl text-start">{getUserAccount.account_name}</div>  
@@ -80,28 +152,23 @@ function All(){
 
                         <div className="flex justify-between">
                             <div className="Statement-details text-start mt-5">
-                                <div className="mb-2 font-bold">Excellent Mashengete</div>
-                                <div className="mb-2">Street Address</div>
-                                <div className="mb-2">Surburb</div>
-                                <div className="mb-2">City</div>
-                                <div className="mb-2">Zip</div>
+                                <div className="mb-2 font-bold">{userInfo.firstname} {userInfo.lastname}</div>
+                                <div className="mb-2">{userInfo.street_address}</div>
+                                <div className="mb-2">{userInfo.surbub}</div>
+                                <div className="mb-2">{userInfo.city}</div>
+                                <div className="mb-2">{userInfo.zipcode}</div>
                             </div>
 
                             <div className="flex justify-between">
                                 <div className="Statement-details text-start mt-5">
                                     <div className="flex justify-between mb-2" >
                                         <h5 className="font-semibold" >From Date: </h5>
-                                        <h5 className="text-start"> From </h5>
+                                        <h5 className="text-start">{getFrom}</h5>
                                     </div>
 
                                     <div className="flex justify-between mb-2" >
                                         <h5 className="font-semibold" >To Date: </h5>
-                                        <h5 className="text-start" > To </h5>
-                                    </div>
-
-                                    <div className="flex justify-between mb-2" >
-                                        <h5 className="font-semibold" >Print Date: </h5>
-                                        <h5 className="text-start" > Today </h5>
+                                        <h5 className="text-start" >{getTo}</h5>
                                     </div>
                                     
                                     <div className="flex justify-between mb-4 mt-16" >
@@ -130,7 +197,7 @@ function All(){
                                 <tbody>
                                     {statement.map((data) => {
                                         return (
-                                            <tr>
+                                            <tr key={data.id}>
                                                 <td>{(new Date(data.attributes.createdAt).toLocaleDateString())}</td>
                                                 <td>{data.attributes.name} {data.attributes.type_Transaction}</td>
                                                 {data.attributes.debit_credit == 'Cr' ?
@@ -143,7 +210,7 @@ function All(){
                                                 :
                                                     <td></td>
                                                 }
-                                                <td>{data.attributes.availableBalance}</td>
+                                                <td>{data.attributes.availableBalance.toLocaleString("en-ZA", {style:"currency", currency:"ZAR"})}</td>
                                             </tr>
                                         );                                     
                                     })}

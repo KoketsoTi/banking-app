@@ -23,7 +23,7 @@ function Navbar(){
                     </div>
                     <div className="flex-none">
                         <ul className="menu menu-horizontal px-1">
-                            <li><NavLink to="" className={"color"}> Home </NavLink></li>
+                            <li><NavLink to="/" className={"color"}> Home </NavLink></li>
                             <li><NavLink to="/auth/login" className={"activate"}><FaSignInAlt style={{marginTop: "3px", color:"white", marginRight:"5px"}}/> Login </NavLink></li>
                         </ul>
                     </div>

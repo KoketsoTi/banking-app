@@ -54,7 +54,6 @@ function Home(){
     });
   }
 
-  
   useEffect(() => {
     if(token){
       getPendingLoans();

@@ -7,6 +7,11 @@ const getClientUser = () => {
     return axios.get(`${API}users/me?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const getClient = () => {
+    const token = getToken();
+    return axios.get(`${API}users`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 const getBeneficiaries = (id) => {
     const token = getToken();
     return axios.get(`${API}clients/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
@@ -57,6 +62,7 @@ const createAccout = (data) => {
 const functions = {
     applyForLoan,
     getClientUser,
+    getClient,
     getBeneficiaries,
     createBeneficiary,
     updateClientBeneficiaryList,

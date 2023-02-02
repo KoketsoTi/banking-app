@@ -24,6 +24,10 @@ const loggedInUser = (token) => {
     return axios.get(`${ API}users/me`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const register = (data) => {
+    return axios.post(`${API}auth/local/register`, data )
+}
+
 const UpdateUser = (data, token) => {
     return axios.put(`${API}users/${1}`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
@@ -34,7 +38,8 @@ const logger = {
     loggedInUser,
     forgotPassword,
     UpdateUser,
-    SetNewPassword
+    SetNewPassword,
+    register
 }
 
 export default logger;

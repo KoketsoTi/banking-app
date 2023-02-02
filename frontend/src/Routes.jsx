@@ -14,7 +14,8 @@ import LoanApplications from './Pages/Admin/ApproveLoan/AproveLoanApplication';
 
 
 /////////////////////////Pages that don't require users to be logged in//////////////////
-import Login from './Pages/Login/Login'
+import Login from './Pages/Login/Login';
+import Register from "./Pages/Register/Register";
 import Confirmpassword from './Pages/Confirmpassword/Confirmpassword';
 import Applications from './Pages/ApplicationsForm/ApplicationsForm';
 import Landing from "./Pages/Landing/Home";
@@ -40,6 +41,7 @@ import History from "./Pages/Client/TransactionHistory/History";
     
 import { Routes,  Route, Navigate } from "react-router-dom";
 import { getToken } from "./Helpers/helpers";
+
 
 const Navigation = () => {
     return(   
@@ -86,6 +88,7 @@ const Navigation = () => {
             </Route>
             
             <Route path="application" element={<Applications /> } />
+            <Route path="/auth/register" element={<Register />} />
             <Route path="/auth/Confirmpassword" element={<Confirmpassword /> } />
             <Route path="/auth/login" element={ <Login /> } />  
         </Routes> 

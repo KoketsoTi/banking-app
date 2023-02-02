@@ -26,24 +26,11 @@ function Deactive(){
       firstname: "Virginia", 
       lastname: "Mashengete", 
       phone: "079-551-6628", 
-      role: 1, 
       street_address: "22 Struben Street", 
       surbub: "Pretoria CBD",
-      username: "Virgy", 
-      usertype: "Client", 
       zipcode: "0001"
     },
     id: 1
-  }
-
-  const approve = {
-    contact: "079-551-6628",
-    email: "mashengetee@gmail.com",
-    firstname: "Virginia",
-    lastname: "Mashengete",
-    password: "123456",
-    username: "Virginia",
-    usertype: "Client"
   }
 
   const [deactive, setDeactive] = useState([])
@@ -51,13 +38,14 @@ function Deactive(){
   const [loading, setLoading] = useState(false);
   const [getApproveData, setApproveData] = useState();
   const [getId, setID ] = useState();
-
+  const [User,setUser] = useState();
   const token = getToken() 
 
   function getAllApplicants(){
     setLoading(true);
     UserService.getNewUsers(token).then((response) => {
       setDeactive(response.data.data);
+      console.log(response.data.data);
     }).catch((error) => {
         console.log("An error occurred:", error.response);
     }).finally(() => {
@@ -65,12 +53,27 @@ function Deactive(){
     });
   }
 
+  function getUser(){
+    setLoading(true);
+    Account.getClient().then((data) => {
+      console.log(data.data);
+      setUser(data.data);
+    }).catch((error) => {
+      console.log("Error");
+    }).finally(() => {
+      setLoading(false);
+    })
+  }
 
   useEffect( () => {
     if(token){
+      getUser();
       getAllApplicants();
     }
   }, [])
+
+  
+  console.log(User);
 
   function decline(params){ 
     setLoading(true); 
@@ -117,26 +120,15 @@ function Deactive(){
           city: getApproveData.city,
           zipcode: getApproveData.zipcode,
           country: getApproveData.country,
-          acc_id: response.data.data.id
+          acc_id: 1
         }
       }
 
-      //Create a new user
       UserService.createUser(token, Client).then((response) => {
-        //User Table
         let user = {
-          email: getApproveData.email,
-          username: getApproveData.firstname,
-          firstname: getApproveData.firstname,
-          lastname: getApproveData.lastname,
-          usertype: getApproveData.usertype,
-          contact: getApproveData.phone,
-          password: getApproveData.password,
           client_id: response.data.data.id
         }
-        //register User
-        UserService.register(token, user);
-        
+        //UserService.register(token, user, id);
         Success('Applicant was Approved');
       })
     }).catch((error) => {

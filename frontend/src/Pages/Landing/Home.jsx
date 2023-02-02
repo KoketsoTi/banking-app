@@ -8,7 +8,7 @@ import images from '../../Assets/images/bankcard-removebg-preview.png';
 function Landing(){
     const navigate = useNavigate();
     function applicationForm(){
-        navigate("/application", { replace: true });
+        navigate("/auth/register", { replace: true });
     }
     return(
         <Box>
