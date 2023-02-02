@@ -37,6 +37,7 @@ import Out from "./Pages/Client/TransactionHistory/Out";
 import Bills from "./Pages/Client/TransactionHistory/Bills";
 import History from "./Pages/Client/TransactionHistory/History";
 import Withdraw from "./Pages/Client/withdraw/Withdraw";
+import Deposit from "./Pages/Client/Deposit/Deposit";
 
     
 import { Routes,  Route, Navigate } from "react-router-dom";
@@ -78,6 +79,7 @@ const Navigation = () => {
                 <Route path="loanApplications" element={<LoanApplication /> } />
                 <Route path="loanApplication" element={<ApplyLoan />} />
                 <Route path="withdraw" element={<Withdraw />} />
+                <Route path="deposit" element={<Deposit />} />
                 <Route path="messages" element={<Messages /> } />
                 <Route path="viewAccount" element={<ViewAccount /> } >
                     <Route path="/client/viewAccount" element={<Navigate replace to="all" />} />
