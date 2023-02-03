@@ -7,9 +7,9 @@ const getClientUser = () => {
     return axios.get(`${API}users/me?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-const getClient = () => {
+const getClient = (email) => {
     const token = getToken();
-    return axios.get(`${API}users`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+    return axios.get(`${API}users?filters[email][$eq]=${email}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const getBeneficiaries = (id) => {

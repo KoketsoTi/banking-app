@@ -38,7 +38,7 @@ function Deactive(){
   const [loading, setLoading] = useState(false);
   const [getApproveData, setApproveData] = useState();
   const [getId, setID ] = useState();
-  const [User,setUser] = useState();
+  const [User, setUser] = useState();
   const token = getToken() 
 
   function getAllApplicants(){
@@ -53,27 +53,11 @@ function Deactive(){
     });
   }
 
-  function getUser(){
-    setLoading(true);
-    Account.getClient().then((data) => {
-      console.log(data.data);
-      setUser(data.data);
-    }).catch((error) => {
-      console.log("Error");
-    }).finally(() => {
-      setLoading(false);
-    })
-  }
-
   useEffect( () => {
     if(token){
-      getUser();
       getAllApplicants();
     }
   }, [])
-
-  
-  console.log(User);
 
   function decline(params){ 
     setLoading(true); 
@@ -128,7 +112,8 @@ function Deactive(){
         let user = {
           client_id: response.data.data.id
         }
-        //UserService.register(token, user, id);
+
+        UserService.likeRegister(User[0].id, user);
         Success('Applicant was Approved');
       })
     }).catch((error) => {
@@ -144,6 +129,13 @@ function Deactive(){
   function Activate(data){
     setApproveData(data.attributes);
     setID(data.id)
+    Account.getClient(data.attributes.email).then((data) => {
+      setUser(data.data);
+    }).catch((error) => {
+      console.log("Error");
+    }).finally(() => {
+      setLoading(false);
+    })
   }
   
   const view = (params) =>{

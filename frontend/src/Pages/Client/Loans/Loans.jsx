@@ -23,7 +23,8 @@ function LoanApplication() {
       phone: "079-222-1123",
       street_address:  "14th street",
       surbub: "Randburg",
-      zipcode: "0012"
+      zipcode: "0012",
+      Occupation: "business"
     },
     id: 1
   }
@@ -426,7 +427,7 @@ function LoanApplication() {
 
                             <div className="form-group col mb-2">
                               <label className="label"><span className="label-text">Occupation</span></label>
-                              <input type="text" name="occupation" disabled placeholder="occupation" value={useClientData.attributes}
+                              <input type="text" name="occupation" disabled placeholder="occupation" value={useClientData.attributes.Occupation}
                                 className="input input-bordered w-full max-w-s occupation " />
                             </div>
                           

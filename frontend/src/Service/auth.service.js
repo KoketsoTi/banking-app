@@ -32,6 +32,8 @@ const UpdateUser = (data, token) => {
     return axios.put(`${API}users/${1}`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+
+
 const logger = {
     login,
     confirmPassword,

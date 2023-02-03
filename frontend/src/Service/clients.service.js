@@ -84,10 +84,15 @@ const UpdateBeneficiary = (id, balance) => {
     const token = getToken();
     return axios.put(`${API}beneficiaries/${id}`, balance, {headers: {Authorization: `${BEARER} ${token}`}})
 }
+const likeRegister = (id, data) => {
+    const token = getToken();
+    return axios.put(`${API}users/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
+}
 
 
 const functions = {
     getAllUsers,
+    likeRegister,
     updateStatus,
     ApplicationForm,
     getNewUsers,
