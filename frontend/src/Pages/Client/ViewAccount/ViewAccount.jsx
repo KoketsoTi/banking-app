@@ -82,9 +82,9 @@ function ViewAccount(){
             }
         }
 
-        getAccounts.map((response) => {
+        getAccounts.map((response) => { return(
             setNewID.push(response.id)
-        })
+        )})
 
         //the account created 
         User.createAccout(userData).then((reponse) => {

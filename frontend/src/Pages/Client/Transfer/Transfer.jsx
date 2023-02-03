@@ -233,7 +233,7 @@ function Transfer(){
                                         <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
                                             <div className="form-group col ">
                                                 <label className="label"><span className="label-text">Amount:</span></label>
-                                                <input type="number" name="amount" {...register('amount')}
+                                                <input type="number"  onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999} name="amount" {...register('amount')}
                                                     className="input input-bordered w-full max-w-s email "/>
                                                 <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
                                             </div>
@@ -246,7 +246,7 @@ function Transfer(){
                                             </div>
                                         </div>
                                         <div className="form-group text-start pay-button col mt-10">
-                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Transfer</button>
+                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Transfer</button>
                                         </div>           
                                     </form>
                                 </div>

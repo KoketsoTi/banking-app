@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { FaSignInAlt} from 'react-icons/fa';
 import { Success, Error } from '../../Helpers/toasters';
 import { setToken, setData } from "../../Helpers/helpers";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ForgotPassword from '../../Models/forgotPasswordModel';
 import AuthorService from '../../Service/auth.service';
 import LoadingSpinner from '../../Components/Loader/LoaderSpinner';
@@ -16,8 +16,6 @@ function Login() {
     const [formData, setFormData] = useState({ identifier: "", password: "" }); 
     const [errors, setErrors] = useState({}); 
     const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -38,10 +36,10 @@ function Login() {
             // set the token
             if (response.data.user.usertype === 'Admin') {
                 setToken(response.data.jwt);
+
                 //Store data in a state using LocalStorage
                 setData(response.data.user);
                 Success(`Welcome back ${response.data.user.username}!`)
-                //navigate("/admin/", {replace: true})
                 //redirect to correct page
                 window.location.href = "/admin/";  
             } else if(response.data.user.usertype === 'Client'){
@@ -51,8 +49,6 @@ function Login() {
                 //Store data in a state using LocalStorage
                 setData(response.data.user);
                 Success(`Welcome back ${response.data.user.username}!`)
-                
-                //redirect to correct page
                 //navigate("/client/", {replace: true})
                 window.location.href = "/client/";  
             }

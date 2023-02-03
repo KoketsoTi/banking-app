@@ -4,16 +4,6 @@ import { NavLink } from "react-router-dom";
 import { FaSignInAlt } from 'react-icons/fa';
 
 function Navbar(){
-    const [navColour, updateNavbar] = useState(false);
-    function scrollHandler() {
-      if (window.scrollY >= 400) {
-        updateNavbar(true);
-      } else {
-        updateNavbar(false);
-      }
-    }
-    window.addEventListener("scroll", scrollHandler);
-
     return(
         <Box>
             <div className="navbar fixed z-50 bg-gray-900 shadow-sm bg-opacity-60 bg-clip-padding blur-backrop-filter">

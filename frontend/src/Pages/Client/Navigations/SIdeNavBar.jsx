@@ -111,7 +111,7 @@ function Sidebar() {
                 <div tabIndex={0} className="flex cursor-pointer">
                     <label className="btn btn-ghost btn-circle avatar">
                         <div className="avatar placeholder">
-                            <div className="bg-neutral-focus text-neutral-content rounded-full w-11   ">
+                            <div className="bg-neutral-focus activate text-neutral-content rounded-full w-11   ">
                                 <span className="text-xl">
                                     {user[1].slice(0, 1)?.toUpperCase()}
                                 </span>

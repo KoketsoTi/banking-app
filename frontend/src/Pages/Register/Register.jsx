@@ -4,14 +4,13 @@ import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import { FaSignInAlt} from 'react-icons/fa';
 import { Error, Success } from '../../Helpers/toasters';
-import { getToken } from "../../Helpers/helpers";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import AuthorService from '../../Service/auth.service';
 import LoadingSpinner from '../../Components/Loader/LoaderSpinner';
-import * as Yup from 'yup';
 import Navbar from '../../Components/Navbar';
+import * as Yup from 'yup';
 
 function Register() {
 
@@ -29,7 +28,6 @@ function Register() {
     })
 
     const [loading, setLoading] = useState(false);
-    const token = getToken();
     const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, reset, formState } = useForm(formOptions)
     const { errors } = formState

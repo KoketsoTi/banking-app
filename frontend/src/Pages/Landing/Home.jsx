@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { SiVerizon} from 'react-icons/si';
 import images from '../../Assets/images/bankcard-removebg-preview.png';
 import Navbar from '../../Components/Navbar';
@@ -27,15 +27,15 @@ function Landing(){
             <div className="banking mt-8">
                 <div className="hero min-h-screen bg-base-200" style={{backgroundColor: "whitesmoke"}}>
                     <div className="hero-content flex-col lg:flex-row-reverse">
-                        <img src={images} className="max-w-sm rounded-lg shadow-2xl" />
+                        <img src={images} alt="" className="max-w-sm rounded-lg shadow-2xl" />
                         <div>
                             <h1 className=" mb-5 text-5xl font-bold">4 Step banking System</h1>
                             <p className="py-6">Start banking with us. Lets introduce to you with account creation steps</p>
                             <ul className=" mb-5 menu text-start ">
-                                <li ><a>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Fill your Personal Information </a></li>
-                                <li ><a>{<SiVerizon style={{color:"#009DE0"}} ></SiVerizon>} Fill your Residential Information</a></li>
-                                <li ><a>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Create Bank Account </a></li>
-                                <li ><a>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Create Username and Password</a></li>
+                                <li ><NavLink>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Fill your Personal Information </NavLink></li>
+                                <li ><NavLink>{<SiVerizon style={{color:"#009DE0"}} ></SiVerizon>} Fill your Residential Information</NavLink></li>
+                                <li ><NavLink>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Create Bank Account </NavLink></li>
+                                <li ><NavLink>{<SiVerizon style={{color:"#009DE0"}}></SiVerizon>} Create Username and Password</NavLink></li>
                             </ul> 
 
                             <div className="form-group col text-left mb-4">

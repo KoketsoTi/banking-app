@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import User from '../../../Service/Client/client.service';
 import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 import * as Yup from 'yup';
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function Pay(){
     const navigate = useNavigate()
@@ -115,7 +116,7 @@ function Pay(){
                         <Box>
                             <div className=" mb-5 ">
                                 <label htmlFor="my-modal-4"  className="rounded-none cursor-pointer relative flex justify-start py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
-                                    <GrAddCircle className="mr-2.5 text-4xl" />
+                                    <AiOutlinePlusCircle style={{color:"#009DE0"}} className="mr-2.5 text-4xl" />
                                     <h1 className="text-2xl" >Add Beneficiary</h1>
                                 </label>
                             </div>
@@ -128,7 +129,7 @@ function Pay(){
                                         <div className="card-body" >
                                             <div className="flex ">
                                                 <div className="avatar placeholder">
-                                                    <div className="bg-neutral-focus text-neutral-content rounded-full w-16 lg:xl:w-20">
+                                                    <div className="bg-neutral-focus activate text-neutral-content rounded-full w-16 lg:xl:w-20">
                                                         <span className="text-2xl lg:xl:text-3xl">
                                                         {benefit?.attributes.Name?.slice(0, 1)?.toUpperCase()}
                                                         </span>
@@ -165,13 +166,13 @@ function Pay(){
 
                                     <div className="form-group col ">
                                         <label className="label"><span className="label-text">Account Number:</span></label>
-                                        <input type="number" name="accNumber" {...register('accNumber')}
+                                        <input type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={10} name="accNumber" {...register('accNumber')}
                                             className="input input-bordered w-full max-w-s email "/>
                                         <div className="invalid-feedback text-start text-rose-600">{errors.accNumber?.message}</div>
                                     </div>
                             
                                     <div className="form-group text-start pay-button col mt-10">
-                                        <label htmlFor="my-modal-4" onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-36 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Add Beneficiary</label>
+                                        <label htmlFor="my-modal-4" onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-36 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Add Beneficiary</label>
                                     </div>           
                                 </form>
                             </label>

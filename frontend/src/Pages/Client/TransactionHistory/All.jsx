@@ -40,7 +40,7 @@ function All(){
     const [ userInfo, setUserInfo ] = useState(general);
     const [ getFrom, setFrom ] = useState();
     const [ getTo, setTo ] = useState();
-    const [getToday, setToday ] = useState(); 
+    const [ getToday, setToday ] = useState(); 
     const id  = getId();
 
     function getAccount() {
