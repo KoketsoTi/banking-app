@@ -65,6 +65,7 @@ function LoanApplication() {
         User.getBeneficiaries(response.data.client_id.id).then((response) => {
             setClientData(response.data.data);
             setLoans(response.data.data.attributes.loans_ids.data);
+            console.log(response.data.data.attributes.loans_ids.data);
             setClient(response.data.data.attributes.loans_ids.data)
             setLoading(false);
         }).catch((error) => {

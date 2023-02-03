@@ -117,7 +117,8 @@ function Transfer(){
                         name: data.ownref,
                         amount: data.amount,
                         acc_id: selectedAccount.id,
-                        debit_credit: "Dr",
+                        availableBalance: decreae,
+                        debit_credit: "dr",
                         type_Transaction: "Transfer"
                     }
                 }
@@ -144,15 +145,16 @@ function Transfer(){
                         accountno: receipientAccount.attributes.accountno,
                         name: data.ownref,
                         amount: data.amount,
+                        availableBalance: increase,
                         acc_id: receipientAccount.id,
-                        debit_credit: "Cr",
+                        debit_credit: "cr",
                         type_Transaction: "Transfer"
                     }
                 }
 
                 Account.TransactionHistory(auth_token, transHistory).then((response) => {
                     Success("Transer was successful");
-                    navigate('/client/')
+                    // navigate('/client/')
                 })
             }).catch((error) => {
                 console.log(error)

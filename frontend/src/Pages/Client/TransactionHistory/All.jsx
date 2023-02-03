@@ -49,6 +49,14 @@ function All(){
         })
     }
 
+    function getClient(){
+        User.getClientUser().then((response) => {
+            setUserInfo(response.data.client_id);
+        }).catch((error) => {
+
+        })
+    }
+
     function getTransactions(){
         Account.getTransaction(id).then((response) => {
             setStatement(response.data.data.attributes.trans_ids.data);
@@ -60,6 +68,7 @@ function All(){
     }
 
     useEffect( () =>{
+        getClient();
         getAccount();
         getTransactions();
         const today = new Date();
@@ -160,19 +169,9 @@ function All(){
 
                             <div className="flex justify-between">
                                 <div className="Statement-details text-start mt-5">
-                                    <div className="flex justify-between mb-2" >
-                                        <h5 className="font-semibold" >From Date: </h5>
-                                        <h5 className="text-start">{getFrom}</h5>
-                                    </div>
-
-                                    <div className="flex justify-between mb-2" >
-                                        <h5 className="font-semibold" >To Date: </h5>
-                                        <h5 className="text-start" >{getTo}</h5>
-                                    </div>
-                                    
                                     <div className="flex justify-between mb-4 mt-16" >
                                         <h5 className="font-bold" > Opening Balance: </h5>
-                                        <h5 className="text-start" > {0}</h5>
+                                        <h5 className="text-start" > { (29500).toLocaleString("en-ZA", {style:"currency", currency:"ZAR"})}</h5>
                                     </div>
                                     <div className="flex justify-between mb-4" >
                                         <h5 className="font-bold" > Account Number: </h5>
@@ -199,12 +198,12 @@ function All(){
                                             <tr key={data.id}>
                                                 <td>{(new Date(data.attributes.createdAt).toLocaleDateString())}</td>
                                                 <td>{data.attributes.name} {data.attributes.type_Transaction}</td>
-                                                {data.attributes.debit_credit == 'Cr' ?
+                                                {data.attributes.debit_credit == 'cr' ?
                                                     <td>{data.attributes.amount.toLocaleString("en-ZA", {style:"currency", currency:"ZAR"})}</td>
                                                 :
                                                     <td></td>
                                                 }
-                                                {data.attributes.debit_credit == 'Dr' ?
+                                                {data.attributes.debit_credit == 'dr' ?
                                                     <td>{data.attributes.amount.toLocaleString("en-ZA", {style:"currency", currency:"ZAR"})}</td>
                                                 :
                                                     <td></td>

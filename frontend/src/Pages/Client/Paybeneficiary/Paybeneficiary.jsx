@@ -92,6 +92,7 @@ function PayBeneficiary(){
                         accountno: selectedAccount.attributes.accountno,
                         name: state.params.attributes.Name,
                         amount: data.amount,
+                        availableBalance: decreae,
                         acc_id: selectedAccount.id,
                         debit_credit: "dr",
                         type_Transaction: "Payment"
@@ -121,6 +122,7 @@ function PayBeneficiary(){
                         accountno: state.params.attributes.account_no,
                         name: data.ownref,
                         amount: data.amount,
+                        availableBalance: increase,
                         acc_id: getuserAccount[0].attributes.acc_id.data[0].id,
                         debit_credit: "cr",
                         type_Transaction: "Transfer"

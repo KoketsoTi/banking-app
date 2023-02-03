@@ -9,6 +9,9 @@ import UserService from "../../../Service/clients.service";
 import LoadingSpinner from '../../../Components/Loader/LoaderSpinner';
 
 function AllUsers(){
+  const use = {
+
+  }
   const navigate = useNavigate();
   const [users, setActive] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ function AllUsers(){
     setLoading(true);
     UserService.getAllUsers().then((response) => {
       setActive(response.data.data);
-    
+      console.log(response.data.data)
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     }).finally(() => {
@@ -100,7 +103,7 @@ function AllUsers(){
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => {
+                   {users.map((user) => {
                     return (
                       <tr key={user.id}>
                         <td>
@@ -112,10 +115,10 @@ function AllUsers(){
                             </div>
                           </div>
                         </td>
-                        <td>
+                       <td>
                           {user?.attributes.acc_id.data[0].attributes.accountno}
                         </td>
-                        <td>
+                       <td>
                           {user?.attributes.firstname}
                         </td>
                         <td>
@@ -140,7 +143,7 @@ function AllUsers(){
 
                         <td>
                           <button onClick={()=> edit(user)} className="rounded-none relative w-full flex justify-center py-2 px-3 border border-transparent text-sm font-medium rounded-md text-white" style={{background: "#4cceac", color:"#141b2d"}} >View</button>
-                        </td>
+                        </td> 
 
                       </tr>
                     );
