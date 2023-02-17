@@ -117,7 +117,7 @@ function Transfer(){
                         name: data.ownref,
                         amount: data.amount,
                         acc_id: selectedAccount.id,
-                        debit_credit: "Dr",
+                        debit_credit: "dr",
                         type_Transaction: "Transfer"
                     }
                 }

@@ -63,7 +63,7 @@ function Bills(){
                         name: reference +"@"+getBillOwner,
                         amount: amount,
                         acc_id: selectedAccount.id,
-                        debit_credit: "Dr",
+                        debit_credit: "dr",
                         type_Transaction: "Bill Payment"
                     }
                 }
