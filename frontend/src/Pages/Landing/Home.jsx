@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { SiVerizon} from 'react-icons/si';
 import images from '../../Assets/images/bankcard-removebg-preview.png';
 import Navbar from '../../Components/Navbar';
-import'./Home.css';
+import'./home.css';
 function Landing(){
     const navigate = useNavigate();
     function applicationForm(){
