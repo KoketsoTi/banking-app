@@ -125,7 +125,7 @@ function Sidebar() {
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
                     
-                        <label htmlFor="my-modal-4" className={({ isActive }) => isActive ? activeClassName : 'undefined' } >
+                        <label htmlFor="my-modal-8" className={({ isActive }) => isActive ? activeClassName : 'undefined' } >
                             <Typography ><BiUserCircle style={{fontSize: "20px", color:"#009DE0"}} /> </Typography>
                             <Typography >Profile</Typography>
                         </label>

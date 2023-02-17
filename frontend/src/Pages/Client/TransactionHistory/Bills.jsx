@@ -63,7 +63,7 @@ function Bills(){
                         name: reference +"@"+getBillOwner,
                         amount: amount,
                         acc_id: selectedAccount.id,
-                        debit_credit: "Dr",
+                        debit_credit: "dr",
                         type_Transaction: "Bill Payment"
                     }
                 }
@@ -134,7 +134,7 @@ function Bills(){
                             {/*  View Bills */}  
                             <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  gap-2 lg:xl:gap-4">  
                                 {BillsData.map((element, id) => 
-                                    <label htmlFor="my-modal-4" key={id} >
+                                    <label htmlFor="my-modal-6" key={id} >
                                         <div onClick={() => billName(element)} className="card h-28 bg-base-100 shadow-xl cursor-pointer" key={id}>
                                             <div className="card-body">
                                                 <div className="text-center">{element} </div>
@@ -147,10 +147,10 @@ function Bills(){
 
                         {/* paybill modal */}
                         <div className='models'>
-                            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-                            <label htmlFor="my-modal-4" className="modal cursor-pointer">
+                            <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+                            <label htmlFor="my-modal-6" className="modal cursor-pointer">
                                 <label className="modal-box relative" htmlFor="">
-                                    <label htmlFor="my-modal-4" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
+                                    <label htmlFor="my-modal-6" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
                                     <h3 className="text-lg text-center font-bold">Pay Bill</h3>
                                     <div className="form-group col mb-8">
                                         <div>
@@ -181,7 +181,7 @@ function Bills(){
                                         
                                         <div>
                                             <label className="label "><span className="label-text">Please enter the amount</span></label>
-                                            <input  type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
+                                            <input  type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
                                         </div> 
                                     </div>
 

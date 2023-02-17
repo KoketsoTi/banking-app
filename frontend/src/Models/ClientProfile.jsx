@@ -3,10 +3,10 @@ import { Box, Typography } from "@mui/material";
 export const ProfileView = ({fname, lname, date_of_birth, phone, street_address, surbub, city, zip, country}) => {
     return (
         <Box>
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label htmlFor="my-modal-4" className="modal cursor-pointer">
+            <input type="checkbox" id="my-modal-8" className="modal-toggle" />
+            <label htmlFor="my-modal-8" className="modal cursor-pointer">
                 <label className="modal-box relative" htmlFor="">
-                <label htmlFor="my-modal-4" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
+                <label htmlFor="my-modal-8" className="btn btn-sm btn-circle absolute text-slate-900 hover:text-gray-50 right-2 top-2">✕</label>
                     <h1 variant="h4" className="text-lg text-center font-bold">User Profile Details</h1>
                     <Box width="100%" p="20px 30px">
                         <Box justifyContent="space-between" mt="-5px" >

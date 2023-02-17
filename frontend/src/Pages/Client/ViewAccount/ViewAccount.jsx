@@ -126,7 +126,7 @@ function ViewAccount(){
                                         <Typography variant="h5" fontWeight="bold" style={{color: "#141b2d"}} >My Accounts</Typography>
                                     </Box>
                     
-                                    <label htmlFor="my-modal-4"  className="rounded-none bg-white add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
+                                    <label htmlFor="my-modal-7"  className="rounded-none bg-white add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
                                         <MdAddCircleOutline style={{color:"#009DE0", marginTop:"1px" }}className="mr-2.5 text-2xl" />
                                         <h1 className="text-xl" >Add savings Plan</h1>
                                     </label>
@@ -161,10 +161,10 @@ function ViewAccount(){
                         </Box>
 
                         {/*  Add new beneficiary */}       
-                        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-                        <label htmlFor="my-modal-4" className="modal cursor-pointer">
+                        <input type="checkbox" id="my-modal-7" className="modal-toggle" />
+                        <label htmlFor="my-modal-7" className="modal cursor-pointer">
                             <label className="modal-box modal-top" htmlFor="">
-                            <label htmlFor="my-modal-4" className="btn btn-sm btn-circle absolute text-black hover:text-white right-2 top-2">✕</label>
+                            <label htmlFor="my-modal-7" className="btn btn-sm btn-circle absolute text-black hover:text-white right-2 top-2">✕</label>
                                 <h3 className="text-lg font-bold">Add savings plan</h3>
 
                                 <form >
