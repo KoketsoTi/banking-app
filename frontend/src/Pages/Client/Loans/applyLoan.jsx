@@ -206,7 +206,7 @@ function ApplyLoan() {
 
                                                     <div className="form-group col">
                                                         <label className="label"><span className="label-text">Loan Amount</span>  </label>
-                                                        <input type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999} name="loanAmt" onChange={handleChange}
+                                                        <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999} name="loanAmt" onChange={handleChange}
                                                             className="input input-bordered w-full max-w-s email " />
                                                     </div>
 

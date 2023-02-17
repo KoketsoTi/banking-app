@@ -1,8 +1,7 @@
 import { Box} from "@mui/material";
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect} from "react";
 import { useOutletContext } from "react-router-dom";
 import { getId } from "../../../Helpers/helpers";
-import { CgPushDown } from "react-icons/cg";
 import jsPDF from 'jspdf';
 import pdfMake from 'pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -40,7 +39,6 @@ function All(){
     const [ userInfo, setUserInfo ] = useState(general);
     const [ getFrom, setFrom ] = useState();
     const [ getTo, setTo ] = useState();
-    const [ getToday, setToday ] = useState(); 
     const id  = getId();
 
     function getAccount() {
@@ -53,7 +51,7 @@ function All(){
         User.getClientUser().then((response) => {
             setUserInfo(response.data.client_id);
         }).catch((error) => {
-
+            console.log(error)
         })
     }
 
@@ -70,9 +68,7 @@ function All(){
     useEffect( () =>{
         getClient();
         getAccount();
-        getTransactions();
-        const today = new Date();
-        setToday(today)
+        getTransactions(); 
     }, [])
 
     const handleDateFrom = (e) => {
@@ -82,6 +78,7 @@ function All(){
     const handleDateTo = (e) => {
         setTo(e.target.value);
     }
+    
     //Download 
     function printDocument(){   
         const doc = new jsPDF(); 

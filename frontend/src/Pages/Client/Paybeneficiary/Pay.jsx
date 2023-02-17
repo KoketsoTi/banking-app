@@ -16,7 +16,6 @@ function Pay(){
     const navigate = useNavigate()
     const [useBeneficiary, setBeneficiary] = useState([]);
     const [getId, setId] = useState([]);
-    const [checkUser, setCheckUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const setNewID = [];
 
@@ -44,7 +43,6 @@ function Pay(){
             //fetch client beneficiaries using the id returned by the cliet
             User.getBeneficiaries(response.data.client_id.id).then((response) => {
                 setBeneficiary(response.data.data.attributes.beneficary_id.data);
-                setCheckUser(response.data.data.attributes.beneficary_id.data);
                 setLoading(false);
             }).catch((error) => {
                 console.log(error);
@@ -166,7 +164,7 @@ function Pay(){
 
                                     <div className="form-group col ">
                                         <label className="label"><span className="label-text">Account Number:</span></label>
-                                        <input type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={10} name="accNumber" {...register('accNumber')}
+                                        <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={10} name="accNumber" {...register('accNumber')}
                                             className="input input-bordered w-full max-w-s email "/>
                                         <div className="invalid-feedback text-start text-rose-600">{errors.accNumber?.message}</div>
                                     </div>

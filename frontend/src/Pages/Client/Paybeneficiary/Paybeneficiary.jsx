@@ -248,7 +248,7 @@ function PayBeneficiary(){
                                         <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
                                             <div className="form-group col ">
                                                 <label className="label"><span className="label-text">Amount:</span></label>
-                                                <input type="number"  onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999} name="amount" {...register('amount')}
+                                                <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault();  if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999} name="amount" {...register('amount')}
                                                     className="input input-bordered w-full max-w-s email "/>
                                                 <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
                                             </div>
