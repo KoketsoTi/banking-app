@@ -92,6 +92,7 @@ function PayBeneficiary(){
                         accountno: selectedAccount.attributes.accountno,
                         name: state.params.attributes.Name,
                         amount: data.amount,
+                        availableBalance: decreae,
                         acc_id: selectedAccount.id,
                         debit_credit: "dr",
                         type_Transaction: "Payment"
@@ -121,6 +122,7 @@ function PayBeneficiary(){
                         accountno: state.params.attributes.account_no,
                         name: data.ownref,
                         amount: data.amount,
+                        availableBalance: increase,
                         acc_id: getuserAccount[0].attributes.acc_id.data[0].id,
                         debit_credit: "cr",
                         type_Transaction: "Transfer"
@@ -232,13 +234,6 @@ function PayBeneficiary(){
                                             <label className="label"><span className="label-text">Previous Transfer</span></label> 
                                             <input disabled value={"R" + state.params.attributes.amount.toLocaleString()} className="input text-end input-bordered w-full max-w-s email" name="numYears" />
                                         </div>
-
-                                        {/* <div className="card text-center bg-base-100 shadow-xl">
-                                            <div className="card-body">
-                                                <h1>{state.params.attributes.Name}</h1>
-                                                <h1>R {state.params.attributes.amount}</h1>
-                                            </div>
-                                        </div> */}
                                     </div>
                     
                                     <div>
@@ -253,7 +248,7 @@ function PayBeneficiary(){
                                         <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
                                             <div className="form-group col ">
                                                 <label className="label"><span className="label-text">Amount:</span></label>
-                                                <input type="number" name="amount" {...register('amount')}
+                                                <input type="number"  onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999} name="amount" {...register('amount')}
                                                     className="input input-bordered w-full max-w-s email "/>
                                                 <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
                                             </div>
@@ -273,7 +268,7 @@ function PayBeneficiary(){
                                             <div className="invalid-feedback text-start text-rose-600">{errors.sender?.message}</div>
                                         </div>
                                         <div className="form-group text-start pay-button col mt-10">
-                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Pay</button>
+                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Pay</button>
                                         </div>           
                                     </form>
                                 </div>

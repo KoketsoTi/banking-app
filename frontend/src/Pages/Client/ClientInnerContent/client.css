@@ -9,7 +9,9 @@
 .card-description{
     text-align: -webkit-left; 
 }
-
+.activated{
+    background-color: var(--capitec-blue-2);
+}
 .ben-card{
     align-items: center;
     text-align: center;

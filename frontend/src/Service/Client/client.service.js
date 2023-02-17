@@ -7,9 +7,19 @@ const getClientUser = () => {
     return axios.get(`${API}users/me?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
+const getClient = (email) => {
+    const token = getToken();
+    return axios.get(`${API}users?filters[email][$eq]=${email}`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
 const getBeneficiaries = (id) => {
     const token = getToken();
     return axios.get(`${API}clients/${id}?populate=*`, {headers: {Authorization: `${BEARER} ${token}`}}) 
+}
+
+const getLoans = (id) => {
+    const token = getToken();
+    return axios.get(`${API}clients/${id}?populate=*&filters[loans_ids][loan_status][$eq]=Pending&filters[loans_ids][loan_status][$eq]=Active`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
 const applyForLoan = (data) => {
@@ -52,11 +62,11 @@ const createAccout = (data) => {
     return axios.post(`${API}accounts`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
-
-
 const functions = {
     applyForLoan,
     getClientUser,
+    getClient,
+    getLoans,
     getBeneficiaries,
     createBeneficiary,
     updateClientBeneficiaryList,

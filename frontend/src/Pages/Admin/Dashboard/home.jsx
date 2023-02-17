@@ -22,7 +22,7 @@ function Home(){
     setLoading(true);
     UserService.getPending().then((response) => {
       setLoans(response.data.data);
-     
+
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     }).finally(() => {
@@ -34,13 +34,13 @@ function Home(){
     setLoading(true);
     UserService.getAllUsers().then((response) => {
       setAllClients(response.data.data)
-      
     }).catch((error) => {
       console.log("An error occurred:", error.response);
     }).finally(() => {
       setLoading(false);
     });
   }
+
 
   function getAllApplicants(){
     setLoading(true);
@@ -50,11 +50,10 @@ function Home(){
     }).catch((error) => {
         console.log("An error occurred:", error.response);
     }).finally(() => {
-   
+
     });
   }
 
-  
   useEffect(() => {
     if(token){
       getPendingLoans();
@@ -64,8 +63,8 @@ function Home(){
   }, []);
 
   const active = clients.filter((list) => list.attributes.acc_id.data[0].attributes.account_status === "Active")
-  const deactive = clients.filter((list) => list.attributes.acc_id.data[0].attributes.account_status === "Suspended") 
-  
+  const deactive = clients.filter((list) => list.attributes.acc_id.data[0].attributes.account_status === "Suspended")
+
   const StatBox = ({ title, subtitle, icon, progress, increase }) => {
     return (
       <Box width="100%" m="0 30px">
@@ -75,7 +74,7 @@ function Home(){
             <Typography variant="h4" fontWeight="bold"  style={{ color: "#F9F9F9" }} > {title} </Typography>
           </Box>
         </Box>
-  
+
         <Box display="flex" justifyContent="space-between" mt="2px" style={{ marginBottom: "10px" }} >
           <Typography variant="h5" style={{ color: "#F9F9F9" }}> {subtitle} </Typography>
           <Typography variant="h5" fontStyle="italic"  style={{ color: "#F9F9F9" }} >  </Typography>

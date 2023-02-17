@@ -22,7 +22,7 @@ function Confirmpassword() {
   })
 
   const formOptions = { resolver: yupResolver(formSchema) }
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   // get functions to build form with useForm() hook
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
@@ -41,7 +41,7 @@ function Confirmpassword() {
     console.log(_data);
 
     //call confirm password here
-    AuthorService.confirmPassword(_data).then((response) => { 
+    AuthorService.confirmPassword(_data).then(() => { 
       // Handle success.
       Success("Password reset successful")
       navigate("/admin/Login",{replace: true});

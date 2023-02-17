@@ -181,13 +181,13 @@ function Bills(){
                                         
                                         <div>
                                             <label className="label "><span className="label-text">Please enter the amount</span></label>
-                                            <input  type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
+                                            <input  type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
                                         </div> 
                                     </div>
 
-                                    <div className=" grid grid-cols-2 gap-8 mb-4">
-                                        <button  type=" sumbit" onClick={handleCancel}className="btn btn-link text-white bg-indigo-600 hover:bg-indigo-700">Cancel</button>
-                                        <button type=" sumbit" onClick={handleSave} className="btn btn-link text-white bg-indigo-600 hover:bg-indigo-700">Confirm</button>
+                                    <div className="flex justify-end gap-8 mb-4">
+                                        <button type=" sumbit" onClick={handleCancel}className="rounded-none suspend relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:suspend">Cancel</button>
+                                        <button type=" sumbit" onClick={handleSave} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Confirm</button>
                                     </div>
                                 </label>
                             </label>

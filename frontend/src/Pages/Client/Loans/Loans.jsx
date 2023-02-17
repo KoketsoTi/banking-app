@@ -23,7 +23,8 @@ function LoanApplication() {
       phone: "079-222-1123",
       street_address:  "14th street",
       surbub: "Randburg",
-      zipcode: "0012"
+      zipcode: "0012",
+      Occupation: "business"
     },
     id: 1
   }
@@ -64,6 +65,7 @@ function LoanApplication() {
         User.getBeneficiaries(response.data.client_id.id).then((response) => {
             setClientData(response.data.data);
             setLoans(response.data.data.attributes.loans_ids.data);
+            console.log(response.data.data.attributes.loans_ids.data);
             setClient(response.data.data.attributes.loans_ids.data)
             setLoading(false);
         }).catch((error) => {
@@ -206,7 +208,7 @@ function LoanApplication() {
                           <div className="card-body" >
                             <div className="flex">
                               <div className="avatar placeholder">
-                                <div className="bg-neutral-focus text-neutral-content rounded-full w-14 lg:xl:w-20">
+                                <div className="bg-neutral-focus activate text-neutral-content rounded-full w-14 lg:xl:w-20">
                                   <span className="text-2xl lg:xl:text-3xl">
                                     {useClientData.attributes.firstname.slice(0, 1)?.toUpperCase()}
                                   </span>
@@ -258,7 +260,7 @@ function LoanApplication() {
 
                                 <div className="form-group col">
                                   <label className="label"><span className="label-text">Loan Amount</span>  </label>
-                                  <input type="text" name="loanAmt" onChange={handleChange}
+                                  <input type="number" onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() } onKeyPress={(e) => {if (e.code === 'Minus')e.preventDefault() }} min={0} max={99999} name="loanAmt" onChange={handleChange}
                                     className="input input-bordered w-full max-w-s email " />
                                 </div>
 
@@ -311,7 +313,7 @@ function LoanApplication() {
                                   </div>
                                 </div>
                                 <div className="form-group col text-left mt-4">
-                                  <button onClick={CalCulateLoan} className="rounded-none relative w-full lg:xl:w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 ">Calculate </button>
+                                  <button onClick={CalCulateLoan} className="rounded-none relative w-full lg:xl:w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white activate bg-indigo-600 hover:activated ">Calculate </button>
                                 </div>
 
                               </form>
@@ -426,12 +428,12 @@ function LoanApplication() {
 
                             <div className="form-group col mb-2">
                               <label className="label"><span className="label-text">Occupation</span></label>
-                              <input type="text" name="occupation" disabled placeholder="occupation" value={useClientData.attributes}
+                              <input type="text" name="occupation" disabled placeholder="occupation" value={useClientData.attributes.Occupation}
                                 className="input input-bordered w-full max-w-s occupation " />
                             </div>
                           
                             <div className="form-group col mb-2 mt-7">
-                              <button onClick={onSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4"><HiOutlineDocument style={{ marginTop: "3px", marginRight: "5px" }} />Submit Application </button>
+                              <button onClick={onSubmit} className="rounded-none relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white activate bg-indigo-600 hover:activated focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4"><HiOutlineDocument style={{ marginTop: "3px", marginRight: "5px" }} />Submit Application </button>
                             </div>
                           </form>
                         </div>

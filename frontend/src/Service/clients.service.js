@@ -51,9 +51,6 @@ const getLoanApplication = () => {
     return axios.get(`${API}loan-applications`, {headers: {Authorization: `${BEARER} ${token}`}}) 
 }
 
-const register = (token, data) => {
-    return axios.post(`${API}auth/local/register`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
-}
 
 const createUser = (token, data) => {
     return axios.post(`${API}clients`, data, {headers: {Authorization: `${BEARER} ${token}`}}) 
@@ -87,10 +84,15 @@ const UpdateBeneficiary = (id, balance) => {
     const token = getToken();
     return axios.put(`${API}beneficiaries/${id}`, balance, {headers: {Authorization: `${BEARER} ${token}`}})
 }
+const likeRegister = (id, data) => {
+    const token = getToken();
+    return axios.put(`${API}users/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}} )
+}
 
 
 const functions = {
     getAllUsers,
+    likeRegister,
     updateStatus,
     ApplicationForm,
     getNewUsers,
@@ -98,7 +100,6 @@ const functions = {
     getShortLoans,
     getLongLoans,
     updateLoanStatus,
-    register,
     getUser,
     createUser,
     getPending,

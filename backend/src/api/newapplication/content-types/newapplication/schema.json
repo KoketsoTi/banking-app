@@ -19,10 +19,8 @@
       "type": "string"
     },
     "email": {
-      "type": "email"
-    },
-    "usertype": {
-      "type": "string"
+      "type": "email",
+      "unique": true
     },
     "phone": {
       "type": "string"
@@ -60,17 +58,8 @@
     "account_name": {
       "type": "string"
     },
-    "role": {
-      "type": "integer"
-    },
-    "username": {
-      "type": "string"
-    },
     "birth_date": {
       "type": "date"
-    },
-    "password": {
-      "type": "string"
     }
   }
 }
