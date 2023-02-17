@@ -39,7 +39,6 @@ const updateClientLoanApplicationList = (id, data) => {
     return axios.put(`${API}clients/${id}`, data, {headers: {Authorization: `${BEARER} ${token}`}});
 }
 
-
 //Update user account with newly added savings plan
 const updateClientWithNewSavings = (id, data) => {
     const token = getToken();
@@ -62,8 +61,14 @@ const createAccout = (data) => {
     return axios.post(`${API}accounts`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+const callCards = () => {
+    const token = getToken();
+    return axios.get(`${API}cards`,{headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 const functions = {
     applyForLoan,
+    callCards,
     getClientUser,
     getClient,
     getLoans,
