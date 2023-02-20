@@ -66,12 +66,18 @@ const callCards = () => {
     return axios.get(`${API}cards`,{headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+const applyCard = (data) => {
+    const token = getToken();
+    return axios.post(`${API}cards`, data, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 const functions = {
     applyForLoan,
     callCards,
     getClientUser,
     getClient,
     getLoans,
+    applyCard,
     getBeneficiaries,
     createBeneficiary,
     updateClientBeneficiaryList,

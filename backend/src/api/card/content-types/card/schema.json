@@ -15,11 +15,8 @@
     "cvv": {
       "type": "integer"
     },
-    "expiry_date": {
-      "type": "date"
-    },
-    "virtual_card": {
-      "type": "string"
+    "expiry": {
+      "type": "datetime"
     },
     "card_status": {
       "type": "string"
@@ -29,6 +26,12 @@
       "relation": "oneToOne",
       "target": "api::account.account",
       "mappedBy": "card_id"
+    },
+    "issue": {
+      "type": "datetime"
+    },
+    "number": {
+      "type": "biginteger"
     }
   }
 }

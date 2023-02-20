@@ -205,7 +205,7 @@ function LoanApplication() {
                       { loans.map((response) => 
                         <div className="card bg-base-100 shadow-xl" key={response.id} >
                           <div className="card-body" >
-                            <div className="flex">
+                            <div className="">
                               <div className="avatar placeholder">
                                 <div className="bg-neutral-focus activate text-neutral-content rounded-full w-14 lg:xl:w-20">
                                   <span className="text-2xl lg:xl:text-3xl">
@@ -356,7 +356,7 @@ function LoanApplication() {
                     
 
                       <div className="card bg-base-100  rounded-none shadow-xl">
-                        <div className="card-body">
+                        <div className="card-body block">
                           <div className="mb-4">
                             <Typography variant="h5" fontWeight="bold" style={{ color: "#141b2d" }} >Application Form</Typography>
                           </div>
