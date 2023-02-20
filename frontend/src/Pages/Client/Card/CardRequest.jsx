@@ -4,7 +4,6 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { useEffect } from "react";
 import LoadingSpinner from "../../../Components/Loader/LoaderSpinner";
 import Card from "react-credit-cards";
-import cardReq from '../../../Service/Client/client.service'
 import "react-credit-cards/es/styles-compiled.css";
 import User from '../../../Service/Client/client.service';
 import Acc from "../../../Service/clients.service";
@@ -13,6 +12,15 @@ import { getToken } from "../../../Helpers/helpers";
 import { ToastContainer } from "react-toastify";
 
 function CardRequest() { 
+  const userCard = {
+    card_status: "active",
+    createdAt: "2023-02-20T13:47:25.432Z",
+    cvv: 372,
+    expiry: "2028-02-19T22:00:00.000Z",
+    issue: "2023-02-20T13:47:25.406Z",
+    number: "5119885451435371",
+    updatedAt: "2023-02-20T13:47:25.432Z"
+  }
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState("");
@@ -22,9 +30,9 @@ function CardRequest() {
   const [focused, setFocused] = useState("");
   const [myCard, setCard] = useState([]);
   const [checkBox, setCheck] = useState("");
+  const [card, setCardDetails] = useState(userCard);
   const [useAccount, setAccount] = useState([]);
-  const [userAcc, setUser] = useState()
-
+  const [userAcc, setUser] = useState();
   const handleCheck =  () => setCheck("checked");
   const token = getToken()
 
@@ -38,7 +46,7 @@ function CardRequest() {
       //fetch client accounts using the id returned by the request above
       User.getBeneficiaries(response.data.client_id.id).then((response) => {
         setAccount(response.data.data.attributes.acc_id.data);
-        console.log(response.data.data.attributes.acc_id.data);
+        console.log(response.data.data.attributes);
         setLoading(false);
       }).catch((error) => {
         console.log(error);
@@ -47,18 +55,25 @@ function CardRequest() {
     })
   }
 
-  function callCard() {
-    cardReq.callCards().then((respone) => {
-      setCard(respone.data.data)
-    })    
-  }
-  
+  let acc = useAccount.filter((res) => res.attributes.account_name === "Check Account")
+  let id = acc.map((res) => res.id)
+
   useEffect(() => {
     getUserAccounts();
-    callCard();
+    getCardDetails();
   },[])
 
-  let acc = useAccount.filter((res) => res.attributes.account_name === "Check Account")
+  function getCardDetails(){
+    setLoading(true);
+    //Fetch client id
+    Acc.getTransaction(id).then((response) => {
+      setCardDetails(response.data.data.attributes.card_id.data.attributes);
+      setLoading(false);
+    }).catch((error) => {
+      console.log(error);
+      console.log("unable to get user accounts");
+    })
+  }
 
   function onSubmit(data, event) {
     if(!checkBox){
@@ -114,6 +129,8 @@ function CardRequest() {
     }
   }
 
+
+  
   return (
     <Box className="Box">
       {loading ? (
@@ -197,13 +214,13 @@ function CardRequest() {
                     </div>
 
                     <div>
-                      <div className="mb-2">51 + {14}</div>
+                      <div className="mb-2">{card.number}</div>
                       <div className="mb-2">{"credit[0].attributes.accountno"}</div>
                       <div className="mb-2">{"userAcc.firstname +  + userAcc.lastname"}</div>
-                      <div className="mb-2">Account</div>
-                      <div className="mb-2">Account</div>
-                      <div className="mb-2">Account</div>
-                      <div className="mb-2">Account</div>
+                      <div className="mb-2">{card.cvv}</div>
+                      <div className="mb-2">{(new Date(card.issue).toLocaleDateString())}</div>
+                      <div className="mb-2">{(new Date(card.expiry).toLocaleDateString('en-US', {month: 'short',year: 'numeric',}))}</div>
+                      <div className="mb-2">{card.card_status}</div>
                     </div>
                   </div>
                 </div>
