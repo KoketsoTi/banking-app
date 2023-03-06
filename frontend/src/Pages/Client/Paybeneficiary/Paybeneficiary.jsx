@@ -85,6 +85,7 @@ function PayBeneficiary(){
             setLoading(false);
             setMessage("Transfer cannot exceed available balance");
         }else{
+            setMessage("");
             //Decrease From  account
             await AccountData.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
                 let transHistory = {
@@ -244,7 +245,7 @@ function PayBeneficiary(){
                                         <div className="divider"></div> 
                                     </div>
 
-                                    <form >
+                                   
                                         <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
                                             <div className="form-group col ">
                                                 <label className="label"><span className="label-text">Amount:</span></label>
@@ -270,7 +271,6 @@ function PayBeneficiary(){
                                         <div className="form-group text-start pay-button col mt-10">
                                             <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Pay</button>
                                         </div>           
-                                    </form>
                                 </div>
                             </div>
                         </Box>

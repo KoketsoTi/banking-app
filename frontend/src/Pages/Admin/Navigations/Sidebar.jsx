@@ -9,15 +9,18 @@ import { BiUserCircle } from 'react-icons/bi';
 import { BsCreditCard } from 'react-icons/bs'
 import { FaSignOutAlt } from 'react-icons/fa';
 import { CgCloseO } from 'react-icons/cg';
-import { Link } from "react-router-dom";
-import { FiUserPlus } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
 import { removeToken } from '../../../Helpers/helpers';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
-  
+  const navigate = useNavigate();
+  function item() {
+    setSelected(title)
+    navigate(to)
+  }
   return (
-    <MenuItem className="v" style={{background: "#141b2d"}} active={selected === title} onClick={() => setSelected(title)}
-      icon={icon} routerLink={<Link to={to} />} >
+    <MenuItem className="v" style={{background: "#141b2d"}} active={selected === title} onClick={() => item()}
+      icon={icon}>
       <Typography >{title}</Typography>
     </MenuItem>
   );
@@ -136,14 +139,6 @@ const Sidenavbar  = () => {
                 title="Profile"
                 to="/admin/profile"
                 icon={<BiUserCircle style={{fontSize: "20px"}} />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-              <Item
-                title="Change Password"
-                to="/admin/changePassword"
-                icon={<AiOutlineSetting style={{fontSize: "20px"}} />}
                 selected={selected}
                 setSelected={setSelected}
               />

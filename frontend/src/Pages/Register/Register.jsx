@@ -80,7 +80,7 @@ function Register() {
                             {/* HEADER */}
                             <ToastContainer />
                             <div className="card cards lg:xl:mt-10 mt-16 lg:xl:w-2/5 w-96 rounded-none shadow-xl ">
-                                <div className="card-body">
+                                <div className="card-body block">
                                     <div className="body-header mb-4">
                                         <div className="text-dark text-left mt-2 text-xl">SkyBank</div>
                                     </div>
@@ -93,63 +93,62 @@ function Register() {
                                         <div className="divider"></div> 
                                     </div>
                                 
-                                    <form >
-                                        <div className='grid grid-cols-1 lg:xl:grid-cols-2 gap-2'>
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
-                                                <input type="text" name="firstname" placeholder="Enter First Name" {...register('firstname')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
-                                            </div>
-
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
-                                                <input type="text" name="lastname" placeholder="Enter Last Name" {...register('lastname')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
-                                            </div>
+                                    <div className='grid grid-cols-1 lg:xl:grid-cols-2 gap-2'>
+                                        <div className="form-group col mb-4">
+                                            <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
+                                            <input type="text" name="firstname" placeholder="Enter First Name" {...register('firstname')}
+                                                className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-rose-600">{errors.firstname?.message}</div>
                                         </div>
 
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">USERNAME </span>  </label>
-                                                <input type="text" name="username" placeholder="Username " {...register('username')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.username?.message}</div>
-                                            </div>
+                                        <div className="form-group col mb-4">
+                                            <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
+                                            <input type="text" name="lastname" placeholder="Enter Last Name" {...register('lastname')}
+                                                className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-rose-600">{errors.lastname?.message}</div>
+                                        </div>
+                                    </div>
 
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text"> EMAIL</span>  </label>
-                                                <input type="email" name="email" placeholder="Email" {...register('email')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.email?.message}</div>
-                                            </div>
+                                    <div className="form-group col mb-4">
+                                        <label className="label"><span className="label-text">USERNAME </span>  </label>
+                                        <input type="text" name="username" placeholder="Username " {...register('username')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.username?.message}</div>
+                                    </div>
 
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">CONTACT</span>  </label>
-                                                <input type="text" name="phone" placeholder="PHONE NUMBER " {...register('phone')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
-                                            </div>
+                                    <div className="form-group col mb-4">
+                                        <label className="label"><span className="label-text"> EMAIL</span>  </label>
+                                        <input type="email" name="email" placeholder="Email" {...register('email')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.email?.message}</div>
+                                    </div>
+
+                                    <div className="form-group col mb-4">
+                                        <label className="label"><span className="label-text">CONTACT</span>  </label>
+                                        <input type="text" name="phone" placeholder="PHONE NUMBER " {...register('phone')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-rose-600">{errors.phone?.message}</div>
+                                    </div>
                                             
-                                        <div className='grid grid-cols-1 lg:xl:grid-cols-2 gap-2'>
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">PASSWORD</span></label>
-                                                <input type="password" name="password" placeholder="Password"  {...register('password')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
-                                            </div>
+                                    <div className='grid grid-cols-1 lg:xl:grid-cols-2 gap-2'>
+                                        <div className="form-group col mb-4">
+                                            <label className="label"><span className="label-text">PASSWORD</span></label>
+                                            <input type="password" name="password" placeholder="Password"  {...register('password')}
+                                                className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-rose-600">{errors.password?.message}</div>
+                                        </div>
 
-                                            <div className="form-group col mb-4">
-                                                <label className="label"><span className="label-text">Confirm Password</span></label>
-                                                <input type="password" name="confirmPwd" placeholder="Confirm Password"  {...register('confirmPwd')}
-                                                    className="input input-bordered w-full max-w-s email "/>
-                                                    <div className="invalid-feedback text-rose-600">{errors.confirmPwd?.message}</div>
-                                            </div>
+                                        <div className="form-group col mb-4">
+                                            <label className="label"><span className="label-text">Confirm Password</span></label>
+                                            <input type="password" name="confirmPwd" placeholder="Confirm Password"  {...register('confirmPwd')}
+                                                className="input input-bordered w-full max-w-s email "/>
+                                                <div className="invalid-feedback text-rose-600">{errors.confirmPwd?.message}</div>
                                         </div>
-                                        <div className="form-group col text-left ">
-                                            <button onClick={handleSubmit(onSubmit)} className="btn normal-case text-xl w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{backgroundColor:"#009DE0"}}><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Register </button>
-                                        </div>
-                                    </form>
+                                    </div>
+                                    <div className="form-group col text-left ">
+                                        <button onClick={handleSubmit(onSubmit)} className="btn normal-case text-xl w-full lg:xl:w-48 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{backgroundColor:"#009DE0"}}><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Register </button>
+                                    </div>
+                                   
                                     <div className="form-group mt-4">
                                         <p className = "Already">
                                             Already have an account? Click

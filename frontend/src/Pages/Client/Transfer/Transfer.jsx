@@ -85,9 +85,8 @@ function Transfer(){
     }
 
     useEffect(() => {
-        if(auth_token){
+       
             getUserAccounts(); 
-        }
     },[])
 
     async function onSubmit(data, event) {
@@ -109,6 +108,7 @@ function Transfer(){
             setLoading(false);
             setMessage("Please select the account you wish to tranfer money to ");
         }else{
+            setMessage("");
              //Decrease From  account
             await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
                 let transHistory = {
@@ -135,7 +135,7 @@ function Transfer(){
                 }
 
                 Account.TransactionHistory(auth_token, transHistory);
-                Account.Nortification(Nortification);
+                Account.Nortification(Nortification)
             })
 
             //Increase TO account
@@ -155,15 +155,16 @@ function Transfer(){
                 Account.TransactionHistory(auth_token, transHistory).then((response) => {
                     Success("Transer was successful");
                     // navigate('/client/')
+                }).finally(()=>{
+                    getUserAccounts(); 
+                    setLoading(false);
                 })
             }).catch((error) => {
                 console.log(error)
                 Error("Transfer was unsuccessfull")
-            }).finally(()=>{
-                setLoading(false);
             })
         }
-             
+
         return false
     }
 
@@ -229,7 +230,7 @@ function Transfer(){
                                         <div className="divider"></div> 
                                     </div>
 
-                                    <form >
+                             
                                         <div className='grid grid-cols-1  md:grid-cols-2 lg:xl:grid-cols-2 gap-4'>
                                             <div className="form-group col ">
                                                 <label className="label"><span className="label-text">Amount:</span></label>
@@ -248,7 +249,7 @@ function Transfer(){
                                         <div className="form-group text-start pay-button col mt-10">
                                             <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Transfer</button>
                                         </div>           
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </Box>

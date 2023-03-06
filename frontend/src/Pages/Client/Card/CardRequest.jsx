@@ -7,19 +7,13 @@ import Card from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import User from '../../../Service/Client/client.service';
 import Acc from "../../../Service/clients.service";
-import { Error, Success } from "../../../Helpers/toasters";
+import { Error, Info, Success } from "../../../Helpers/toasters";
 import { getToken } from "../../../Helpers/helpers";
 import { ToastContainer } from "react-toastify";
 
 function CardRequest() { 
   const userCard = {
-    card_status: "active",
-    createdAt: "2023-02-20T13:47:25.432Z",
-    cvv: 372,
-    expiry: "2028-02-19T22:00:00.000Z",
-    issue: "2023-02-20T13:47:25.406Z",
-    number: "5119885451435371",
-    updatedAt: "2023-02-20T13:47:25.432Z"
+    id: 5
   }
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false);
@@ -30,50 +24,53 @@ function CardRequest() {
   const [focused, setFocused] = useState("");
   const [myCard, setCard] = useState([]);
   const [checkBox, setCheck] = useState("");
-  const [card, setCardDetails] = useState(userCard);
-  const [useAccount, setAccount] = useState([]);
+  const [card, setCardDetails] = useState();
+  const [useAccount, setUseAccount] = useState(userCard)
   const [userAcc, setUser] = useState();
   const handleCheck =  () => setCheck("checked");
   const token = getToken()
 
+
   const { formatCreditCardNumber, formatExpirationDate, formatCVC } = useState("");
 
-  function getUserAccounts(){
+  async function getUserAccounts(){
     setLoading(true);
     //Fetch client id
-    User.getClientUser().then((response) => {
-      setUser(response.data.client_id);
+    await User.getClientUser().then((response) => {
       //fetch client accounts using the id returned by the request above
-      User.getBeneficiaries(response.data.client_id.id).then((response) => {
-        setAccount(response.data.data.attributes.acc_id.data);
-        console.log(response.data.data.attributes);
-        setLoading(false);
-      }).catch((error) => {
-        console.log(error);
-        console.log("unable to get user accounts");
-      })
+      getBeneData(response.data.client_id.id)
     })
   }
 
-  let acc = useAccount.filter((res) => res.attributes.account_name === "Check Account")
-  let id = acc.map((res) => res.id)
+  async function getBeneData(id) {
+    await User.getBeneficiaries(id).then((response) => {
+      setUser(response.data.data.attributes);
+      setUseAccount(response.data.data.attributes.acc_id.data[0])
+      setLoading(false);
+    }).catch((error) => {
+     console.log(error);
+     console.log("unable to get user accounts");
+    })
+  }
+  
 
-  useEffect(() => {
-    getUserAccounts();
-    getCardDetails();
-  },[])
-
-  function getCardDetails(){
+  async function getCardDetails(){
     setLoading(true);
     //Fetch client id
-    Acc.getTransaction(id).then((response) => {
-      setCardDetails(response.data.data.attributes.card_id.data.attributes);
+    await Acc.getTransaction(useAccount.id).then((response) => {
+      console.log(response.data.data.attributes.card_id.data.attributes);
+      setCardDetails(response.data.data.attributes.card_id.data.attributes); 
       setLoading(false);
     }).catch((error) => {
       console.log(error);
       console.log("unable to get user accounts");
     })
   }
+  useEffect(() => {
+    getUserAccounts();
+    getCardDetails();
+  },[])
+
 
   function onSubmit(data, event) {
     if(!checkBox){
@@ -108,24 +105,23 @@ function CardRequest() {
         }
       }
 
-      User.applyCard(userDetails).then((response) => {
-        console.log(response.data.data.id);
-  
-        let account = {
-          data:{
-            card_id: response.data.data.id
+      if(!card){
+        User.applyCard(userDetails).then((response) => {
+          let account = {
+            data:{
+              card_id: response.data.data.id
+            }
           }
-        }
-        console.log(token, acc[0].id, account);
 
-        Acc.updateStatus(token, acc[0].id, account).then((response) => {
-          console.log(response.data);
-          Success("Your card has been applied successfully");
-        }).catch((error) => {
-          console.log(error);
-          Error("Unable to apply card");
+          Acc.updateStatus(token, userAcc?.acc_id.data[0].id, account).then((response) => {
+            Success("Your card has been applied successfully");
+          }).catch((error) => {
+            Error("Unable to apply card");
+          })
         })
-      })
+      }else{
+        return Info("You cannot apply for a card when you already have")
+      }
     }
   }
 
@@ -147,7 +143,7 @@ function CardRequest() {
             <Box className="heading">
               {myCard.length !== '' 
                 ?
-                  <label htmlFor="my-modal-9"  className="rounded-none bg-base-100 shadow-xl add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
+                  <label htmlFor="my-modal-12"  className="rounded-none bg-base-100 shadow-xl add-savings cursor-pointer relative flex py-4 px-4 border border-transparent text-sm font-medium rounded-md text-black ">
                     <GiReceiveMoney style={{ color: "#009DE0", marginTop: "1px" }} className="mr-2.5 text-2xl" />
                     <h1 className="text-xl" >Add Virtual Card</h1>
                   </label>
@@ -214,13 +210,13 @@ function CardRequest() {
                     </div>
 
                     <div>
-                      <div className="mb-2">{card.number}</div>
-                      <div className="mb-2">{"credit[0].attributes.accountno"}</div>
-                      <div className="mb-2">{"userAcc.firstname +  + userAcc.lastname"}</div>
-                      <div className="mb-2">{card.cvv}</div>
-                      <div className="mb-2">{(new Date(card.issue).toLocaleDateString())}</div>
-                      <div className="mb-2">{(new Date(card.expiry).toLocaleDateString('en-US', {month: 'short',year: 'numeric',}))}</div>
-                      <div className="mb-2">{card.card_status}</div>
+                      <div className="mb-2">{card?.number}</div>
+                      <div className="mb-2">{userAcc?.acc_id.data[0].attributes.accountno}</div>
+                      <div className="mb-2">{userAcc?.firstname} {userAcc?.lastname}</div>
+                      <div className="mb-2">{card?.cvv}</div>
+                      <div className="mb-2">{(new Date(card?.issue).toLocaleDateString())}</div>
+                      <div className="mb-2">{(new Date(card?.expiry).toLocaleDateString('en-US', {month: 'short',year: 'numeric',}))}</div>
+                      <div className="mb-2">{card?.card_status}</div>
                     </div>
                   </div>
                 </div>
@@ -228,8 +224,8 @@ function CardRequest() {
             </div>
           </Box>
           <Box>
-          <input type="checkbox" id="my-modal-9" className="modal-toggle" />
-            <label htmlFor="my-modal-9" className="modal cursor-pointer">
+          <input type="checkbox" id="my-modal-12" className="modal-toggle" />
+            <label htmlFor="my-modal-12" className="modal cursor-pointer">
               <label className="modal-box relative" htmlFor="">
                 <h2 className="text-xl text-center font-bold mb-3"> Agreement Details</h2>
                 <h6>You must read the agreement before continuing because it contains important terms and conditions that you need to understand and accept.</h6>
@@ -267,7 +263,7 @@ function CardRequest() {
                       Accept
                     </button>
 
-                    <label  htmlFor="my-modal-9" 
+                    <label  htmlFor="my-modal-12" 
                       className="rounded-none relative cursor-pointer flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                       Cancel
                     </label>

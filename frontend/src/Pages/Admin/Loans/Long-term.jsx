@@ -50,8 +50,7 @@ function LongTerm(){
       data:{loan_status: value}
     }
     
-    
-    UserService.updateLoanStatus(token, id, data).then((data) => {
+    UserService.updateLoanStatus(token, id, data).then((res) => {
       if(value === "Inactive"){
         Success("Successfully Activated")
       }else {

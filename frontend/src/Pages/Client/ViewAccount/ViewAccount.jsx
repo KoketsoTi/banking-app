@@ -96,7 +96,7 @@ function ViewAccount(){
             //link the account added to the user who created the account
             //Update relationships for the newly added savings plan
             User.updateClientWithNewSavings(getId, id).then((response) => {
-                setLoading(true);
+                setLoading(false);
                 Success(`${data.beneficiary} Savings plan Successfully Added`)
             })
         }).catch((error) => {

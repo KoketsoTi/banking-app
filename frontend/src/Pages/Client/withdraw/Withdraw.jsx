@@ -91,6 +91,7 @@ function Withdraw() {
             setLoading(false);
             setMessage("Please select the account you wish to tranfer money to");
         }else{ 
+            setMessage("");
             //Decrease TO account
             await Account.updateStatus(auth_token, receipientAccount.id, {data:{balance: decrease}}).then((response) => {
                 let transHistory = {
@@ -127,6 +128,7 @@ function Withdraw() {
                 console.log(error)
                 Error("Transfer was unsuccessfull")
             }).finally(()=>{
+                getUserAccounts(); 
                 setLoading(false);
             })
         }
@@ -177,17 +179,16 @@ function Withdraw() {
                                         <div className="divider"></div> 
                                     </div>
 
-                                    <form >
-                                        <div className="form-group col ">
-                                            <label className="label"><span className="label-text">Amount:</span></label>
-                                            <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999}  name="amount" {...register('amount')}
-                                                className="input input-bordered w-full max-w-s email "/>
-                                            <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
-                                        </div>
-                                        <div className="form-group text-start pay-button col mt-10">
-                                            <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activate">Withdraw</button>
-                                        </div>           
-                                    </form>
+                                 
+                                    <div className="form-group col ">
+                                        <label className="label"><span className="label-text">Amount:</span></label>
+                                        <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999}  name="amount" {...register('amount')}
+                                            className="input input-bordered w-full max-w-s email "/>
+                                        <div className="invalid-feedback text-start text-rose-600">{errors.amount?.message}</div>
+                                    </div>
+                                    <div className="form-group text-start pay-button col mt-10">
+                                        <button onClick={handleSubmit(onSubmit)} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activate">Withdraw</button>
+                                    </div>  
                                 </div>
                             </div>
                         </Box>

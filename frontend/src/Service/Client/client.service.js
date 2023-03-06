@@ -61,11 +61,17 @@ const createAccout = (data) => {
     return axios.post(`${API}accounts`, data, {headers: {Authorization: `${BEARER} ${token}`}})
 }
 
+const applyCard = (data) => {
+    const token = getToken();
+    return axios.post(`${API}cards`, data, {headers: {Authorization: `${BEARER} ${token}`}})
+}
+
 
 
 const functions = {
     applyForLoan,
     getClientUser,
+    applyCard,
     getClient,
     getLoans,
     getBeneficiaries,

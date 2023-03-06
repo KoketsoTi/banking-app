@@ -35,10 +35,7 @@ function Bills(){
     const [getBillOwner, setBillHandle] =  useState('');
     const auth_token = getToken();
 
-    const handleCancel = () => {
-        setReference("");
-        setAmount("");
-    };
+ 
 
     const billName = (data) =>{
         setBillHandle(data)
@@ -55,6 +52,7 @@ function Bills(){
             setLoading(false);
             setMessage("Transfer cannot exceed available balance");
         }else{
+            setMessage("");
             //Decrease From  account
             await Account.updateStatus(auth_token, selectedAccount.id, {data:{balance: decreae}}).then((response) => {
                 let transHistory = {
@@ -181,12 +179,12 @@ function Bills(){
                                         
                                         <div>
                                             <label className="label "><span className="label-text">Please enter the amount</span></label>
-                                            <input  type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
+                                            <input type="number" onKeyDown={ (evt) => {evt.key === 'e' && evt.preventDefault(); if (evt.code === 'Minus' )evt.preventDefault(); if (evt.shiftKey === true )evt.preventDefault(); if (evt.code === 'Comma' )evt.preventDefault(); }} min={0} max={99999}  value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="input input-bordered w-full max-w-s email" />
                                         </div> 
                                     </div>
 
                                     <div className="flex justify-end gap-8 mb-4">
-                                        <button type=" sumbit" onClick={handleCancel}className="rounded-none suspend relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:suspend">Cancel</button>
+                                        <label htmlFor="my-modal-6" className="rounded-none suspend relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:suspend">Cancel</label>
                                         <button type=" sumbit" onClick={handleSave} className="rounded-none activate relative w-full lg:xl:w-28 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:activated">Confirm</button>
                                     </div>
                                 </label>

@@ -101,8 +101,7 @@ function Login() {
                                     <div className="hozitontal-line -mb-4">
                                         <div className="divider"></div> 
                                     </div>
-                                
-                                    <form >
+                              
                                         <div className="form-group col mb-4">
                                             <label className="label"><span className="label-text">USERNAME OR EMAIL</span>  </label>
                                             <input type="text" name="identifier"  placeholder="Username or Email" value={formData.identifier} onChange={handleChange}
@@ -125,7 +124,7 @@ function Login() {
                                         <div className="form-group col text-left ">
                                             <button onClick={handleSubmit} className="btn normal-case text-xl w-full lg:xl:w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white" style={{backgroundColor:"#009DE0"}}><FaSignInAlt style={{marginTop: "3px", marginRight:"5px"}}/>Login </button>
                                         </div>
-                                    </form>
+                                
                                     <div className="form-group mt-4">
                                         <p className = "Already">
                                             Not yet a member? Click

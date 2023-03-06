@@ -73,7 +73,7 @@ function Profile(){
                 {/* ROW 2 */}
                 <Grid item xs={6} md={8}>
                   <Box className="card-body picture rounded-md  justify-center">
-                    <form>
+                   
                       <Box className="profile">
                         <label className="label"><span className="label-text">First Name</span></label>
                         <input type="text" name="firstname" placeholder="First Name"  value={formInfo.firstname || user[1] } onChange={handleChange}
@@ -107,7 +107,7 @@ function Profile(){
                           <button className=" cancel  ml-4  justify-center py-2 px-4 font-medium rounded">Cancel</button>
                         </div>
                       </Box>
-                    </form>
+                   
                   </Box>
                 </Grid>
               </Grid>

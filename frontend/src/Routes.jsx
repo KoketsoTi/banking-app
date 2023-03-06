@@ -12,7 +12,6 @@ import Profile from './Pages/Admin/Profile/Profile';
 import ChangePassword from "./Pages/Admin/ChangePassword/Changepassword";
 import LoanApplications from './Pages/Admin/ApproveLoan/AproveLoanApplication';
 
-
 /////////////////////////Pages that don't require users to be logged in//////////////////
 import Login from './Pages/Login/Login';
 import Register from "./Pages/Register/Register";
